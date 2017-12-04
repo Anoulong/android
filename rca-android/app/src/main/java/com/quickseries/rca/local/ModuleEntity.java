@@ -1,5 +1,9 @@
 package com.quickseries.rca.local;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+import java.io.Serializable;
 import java.util.Comparator;
 
 /*******************************************************************************
@@ -15,7 +19,9 @@ import java.util.Comparator;
  * <p>
  * Created by Anou Chanthavong on 2017-12-04.
  ******************************************************************************/
-public class ModuleEntity {
+@Entity
+public class ModuleEntity implements Serializable {
+    @PrimaryKey
     String id;
     String appEid;
     String eid;

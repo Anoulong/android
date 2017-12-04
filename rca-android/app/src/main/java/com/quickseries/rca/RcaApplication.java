@@ -5,7 +5,6 @@ import android.content.Context;
 
 import com.quickseries.rca.di.ApplicationComponent;
 import com.quickseries.rca.di.ApplicationModule;
-import com.quickseries.rca.di.DaggerApplicationComponent;
 
 /*******************************************************************************
  * QuickSeries® Publishing inc.

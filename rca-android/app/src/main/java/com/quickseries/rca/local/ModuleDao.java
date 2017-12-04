@@ -1,8 +1,12 @@
 package com.quickseries.rca.local;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+
+import java.util.List;
 
 import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
@@ -19,9 +23,11 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
  * <p>
  * Created by Anou Chanthavong on 2017-12-04.
  ******************************************************************************/
+@Dao
 public interface ModuleDao {
-    @Insert(onConflict = REPLACE)
-    void save(ModuleEntity moduleEntity);
-    @Query("SELECT * FROM module")
-    LiveData<ModuleEntity> loadModules();
+    @Query("SELECT * FROM modules")
+    LiveData<List<ModuleEntity>> loadAllModules();
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAll(List<ModuleEntity> modules);
 }

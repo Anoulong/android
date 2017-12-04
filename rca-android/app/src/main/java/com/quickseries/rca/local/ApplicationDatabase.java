@@ -18,5 +18,8 @@ import android.arch.persistence.room.RoomDatabase;
  ******************************************************************************/
 @Database(entities = {ModuleEntity.class}, version = 1)
 public abstract class ApplicationDatabase extends RoomDatabase {
+
+    public static final String DATABASE_NAME = "qs-rca-db";
+
     public abstract ModuleDao moduleDao();
 }

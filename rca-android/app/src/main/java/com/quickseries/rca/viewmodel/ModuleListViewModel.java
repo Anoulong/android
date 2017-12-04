@@ -24,7 +24,6 @@ import javax.inject.Inject;
 public class ModuleListViewModel extends ViewModel {
     private final RcaRepository rcaRepository;
 
-    @Inject
     public ModuleListViewModel(RcaRepository rcaRepository) {
         this.rcaRepository = rcaRepository;
     }
@@ -32,7 +31,7 @@ public class ModuleListViewModel extends ViewModel {
     /**
      * Expose the LiveData Modules query so the UI can observe it.
      */
-    public LiveData<ModuleEntity> getUser(String appId) {
+    public LiveData<ModuleEntity> getModules(String appId) {
         return rcaRepository.getModules(appId);
     }
 }

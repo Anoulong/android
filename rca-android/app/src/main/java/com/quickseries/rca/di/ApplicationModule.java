@@ -1,8 +1,19 @@
 package com.quickseries.rca.di;
 
+import android.app.Application;
+import android.arch.persistence.room.Room;
+
 import com.quickseries.rca.RcaApplication;
+import com.quickseries.rca.local.ApplicationDatabase;
+import com.quickseries.rca.remote.ApiService;
+import com.quickseries.rca.repository.RcaRepository;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
+import dagger.Provides;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /*******************************************************************************
  * QuickSeries® Publishing inc.
@@ -22,9 +33,37 @@ public class ApplicationModule {
 
     private static final int HTTP_CACHE_SIZE = 10 * 1024 * 1024; // 10 MB
 
-    protected final RcaApplication application;
+    private RcaApplication  application;
 
-    public ApplicationModule(RcaApplication application) {
+     ApplicationModule(RcaApplication application) {
         this.application = application;
+    }
+
+    @Singleton
+    @Provides
+    Application provideRcaApplication() {
+        return application;
+    }
+
+    @Singleton
+    @Provides
+    ApplicationDatabase provideApplicationDatabase() {
+        return Room.databaseBuilder(application, ApplicationDatabase.class,ApplicationDatabase.DATABASE_NAME).build();
+    }
+
+    @Provides
+    @Singleton
+    public ApiService providesApiService(){
+        return new Retrofit.Builder()
+                .baseUrl(ApiService.URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(ApiService.class);
+    }
+
+    @Provides
+    @Singleton
+    public RcaRepository providesRcaRepository(ApplicationDatabase applicationDatabase, ApiService apiService){
+        return new RcaRepository(applicationDatabase, apiService);
     }
 }
