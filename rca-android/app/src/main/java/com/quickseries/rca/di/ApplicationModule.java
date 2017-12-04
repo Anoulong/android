@@ -35,7 +35,7 @@ public class ApplicationModule {
 
     private RcaApplication  application;
 
-     ApplicationModule(RcaApplication application) {
+     public ApplicationModule(RcaApplication application) {
         this.application = application;
     }
 
@@ -48,7 +48,7 @@ public class ApplicationModule {
     @Singleton
     @Provides
     ApplicationDatabase provideApplicationDatabase() {
-        return Room.databaseBuilder(application, ApplicationDatabase.class,ApplicationDatabase.DATABASE_NAME).build();
+        return Room.databaseBuilder(application, ApplicationDatabase.class, ApplicationDatabase.DATABASE_NAME).build();
     }
 
     @Provides

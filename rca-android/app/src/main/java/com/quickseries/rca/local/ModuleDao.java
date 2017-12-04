@@ -25,7 +25,7 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
  ******************************************************************************/
 @Dao
 public interface ModuleDao {
-    @Query("SELECT * FROM modules")
+    @Query("SELECT * FROM ModuleEntity")
     LiveData<List<ModuleEntity>> loadAllModules();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

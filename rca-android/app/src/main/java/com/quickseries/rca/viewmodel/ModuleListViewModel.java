@@ -6,6 +6,8 @@ import android.arch.lifecycle.ViewModel;
 import com.quickseries.rca.local.ModuleEntity;
 import com.quickseries.rca.repository.RcaRepository;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 /*******************************************************************************
@@ -31,7 +33,7 @@ public class ModuleListViewModel extends ViewModel {
     /**
      * Expose the LiveData Modules query so the UI can observe it.
      */
-    public LiveData<ModuleEntity> getModules(String appId) {
+    public LiveData<List<ModuleEntity>> getModules(String appId) {
         return rcaRepository.getModules(appId);
     }
 }

@@ -2,6 +2,7 @@ package com.quickseries.rca.local;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.Comparator;
@@ -20,8 +21,8 @@ import java.util.Comparator;
  * Created by Anou Chanthavong on 2017-12-04.
  ******************************************************************************/
 @Entity
-public class ModuleEntity implements Serializable {
-    @PrimaryKey
+public class ModuleEntity {
+    @PrimaryKey @NonNull
     String id;
     String appEid;
     String eid;
@@ -32,20 +33,6 @@ public class ModuleEntity implements Serializable {
     String createdAt;
     String updatedAt;
 
-    public ModuleEntity(String type, String title ) {
-        this.title = title;
-        this.type = type;
-    }
-
-    public ModuleEntity(String type, String title, String eid ) {
-        this.title = title;
-        this.type = type;
-        this.eid = eid;
-    }
-
-    public ModuleEntity() {
-
-    }
 
     public String getId() {
         return id;
@@ -119,25 +106,5 @@ public class ModuleEntity implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public static Comparator<ModuleEntity> moduleComparatorAToZ = new Comparator<ModuleEntity>() {
-        @Override
-        public int compare(ModuleEntity moduleEntity1, ModuleEntity moduleEntity2) {
-            return moduleEntity1.getTitle().compareTo(moduleEntity2.getTitle());
-        }
-    };
 
-    @Override
-    public String toString() {
-        return "ModuleEntity{" +
-                "id='" + id + '\'' +
-                ", appEid='" + appEid + '\'' +
-                ", eid='" + eid + '\'' +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", type='" + type + '\'' +
-                ", active=" + active +
-                ", createdAt='" + createdAt + '\'' +
-                ", updatedAt='" + updatedAt + '\'' +
-                '}';
-    }
 }

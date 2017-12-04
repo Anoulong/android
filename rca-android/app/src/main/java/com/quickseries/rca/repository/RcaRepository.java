@@ -2,6 +2,7 @@ package com.quickseries.rca.repository;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.util.Log;
 
 import com.quickseries.rca.local.ApplicationDatabase;
 import com.quickseries.rca.local.ModuleEntity;
@@ -18,6 +19,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RcaRepository {
+
+    private static final String TAG = "RcaRepository";
 
     private ApiService apiService;
     private ApplicationDatabase applicationDatabase;
@@ -40,6 +43,7 @@ public class RcaRepository {
             @Override
             public void onResponse(Call<List<ModuleEntity>> call, Response<List<ModuleEntity>> response) {
                 liveData.setValue(response.body());
+                Log.d(TAG, response.body().toString());
             }
 
             @Override
