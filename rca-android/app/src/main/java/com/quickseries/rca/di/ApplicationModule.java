@@ -6,7 +6,7 @@ import android.arch.persistence.room.Room;
 import com.quickseries.rca.RcaApplication;
 import com.quickseries.rca.local.ApplicationDatabase;
 import com.quickseries.rca.remote.ApiService;
-import com.quickseries.rca.repository.RcaRepository;
+import com.quickseries.rca.repository.ModuleRepository;
 import com.quickseries.rca.service.NetworkConnectivityService;
 import com.quickseries.rca.service.NetworkStateBroadcastReceiver;
 
@@ -75,8 +75,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public RcaRepository providesRcaRepository(ApplicationDatabase applicationDatabase, ApiService apiService, Executor executor, NetworkConnectivityService networkConnectivityService){
-        return new RcaRepository(applicationDatabase, apiService, executor, networkConnectivityService);
+    public ModuleRepository providesRcaRepository(ApplicationDatabase applicationDatabase, ApiService apiService, Executor executor, NetworkConnectivityService networkConnectivityService){
+        return new ModuleRepository(applicationDatabase, apiService, executor, networkConnectivityService);
     }
 
     @Provides

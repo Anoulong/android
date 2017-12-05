@@ -32,6 +32,8 @@ public class NetworkStateBroadcastReceiver  extends BroadcastReceiver {
     private NetworkInfo networkInfo;
     private TelephonyStateListener telephonyListener;
 
+    public NetworkStateBroadcastReceiver() {
+    }
 
     public NetworkStateBroadcastReceiver(NetworkConnectivityService networkReachabilityService) {
         this.networkConnectivityService = networkReachabilityService;

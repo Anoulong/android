@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
 import com.quickseries.rca.viewmodel.ModuleListViewModel;
-import com.quickseries.rca.viewmodel.RcaViewModelFactory;
+import com.quickseries.rca.viewmodel.ViewModelFactory;
 
 import dagger.Binds;
 import dagger.Module;
@@ -24,5 +24,5 @@ public abstract class ViewModelModule {
 
 
     @Binds
-    public abstract ViewModelProvider.Factory bindViewModelFactory(RcaViewModelFactory factory);
+    public abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelFactory factory);
 }

@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.quickseries.rca.local.ModuleEntity;
-import com.quickseries.rca.repository.RcaRepository;
+import com.quickseries.rca.repository.ModuleRepository;
 
 import java.util.List;
 
@@ -24,17 +24,17 @@ import javax.inject.Inject;
  * Created by Anou Chanthavong on 2017-12-04.
  ******************************************************************************/
 public class ModuleListViewModel extends ViewModel {
-    private final RcaRepository rcaRepository;
+    private final ModuleRepository moduleRepository;
 
     @Inject
-    public ModuleListViewModel(RcaRepository rcaRepository) {
-        this.rcaRepository = rcaRepository;
+    public ModuleListViewModel(ModuleRepository moduleRepository) {
+        this.moduleRepository = moduleRepository;
     }
 
     /**
      * Expose the LiveData Modules query so the UI can observe it.
      */
     public LiveData<List<ModuleEntity>> getModules(String authorizationToken, String appId) {
-        return rcaRepository.getModules(authorizationToken, appId);
+        return moduleRepository.getModules(authorizationToken, appId);
     }
 }
