@@ -14,12 +14,16 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.widget.TextView;
 
 import com.quickseries.rca.R;
 import com.quickseries.rca.RcaApplication;
+import com.quickseries.rca.local.ModuleEntity;
 import com.quickseries.rca.viewmodel.ModuleListViewModel;
+
+import java.util.stream.Stream;
 
 import javax.inject.Inject;
 
@@ -59,15 +63,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        TextView mainModule = findViewById(R.id.textview_main_module);
+        Menu m = navigationView.getMenu();
+        SubMenu topChannelMenu = m.addSubMenu("Modules");
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ModuleListViewModel.class);
         String authorizationToken = getString(R.string.authorization_value);
         String appId = getString(R.string.app_id);
         viewModel.getModules(authorizationToken, appId).observe(this, moduleEntities -> {
-//            mainModule.setText(moduleEntities.size());
+
+            for (ModuleEntity module : moduleEntities) {
+                topChannelMenu.add(module.getTitle());
+            }
             Log.d(TAG, "onCreate: " + moduleEntities.size());
         });
+
 
     }
 
@@ -109,19 +118,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
+//        if (id == R.id.nav_camera) {
+//            // Handle the camera action
+//        } else if (id == R.id.nav_gallery) {
+//
+//        } else if (id == R.id.nav_slideshow) {
+//
+//        } else if (id == R.id.nav_manage) {
+//
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
