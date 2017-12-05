@@ -1,9 +1,8 @@
 package com.quickseries.rca.ui;
 
-import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -15,21 +14,21 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.quickseries.rca.R;
 import com.quickseries.rca.RcaApplication;
-import com.quickseries.rca.local.ModuleEntity;
 import com.quickseries.rca.viewmodel.ModuleListViewModel;
 
-import java.util.List;
+import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
 
     private ModuleListViewModel viewModel;
 
@@ -62,10 +61,13 @@ public class MainActivity extends AppCompatActivity
 
         TextView mainModule = findViewById(R.id.textview_main_module);
 
-        viewModel = ViewModelProviders.of(this).get(ModuleListViewModel.class);
-//        viewModel.getModules("fda02911-f8e4-448c-b2f2-c1ba38c89db5").observe(this, moduleEntities -> {
-//            Log.d(TAG, "onCreate: " + moduleEntities.size());
-//        });
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ModuleListViewModel.class);
+        String authorizationToken = getString(R.string.authorization_value);
+        String appId = getString(R.string.app_id);
+        viewModel.getModules(authorizationToken, appId).observe(this, moduleEntities -> {
+//            mainModule.setText(moduleEntities.size());
+            Log.d(TAG, "onCreate: " + moduleEntities.size());
+        });
 
     }
 

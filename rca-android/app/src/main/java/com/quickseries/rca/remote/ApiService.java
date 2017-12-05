@@ -6,6 +6,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Path;
 
 /*******************************************************************************
@@ -22,8 +23,8 @@ import retrofit2.http.Path;
  * Created by Anou Chanthavong on 2017-12-04.
  ******************************************************************************/
 public interface ApiService {
-    String URL = "https://api-dev.quickseries.com/v3";
+    String URL = "https://api-dev.quickseries.com/v3/";
 
-    @GET("/apps/{appId}/custom-modules")
-    Call<List<ModuleEntity>> getModules(@Path("appId") String appId);
+    @GET("apps/{appId}/custom-modules")
+    Call<List<ModuleEntity>> fetchModules(@Header("Authorization") String token, @Path("appId") String appId);
 }

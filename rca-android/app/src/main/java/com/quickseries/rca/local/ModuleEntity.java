@@ -23,7 +23,7 @@ import java.util.Comparator;
 @Entity
 public class ModuleEntity {
     @PrimaryKey @NonNull
-    String id;
+    String _id;
     String appEid;
     String eid;
     String title;
@@ -35,11 +35,11 @@ public class ModuleEntity {
 
 
     public String getId() {
-        return id;
+        return _id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this._id = id;
     }
 
     public String getAppEid() {

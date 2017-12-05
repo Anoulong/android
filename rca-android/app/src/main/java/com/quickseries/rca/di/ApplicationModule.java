@@ -8,6 +8,9 @@ import com.quickseries.rca.local.ApplicationDatabase;
 import com.quickseries.rca.remote.ApiService;
 import com.quickseries.rca.repository.RcaRepository;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -28,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * <p>
  * Created by Anou Chanthavong on 2017-12-01.
  ******************************************************************************/
-@Module
+@Module(includes = ViewModelModule.class)
 public class ApplicationModule {
 
     private static final int HTTP_CACHE_SIZE = 10 * 1024 * 1024; // 10 MB
@@ -43,6 +46,13 @@ public class ApplicationModule {
     @Provides
     Application provideRcaApplication() {
         return application;
+    }
+
+
+    @Singleton
+    @Provides
+    public Executor getExecutor(){
+        return  Executors.newFixedThreadPool(2);
     }
 
     @Singleton
@@ -63,7 +73,7 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public RcaRepository providesRcaRepository(ApplicationDatabase applicationDatabase, ApiService apiService){
-        return new RcaRepository(applicationDatabase, apiService);
+    public RcaRepository providesRcaRepository(ApplicationDatabase applicationDatabase, ApiService apiService, Executor executor){
+        return new RcaRepository(applicationDatabase, apiService, executor);
     }
 }
