@@ -24,16 +24,16 @@ import javax.inject.Inject;
  * Created by Anou Chanthavong on 2017-12-04.
  ******************************************************************************/
 public class ModuleListViewModel extends ViewModel {
-    private final RcaRepository rcaRepository;
+//    private final RcaRepository rcaRepository;
 
-    public ModuleListViewModel(RcaRepository rcaRepository) {
-        this.rcaRepository = rcaRepository;
+    public ModuleListViewModel() {
+//        this.rcaRepository = rcaRepository;
     }
 
     /**
      * Expose the LiveData Modules query so the UI can observe it.
      */
-    public LiveData<List<ModuleEntity>> getModules(String appId) {
-        return rcaRepository.getModules(appId);
-    }
+//    public LiveData<List<ModuleEntity>> getModules(String appId) {
+//        return rcaRepository.getModules(appId);
+//    }
 }
