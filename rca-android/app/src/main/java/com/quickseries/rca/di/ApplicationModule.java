@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.persistence.room.Room;
 
 import com.quickseries.rca.RcaApplication;
+import com.quickseries.rca.common.LiveDataCallAdapterFactory;
 import com.quickseries.rca.controller.ExecutorController;
 import com.quickseries.rca.local.ApplicationDatabase;
 import com.quickseries.rca.remote.ApiService;
@@ -63,6 +64,7 @@ public class ApplicationModule {
         return new Retrofit.Builder()
                 .baseUrl(ApiService.URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(new LiveDataCallAdapterFactory())
                 .build()
                 .create(ApiService.class);
     }

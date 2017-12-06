@@ -67,7 +67,6 @@ public class ModuleRepository {
                 return apiService.fetchModules(authorizationToken, appId);
             }
 
-
         }.asLiveData();
 
 

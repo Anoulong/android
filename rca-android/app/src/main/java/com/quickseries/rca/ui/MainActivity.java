@@ -63,18 +63,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Menu m = navigationView.getMenu();
-        SubMenu topChannelMenu = m.addSubMenu("Modules");
+        Menu menu = navigationView.getMenu();
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ModuleListViewModel.class);
         String authorizationToken = getString(R.string.authorization_value);
         String appId = getString(R.string.app_id);
         viewModel.getModules(authorizationToken, appId).observe(this, moduleEntities -> {
+            if (moduleEntities != null && moduleEntities.data != null) {
 
-            for (ModuleEntity module : moduleEntities.data) {
-                topChannelMenu.add(module.getTitle());
+                for (ModuleEntity module : moduleEntities.data) {
+                    menu.add(module.getTitle());
+                }
+                Log.d(TAG, "onCreate: " + moduleEntities.data.size());
             }
-            Log.d(TAG, "onCreate: " + moduleEntities.data.size());
+
         });
 
 
