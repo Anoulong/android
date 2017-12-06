@@ -68,36 +68,5 @@ public class ModuleRepository {
             }
 
         }.asLiveData();
-
-
-//        networkConnectivityService.getConnectionTypeObservable()
-//                .subscribe(connectionType -> {
-//                    if (!connectionType.equals(NetworkConnectivityService.ConnectionType.TYPE_NO_INTERNET)) {
-//                        refreshModules(authorizationToken, appId);
-//                    }else{
-//
-//                    }
-//                });
-//
-//        // return a LiveData directly from the database.
-//        return this.applicationDatabase.moduleDao().loadAllModules();
     }
-
-//    private void refreshModules(String authorizationToken, String appId) {
-//        executor.execute(() -> {
-//            Response<List<ModuleEntity>> response = null;
-//            // refresh the data
-//            try {
-//                response = apiService.fetchModules(authorizationToken, appId).execute();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            // Update the database.The LiveData will automatically refresh so
-//            // we don't need to do anything else here besides updating the database
-//            if (response != null) {
-//                applicationDatabase.moduleDao().insertAll(response.body());
-//            }
-//
-//        });
-//    }
 }
