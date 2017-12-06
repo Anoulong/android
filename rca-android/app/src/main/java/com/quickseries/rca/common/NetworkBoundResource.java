@@ -1,4 +1,4 @@
-package com.quickseries.rca.repository;
+package com.quickseries.rca.common;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
@@ -7,11 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
-import com.quickseries.rca.manager.ExecutorManager;
+import com.quickseries.rca.controller.ExecutorController;
 
-import static com.quickseries.rca.repository.NetworkBoundResource.Status.ERROR;
-import static com.quickseries.rca.repository.NetworkBoundResource.Status.LOADING;
-import static com.quickseries.rca.repository.NetworkBoundResource.Status.SUCCESS;
+import java.util.Objects;
 
 /*******************************************************************************
  * QuickSeries® Publishing inc.
@@ -26,20 +24,22 @@ import static com.quickseries.rca.repository.NetworkBoundResource.Status.SUCCESS
  * <p>
  * Created by Anou Chanthavong on 2017-12-05.
  ******************************************************************************/
-public abstract class NetworkBoundResource <ResultType, RequestType> {
-    public enum Status {
-        SUCCESS,
-        ERROR,
-        LOADING
-    }
-
-    private final ExecutorManager appExecutors;
+/**
+ * A generic class that can provide a resource backed by both the sqlite database and the network.
+ * <p>
+ * You can read more about it in the <a href="https://developer.android.com/arch">Architecture
+ * Guide</a>.
+ * @param <ResultType>
+ * @param <RequestType>
+ */
+public abstract class NetworkBoundResource<ResultType, RequestType> {
+    private final ExecutorController executorController;
 
     private final MediatorLiveData<Resource<ResultType>> result = new MediatorLiveData<>();
 
     @MainThread
-    NetworkBoundResource(AppExecutors appExecutors) {
-        this.appExecutors = appExecutors;
+    public NetworkBoundResource(ExecutorController executorController) {
+        this.executorController = executorController;
         result.setValue(Resource.loading(null));
         LiveData<ResultType> dbSource = loadFromDb();
         result.addSource(dbSource, data -> {
@@ -68,9 +68,9 @@ public abstract class NetworkBoundResource <ResultType, RequestType> {
             result.removeSource(dbSource);
             //noinspection ConstantConditions
             if (response.isSuccessful()) {
-                appExecutors.diskIO().execute(() -> {
+                executorController.diskIO().execute(() -> {
                     saveCallResult(processResponse(response));
-                    appExecutors.mainThread().execute(() ->
+                    executorController.mainThread().execute(() ->
                             // we specially request a new live data,
                             // otherwise we will get immediately last cached value,
                             // which may not be updated with latest results received from network.
@@ -111,77 +111,5 @@ public abstract class NetworkBoundResource <ResultType, RequestType> {
     @NonNull
     @MainThread
     protected abstract LiveData<ApiResponse<RequestType>> createCall();
-
-
-    /**
-     * A generic class that holds a value with its loading status.
-     * @param <T>
-     */
-    public class Resource<T> {
-
-        @NonNull
-        public final Status status;
-
-        @Nullable
-        public final String message;
-
-        @Nullable
-        public final T data;
-
-        public Resource(@NonNull Status status, @Nullable T data, @Nullable String message) {
-            this.status = status;
-            this.data = data;
-            this.message = message;
-        }
-
-        public  <T> Resource<T> success(@Nullable T data) {
-            return new Resource<>(SUCCESS, data, null);
-        }
-
-        public  <T> Resource<T> error(String msg, @Nullable T data) {
-            return new Resource<>(ERROR, data, msg);
-        }
-
-        public  <T> Resource<T> loading(@Nullable T data) {
-            return new Resource<>(LOADING, data, null);
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            Resource<?> resource = (Resource<?>) o;
-
-            if (status != resource.status) {
-                return false;
-            }
-            if (message != null ? !message.equals(resource.message) : resource.message != null) {
-                return false;
-            }
-            return data != null ? data.equals(resource.data) : resource.data == null;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = status.hashCode();
-            result = 31 * result + (message != null ? message.hashCode() : 0);
-            result = 31 * result + (data != null ? data.hashCode() : 0);
-            return result;
-        }
-
-        @Override
-        public String toString() {
-            return "Resource{" +
-                    "status=" + status +
-                    ", message='" + message + '\'' +
-                    ", data=" + data +
-                    '}';
-        }
-    }
-
 }
+

@@ -71,10 +71,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String appId = getString(R.string.app_id);
         viewModel.getModules(authorizationToken, appId).observe(this, moduleEntities -> {
 
-            for (ModuleEntity module : moduleEntities) {
+            for (ModuleEntity module : moduleEntities.data) {
                 topChannelMenu.add(module.getTitle());
             }
-            Log.d(TAG, "onCreate: " + moduleEntities.size());
+            Log.d(TAG, "onCreate: " + moduleEntities.data.size());
         });
 
 

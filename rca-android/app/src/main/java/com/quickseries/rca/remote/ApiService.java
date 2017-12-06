@@ -1,10 +1,12 @@
 package com.quickseries.rca.remote;
 
+import android.arch.lifecycle.LiveData;
+
+import com.quickseries.rca.common.ApiResponse;
 import com.quickseries.rca.local.ModuleEntity;
 
 import java.util.List;
 
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
@@ -26,5 +28,5 @@ public interface ApiService {
     String URL = "https://api-dev.quickseries.com/v3/";
 
     @GET("apps/{appId}/custom-modules")
-    Call<List<ModuleEntity>> fetchModules(@Header("Authorization") String authorizationToken, @Path("appId") String appId);
+    LiveData<ApiResponse<List<ModuleEntity>>> fetchModules(@Header("Authorization") String authorizationToken, @Path("appId") String appId);
 }

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.persistence.room.Room;
 
 import com.quickseries.rca.RcaApplication;
+import com.quickseries.rca.controller.ExecutorController;
 import com.quickseries.rca.local.ApplicationDatabase;
 import com.quickseries.rca.remote.ApiService;
 import com.quickseries.rca.repository.ModuleRepository;
@@ -50,13 +51,6 @@ public class ApplicationModule {
         return application;
     }
 
-
-    @Singleton
-    @Provides
-    public Executor getExecutor(){
-        return  Executors.newFixedThreadPool(2);
-    }
-
     @Singleton
     @Provides
     ApplicationDatabase provideApplicationDatabase() {
@@ -75,8 +69,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public ModuleRepository providesRcaRepository(ApplicationDatabase applicationDatabase, ApiService apiService, Executor executor, NetworkConnectivityService networkConnectivityService){
-        return new ModuleRepository(applicationDatabase, apiService, executor, networkConnectivityService);
+    public ModuleRepository providesRcaRepository(ExecutorController executorController, ApplicationDatabase applicationDatabase, ApiService apiService){
+        return new ModuleRepository(executorController, applicationDatabase, apiService);
     }
 
     @Provides

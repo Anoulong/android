@@ -1,4 +1,4 @@
-package com.quickseries.rca.manager;
+package com.quickseries.rca.controller;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -24,7 +24,7 @@ import javax.inject.Singleton;
  * Created by Anou Chanthavong on 2017-12-05.
  ******************************************************************************/
 @Singleton
-public class ExecutorManager {
+public class ExecutorController {
 
     private final Executor diskIO;
 
@@ -32,14 +32,14 @@ public class ExecutorManager {
 
     private final Executor mainThread;
 
-    public ExecutorManager(Executor diskIO, Executor networkIO, Executor mainThread) {
+    public ExecutorController(Executor diskIO, Executor networkIO, Executor mainThread) {
         this.diskIO = diskIO;
         this.networkIO = networkIO;
         this.mainThread = mainThread;
     }
 
     @Inject
-    public ExecutorManager() {
+    public ExecutorController() {
         this(Executors.newSingleThreadExecutor(), Executors.newFixedThreadPool(3),
                 new MainThreadExecutor());
     }
