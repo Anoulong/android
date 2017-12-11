@@ -1,0 +1,138 @@
+[
+    {
+        "_id": "59f096936a1eea8141af1197",
+        "slug": "Tegrer-erg-erg",
+        "eid": "fffe8b17-4e93-49a2-a11e-8bcbc2059370",
+        "title": {
+            "en": "Tegrer erg erg"
+        },
+        "body": {
+            "en": "<p>gergergerg</p>"
+        },
+        "author_eid": "8328d7f0-36c2-4d3c-9f1b-d88c1f4ff6aa",
+        "fields": {
+            "tag": "news"
+        },
+        "notify": "false",
+        "status": "published",
+        "links": [],
+        "custom_module_eid": "e2f60328-8f02-448a-8536-78b0f8ea6e2b",
+        "__v": 0,
+        "photo": {
+            "en": "https://qsapi-files.s3.amazonaws.com/files/fffe8b17-4e93-49a2-a11e-8bcbc2059370/cover.en.png"
+        },
+        "subtitle": {
+            "en": "ser"
+        },
+        "_active": true,
+        "updated_at": "2017-12-06T23:43:17.221Z",
+        "created_at": "2017-10-25T13:50:11.656Z"
+    },
+    {
+        "_id": "59f08ec66a1eea8141af1194",
+        "slug": "Test",
+        "eid": "5b5886c4-801a-445e-b213-a0ab48ca57da",
+        "title": {
+            "en": "Test 3"
+        },
+        "body": {
+            "en": "<p>Test</p>"
+        },
+        "author_eid": "18174da9-1c98-4953-82bc-f7fdf475e82a",
+        "fields": {
+            "tag": "news"
+        },
+        "notify": "false",
+        "status": "published",
+        "links": [],
+        "custom_module_eid": "e2f60328-8f02-448a-8536-78b0f8ea6e2b",
+        "__v": 0,
+        "_active": true,
+        "updated_at": "2017-11-07T17:50:27.366Z",
+        "created_at": "2017-10-25T13:16:54.956Z"
+    },
+    {
+        "_id": "59f08efc6a1eea8141af1195",
+        "slug": "Test-2",
+        "eid": "17fa4d34-4007-449e-abdf-fc230a7c6487",
+        "title": {
+            "en": "Test 2"
+        },
+        "body": {
+            "en": "<p>TEst 2</p>"
+        },
+        "author_eid": "792540c9-2d9c-40d4-8fdb-1e9228e7c58d",
+        "fields": {
+            "tag": "news"
+        },
+        "notify": "false",
+        "status": "published",
+        "links": [],
+        "custom_module_eid": "e2f60328-8f02-448a-8536-78b0f8ea6e2b",
+        "__v": 0,
+        "_active": true,
+        "updated_at": "2017-10-25T13:17:48.120Z",
+        "created_at": "2017-10-25T13:17:48.039Z"
+    },
+    {
+        "_id": "5a17023d2ff6a069ea05d625",
+        "slug": "Refresh-Test",
+        "eid": "8f26b7fd-c004-4ccf-afe1-bd1227a8503c",
+        "title": {
+            "en": "Refresh Test"
+        },
+        "photo": {
+            "en": "https://quickseries-dev.s3.amazonaws.com/qsapi-files/files/8f26b7fd-c004-4ccf-afe1-bd1227a8503c/cover.en.gif"
+        },
+        "photo_credit": {
+            "en": "Westeros Inc."
+        },
+        "caption": {
+            "en": "A GoT Map"
+        },
+        "body": {
+            "en": "<p>The GoT Westeros Map</p>"
+        },
+        "author_eid": "2598de66-b2c0-448b-9265-26dcd72b0f41",
+        "fields": {
+            "tag": "news"
+        },
+        "notify": "false",
+        "status": "published",
+        "links": [],
+        "custom_module_eid": "e2f60328-8f02-448a-8536-78b0f8ea6e2b",
+        "__v": 0,
+        "_active": true,
+        "updated_at": "2017-11-29T20:31:31.758Z",
+        "created_at": "2017-11-23T17:15:41.842Z"
+    },
+    {
+        "_id": "5a26fd964a2fe709f283271d",
+        "slug": "FDSAFDAF",
+        "eid": "6cea3531-b54a-43b1-9c39-3287577d1922",
+        "title": {
+            "en": "FDSAFDAF"
+        },
+        "subtitle": {
+            "en": "SADASD"
+        },
+        "photo_credit": {
+            "en": "DASDA"
+        },
+        "body": {
+            "en": "<p>ASDASD</p>"
+        },
+        "author_eid": "2598de66-b2c0-448b-9265-26dcd72b0f41",
+        "fields": {
+            "tag": "news"
+        },
+        "notify": "false",
+        "status": "draft",
+        "links": [],
+        "custom_module_eid": "e2f60328-8f02-448a-8536-78b0f8ea6e2b",
+        "__v": 0,
+        "_active": true,
+        "updated_at": "2017-12-06T22:18:50.962Z",
+        "created_at": "2017-12-05T20:12:06.993Z"
+    }
+]
