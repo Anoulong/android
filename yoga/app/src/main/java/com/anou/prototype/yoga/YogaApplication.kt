@@ -1,6 +1,6 @@
 package com.anou.prototype.yoga
 
-import android.app.Application
+import org.koin.android.ext.android.startKoin
 import android.content.Context
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
@@ -18,7 +18,7 @@ import androidx.multidex.MultiDexApplication
  * <p>
  * Created by Anou Chanthavong on 2018-10-20.
  ******************************************************************************/
-class YogaApplication : MultiDexApplication()  {
+class YogaApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
