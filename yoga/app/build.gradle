@@ -237,3 +237,9 @@ task ktlintFormat(type: JavaExec, group: "formatting") {
     main = "com.github.shyiko.ktlint.Main"
     args "-F", "src/**/*.kt"
 }
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
