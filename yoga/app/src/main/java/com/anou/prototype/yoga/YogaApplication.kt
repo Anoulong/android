@@ -1,6 +1,9 @@
 package com.anou.prototype.yoga
 
 import android.app.Application
+import android.content.Context
+import androidx.multidex.MultiDex
+import androidx.multidex.MultiDexApplication
 
 /*******************************************************************************
  * QuickSeries® Publishing inc.
@@ -15,7 +18,7 @@ import android.app.Application
  * <p>
  * Created by Anou Chanthavong on 2018-10-20.
  ******************************************************************************/
-class YogaApplication : Application() {
+class YogaApplication : MultiDexApplication()  {
 
     override fun onCreate() {
         super.onCreate()
@@ -23,4 +26,10 @@ class YogaApplication : Application() {
         // start Koin context
 //        startKoin(this, offlineWeatherApp)
     }
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        MultiDex.install(this) // install multidex
+    }
+
 }
