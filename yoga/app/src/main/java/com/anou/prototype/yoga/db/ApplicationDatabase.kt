@@ -14,24 +14,28 @@
  * limitations under the License.
  */
 
-package com.android.example.github.api
+package com.android.example.github.db
 
-import androidx.lifecycle.LiveData
+
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.anou.prototype.yoga.db.ModuleDao
 import com.anou.prototype.yoga.db.ModuleEntity
-import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Path
-import retrofit2.http.Query
 
 /**
- * REST API access points
+ * Main database description.
  */
-interface ApiService {
+@Database(
+    entities = [
+        ModuleEntity::class],
+    version = 1,
+    exportSchema = false
+)
+abstract class ApplicationDatabase : RoomDatabase() {
     companion object {
-        val URL = "https://api-dev.quickseries.com/v3/"
+        val DATABASE_NAME = "qs-rca.db"
     }
 
-    @GET("apps/{appId}/custom-modules")
-    abstract fun fetchModules(@Header("Authorization") authorizationToken: String, @Path("appId") appId: String): LiveData<ApiResponse<List<ModuleEntity>>>
+    abstract fun moduleDao(): ModuleDao
+
 }
