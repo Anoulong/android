@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.example.github.api
+package com.anou.prototype.yoga.api
 
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.warn

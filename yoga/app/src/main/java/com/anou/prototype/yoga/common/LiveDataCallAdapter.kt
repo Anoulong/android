@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.anou.prototype.yoga.util
+package com.anou.prototype.yoga.common
 
 
 import androidx.lifecycle.LiveData
-import com.android.example.github.api.ApiResponse
+import com.anou.prototype.yoga.api.ApiResponse
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Callback

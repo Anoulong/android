@@ -1,9 +1,9 @@
 package com.anou.prototype.yoga.di
 
 import androidx.room.Room
-import com.android.example.github.api.ApiService
-import com.android.example.github.db.ApplicationDatabase
 import com.anou.prototype.yoga.BuildConfig
+import com.anou.prototype.yoga.api.ApiService
+import com.anou.prototype.yoga.db.ApplicationDatabase
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -50,3 +50,5 @@ val appModule = module {
             .create(ApiService::class.java)
     }
 }
+
+val modules = listOf(appModule)

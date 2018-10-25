@@ -14,28 +14,22 @@
  * limitations under the License.
  */
 
-package com.anou.prototype.yoga.db
+package com.anou.prototype.yoga.common
 
-
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import com.anou.prototype.yoga.db.ModuleDao
-import com.anou.prototype.yoga.db.ModuleEntity
+import androidx.lifecycle.LiveData
 
 /**
- * Main database description.
+ * A LiveData class that has `null` value.
  */
-@Database(
-    entities = [
-        ModuleEntity::class],
-    version = 1,
-    exportSchema = false
-)
-abstract class ApplicationDatabase : RoomDatabase() {
-    companion object {
-        val DATABASE_NAME = "prototype-yoga.db"
+class AbsentLiveData<T : Any?> private constructor() : LiveData<T>() {
+    init {
+        // use post instead of set since this can be created on any thread
+        postValue(null)
     }
 
-    abstract fun moduleDao(): ModuleDao
-
+    companion object {
+        fun <T> create(): LiveData<T> {
+            return AbsentLiveData()
+        }
+    }
 }

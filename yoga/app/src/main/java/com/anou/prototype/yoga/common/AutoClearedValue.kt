@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.anou.prototype.yoga.util
+package com.anou.prototype.yoga.common
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver

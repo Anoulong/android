@@ -14,28 +14,17 @@
  * limitations under the License.
  */
 
-package com.anou.prototype.yoga.db
-
-
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import com.anou.prototype.yoga.db.ModuleDao
-import com.anou.prototype.yoga.db.ModuleEntity
+package com.anou.prototype.yoga.strategy
 
 /**
- * Main database description.
+ * Status of a resource that is provided to the UI.
+ *
+ *
+ * These are usually created by the Repository classes where they return
+ * `LiveData<Resource<T>>` to pass back the latest data to the UI with its fetch status.
  */
-@Database(
-    entities = [
-        ModuleEntity::class],
-    version = 1,
-    exportSchema = false
-)
-abstract class ApplicationDatabase : RoomDatabase() {
-    companion object {
-        val DATABASE_NAME = "prototype-yoga.db"
-    }
-
-    abstract fun moduleDao(): ModuleDao
-
+enum class Status {
+    SUCCESS,
+    ERROR,
+    LOADING
 }

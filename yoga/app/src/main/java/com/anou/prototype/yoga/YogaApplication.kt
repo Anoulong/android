@@ -4,6 +4,7 @@ import org.koin.android.ext.android.startKoin
 import android.content.Context
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
+import com.anou.prototype.yoga.di.modules
 
 /*******************************************************************************
  * QuickSeries® Publishing inc.
@@ -24,7 +25,7 @@ class YogaApplication : MultiDexApplication() {
         super.onCreate()
 
         // start Koin context
-//        startKoin(this, offlineWeatherApp)
+        startKoin(this, modules)
     }
 
     override fun attachBaseContext(base: Context) {
