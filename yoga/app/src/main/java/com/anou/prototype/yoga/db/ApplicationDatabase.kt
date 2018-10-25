@@ -33,7 +33,7 @@ import com.anou.prototype.yoga.db.ModuleEntity
 )
 abstract class ApplicationDatabase : RoomDatabase() {
     companion object {
-        val DATABASE_NAME = "qs-rca.db"
+        val DATABASE_NAME = "prototype-yoga.db"
     }
 
     abstract fun moduleDao(): ModuleDao
