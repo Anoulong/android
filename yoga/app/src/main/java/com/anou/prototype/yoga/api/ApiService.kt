@@ -34,5 +34,5 @@ interface ApiService {
     }
 
     @GET("modules.json")
-    fun fetchModules(): LiveData<ApiResponse<List<ModuleEntity>>>
+    fun fetchModules(): Deferred<List<ModuleEntity>>
 }

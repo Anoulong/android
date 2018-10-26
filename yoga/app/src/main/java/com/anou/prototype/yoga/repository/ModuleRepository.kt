@@ -1,6 +1,8 @@
 package com.anou.prototype.yoga.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import com.anou.prototype.yoga.api.ApiResponse
 import com.anou.prototype.yoga.api.ApiService
 import com.anou.prototype.yoga.common.AppCoroutineDispatchers
 import com.anou.prototype.yoga.common.RateLimiter
@@ -27,33 +29,19 @@ import java.util.concurrent.TimeUnit
  ******************************************************************************/
 
 interface ModuleRepository {
-    fun loadModules(): LiveData<Resource<List<ModuleEntity>>>
+    suspend fun loadModules(): Deferred<List<ModuleEntity>>
 }
 
 class ModuleRepositoryImpl(
-    val dispatcher: AppCoroutineDispatchers,
-    val applicationDatabase: ApplicationDatabase,
-    val apiService: ApiService
+        val dispatcher: AppCoroutineDispatchers,
+        val applicationDatabase: ApplicationDatabase,
+        val apiService: ApiService
 ) : ModuleRepository {
 
-    override fun loadModules(): LiveData<Resource<List<ModuleEntity>>> {
-        return object : NetworkBoundResource<List<ModuleEntity>, List<ModuleEntity>>(dispatcher) {
-            override fun saveCallResult(item: List<ModuleEntity>) {
-                applicationDatabase.moduleDao().insertAll(item)
-            }
+    override suspend fun loadModules():  Deferred<List<ModuleEntity>> {
+//         val result = MediatorLiveData<List<ModuleEntity>>()
 
-            override fun shouldFetch(data: List<ModuleEntity>?): Boolean {
-                return data == null || data.isEmpty()
-            }
-
-            override fun loadFromDb() =    applicationDatabase.moduleDao().retrieveAll()
-
-            override fun createCall() = apiService.fetchModules()
-
-            override fun onFetchFailed() {
-//                repoListRateLimit.reset(owner)
-            }
-        }.asLiveData()
+        return apiService.fetchModules()
     }
 
 }

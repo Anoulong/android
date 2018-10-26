@@ -1,20 +1,16 @@
 package com.anou.prototype.yoga.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.anou.prototype.yoga.api.ApiResponse
 import com.anou.prototype.yoga.common.AbsentLiveData
 import com.anou.prototype.yoga.common.AppCoroutineDispatchers
 import com.anou.prototype.yoga.db.ModuleEntity
 import com.anou.prototype.yoga.repository.ModuleRepository
 import com.anou.prototype.yoga.strategy.Resource
-import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.withContext
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.debug
 
 /*******************************************************************************
  * QuickSeries® Publishing inc.
@@ -29,15 +25,18 @@ import kotlinx.coroutines.experimental.withContext
  * <p>
  * Created by Anou Chanthavong on 2018-10-25.
  ******************************************************************************/
-class MainViewModel(val dispatchers: AppCoroutineDispatchers, val moduleRepository: ModuleRepository) : ViewModel() {
-    private val _login = MutableLiveData<String>()
+class MainViewModel(val dispatchers: AppCoroutineDispatchers, val moduleRepository: ModuleRepository) : ViewModel(), AnkoLogger {
+    private var result = MutableLiveData<List<ModuleEntity>>()
+    fun getModules(): LiveData<List<ModuleEntity>> {
 
-    val repositories: LiveData<Resource<List<ModuleEntity>>> = Transformations
-            .switchMap(_login) { login ->
-                if (login == null) {
-                    AbsentLiveData.create()
-                } else {
-                    moduleRepository.loadModules()
-                }
+        GlobalScope.launch(dispatchers.main, CoroutineStart.DEFAULT) {
+
+            val modules = withContext(dispatchers.network) {
+                moduleRepository.loadModules()
             }
+            result.postValue(modules.await())
+
+        }
+            return  result
+    }
 }

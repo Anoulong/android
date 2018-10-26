@@ -21,9 +21,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 //        GlobalScope.launch(dispatchers.main, CoroutineStart.LAZY) {
-            mainViewModel.repositories.observe(this@MainActivity, Observer { resource ->
+            mainViewModel.getModules().observe(this@MainActivity, Observer { modules ->
 //                    Toast.makeText(this@MainActivity, "modules count = ${resource.data?.size}", Toast.LENGTH_LONG).show()
-                mainTextView.setText("modules count = ${resource.data?.size}")
+                mainTextView.setText("modules count = ${modules?.size}")
             })
 
 //        }
