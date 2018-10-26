@@ -2,7 +2,12 @@ package com.anou.prototype.yoga.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.anou.prototype.yoga.common.AppCoroutineDispatchers
+import com.anou.prototype.yoga.db.ModuleEntity
 import com.anou.prototype.yoga.repository.ModuleRepository
+import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.launch
 
 /*******************************************************************************
  * QuickSeries® Publishing inc.
@@ -17,6 +22,23 @@ import com.anou.prototype.yoga.repository.ModuleRepository
  * <p>
  * Created by Anou Chanthavong on 2018-10-25.
  ******************************************************************************/
-class MainViewModel(dispatchers: AppCoroutineDispatchers, moduleRepository: ModuleRepository) : ViewModel() {
+class MainViewModel(val dispatchers: AppCoroutineDispatchers, val moduleRepository: ModuleRepository) : ViewModel() {
+
+//    suspend fun getModules(): List<ModuleEntity> {
+////     val  modules =  async (dispatchers.network){
+////            moduleRepository.getModules()
+////        }
+////
+////        return  modules;
+//
+//        async(dispatchers.network) {
+//            try {
+//                moduleRepository.getModules()
+//            } catch (error: Throwable) {
+//            }
+//        }
+
+//    }
+
 
 }

@@ -59,14 +59,6 @@ val commonModule = module {
             .build()
             .create(ApiService::class.java)
     }
-    single {
-        AppCoroutineDispatchers(
-            database = newSingleThreadContext("database"),
-            computation = newSingleThreadContext("computation"),
-            network = newSingleThreadContext("network"),
-            main = UI
-        )
-    }
 }
 
 val repositoryModule = module {

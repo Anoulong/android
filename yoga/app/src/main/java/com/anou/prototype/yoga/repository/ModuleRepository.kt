@@ -22,16 +22,18 @@ import kotlinx.coroutines.experimental.android.UI
  ******************************************************************************/
 
 interface ModuleRepository {
-//    fun getModules(): Deferred<List<ModuleEntity>>
+    fun getModules(): Deferred<List<ModuleEntity>>
 }
 
-class ModuleRepositoryImpl(dispatcher: AppCoroutineDispatchers, applicationDatabase: ApplicationDatabase, apiService: ApiService) : ModuleRepository {
-//    override fun getModules(): Deferred<List<ModuleEntity>> {
-//        launch(UI) {
-//
-//
-//        }
-//
-//    }
+class ModuleRepositoryImpl(
+    val dispatcher: AppCoroutineDispatchers,
+    val applicationDatabase: ApplicationDatabase,
+    val apiService: ApiService
+) : ModuleRepository {
+
+    override fun getModules(): Deferred<List<ModuleEntity>> {
+        //todo must perform persistence after call and handle error
+        return apiService.fetchModules("", "")
+    }
 
 }
