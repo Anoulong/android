@@ -3,6 +3,7 @@ package com.anou.prototype.yoga.common
 import kotlinx.coroutines.experimental.CoroutineDispatcher
 import kotlinx.coroutines.experimental.newSingleThreadContext
 import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.*
 
 
 /*******************************************************************************
@@ -21,6 +22,6 @@ import kotlinx.coroutines.experimental.android.UI
 data class AppCoroutineDispatchers(
     val database: CoroutineDispatcher = newSingleThreadContext("database"),
     val computation: CoroutineDispatcher = newSingleThreadContext("computation"),
-    val network: CoroutineDispatcher = newSingleThreadContext("network"),
-    val main: CoroutineDispatcher = UI
+    val network: CoroutineDispatcher = Dispatchers.IO,
+    val main: CoroutineDispatcher = Dispatchers.Main
 )

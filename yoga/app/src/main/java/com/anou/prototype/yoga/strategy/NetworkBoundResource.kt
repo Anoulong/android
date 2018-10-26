@@ -20,6 +20,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
+import com.anou.prototype.yoga.api.ApiEmptyResponse
+import com.anou.prototype.yoga.api.ApiErrorResponse
+import com.anou.prototype.yoga.api.ApiResponse
+import com.anou.prototype.yoga.api.ApiSuccessResponse
+import com.anou.prototype.yoga.common.AppCoroutineDispatchers
+import com.anou.prototype.yoga.strategy.Resource
+import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.withContext
 
 /**
  * A generic class that can provide a resource backed by both the sqlite database and the network.
@@ -31,7 +39,7 @@ import androidx.annotation.WorkerThread
  * @param <RequestType>
 </RequestType></ResultType> */
 abstract class NetworkBoundResource<ResultType, RequestType>
-@MainThread constructor() {
+@MainThread constructor(private val dispatchers: AppCoroutineDispatchers) {
 
     private val result = MediatorLiveData<Resource<ResultType>>()
 
@@ -59,12 +67,53 @@ abstract class NetworkBoundResource<ResultType, RequestType>
     }
 
     private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
+        val apiResponse = createCall()
+        // we re-attach dbSource as a new source, it will dispatch its latest value quickly
+        result.addSource(dbSource) { newData ->
+            setValue(Resource.loading(newData))
+        }
+        result.addSource(apiResponse) { response ->
+            result.removeSource(apiResponse)
+            result.removeSource(dbSource)
+            when (response) {
+                is ApiSuccessResponse -> {
+                    launch(dispatchers.network) {
+                        saveCallResult(processResponse(response))
+                        withContext(dispatchers.main){
+                            // we specially request a new live data,
+                            // otherwise we will get immediately last cached value,
+                            // which may not be updated with latest results received from network.
+                            result.addSource(loadFromDb()) { newData ->
+                                setValue(Resource.success(newData))
+                            }
+                        }
+                    }
 
+                }
+                is ApiEmptyResponse -> {
+                    launch(dispatchers.main) {
+                        // reload from disk whatever we had
+                        result.addSource(loadFromDb()) { newData ->
+                            setValue(Resource.success(newData))
+                        }
+                    }
+                }
+                is ApiErrorResponse -> {
+                    onFetchFailed()
+                    result.addSource(dbSource) { newData ->
+                        setValue(Resource.error(response.errorMessage, newData))
+                    }
+                }
+            }
+        }
     }
 
     protected open fun onFetchFailed() {}
 
     fun asLiveData() = result as LiveData<Resource<ResultType>>
+
+    @WorkerThread
+    protected open fun processResponse(response: ApiSuccessResponse<RequestType>) = response.body
 
     @WorkerThread
     protected abstract fun saveCallResult(item: RequestType)
@@ -75,5 +124,6 @@ abstract class NetworkBoundResource<ResultType, RequestType>
     @MainThread
     protected abstract fun loadFromDb(): LiveData<ResultType>
 
-
+    @MainThread
+    protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
 }

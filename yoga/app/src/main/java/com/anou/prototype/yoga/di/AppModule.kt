@@ -39,7 +39,7 @@ import kotlin.coroutines.experimental.CoroutineContext
 val commonModule = module {
     single {
         Room.databaseBuilder(androidApplication(), ApplicationDatabase::class.java, ApplicationDatabase.DATABASE_NAME)
-            .build();
+            .build()
     }
     single {
         var client = OkHttpClient.Builder().build()
@@ -58,6 +58,10 @@ val commonModule = module {
             .client(client)
             .build()
             .create(ApiService::class.java)
+    }
+
+    single {
+        AppCoroutineDispatchers()
     }
 }
 

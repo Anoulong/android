@@ -30,9 +30,9 @@ import retrofit2.http.Query
  */
 interface ApiService {
     companion object {
-        val URL = "https://api-dev.quickseries.com/v3/"
+        val URL = "https://raw.githubusercontent.com/Anoulong/android/master/api-example/"
     }
 
-    @GET("apps/{appId}/custom-modules")
-    fun fetchModules(@Header("Authorization") authorizationToken: String, @Path("appId") appId: String): Deferred<List<ModuleEntity>>
+    @GET("modules.json")
+    fun fetchModules(): LiveData<ApiResponse<List<ModuleEntity>>>
 }

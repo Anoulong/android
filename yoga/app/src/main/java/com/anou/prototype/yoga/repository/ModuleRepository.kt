@@ -1,11 +1,16 @@
 package com.anou.prototype.yoga.repository
 
+import androidx.lifecycle.LiveData
 import com.anou.prototype.yoga.api.ApiService
 import com.anou.prototype.yoga.common.AppCoroutineDispatchers
+import com.anou.prototype.yoga.common.RateLimiter
 import com.anou.prototype.yoga.db.ApplicationDatabase
 import com.anou.prototype.yoga.db.ModuleEntity
+import com.anou.prototype.yoga.strategy.NetworkBoundResource
+import com.anou.prototype.yoga.strategy.Resource
 import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.android.UI
+import java.util.concurrent.TimeUnit
 
 /*******************************************************************************
  * QuickSeries® Publishing inc.
@@ -22,7 +27,7 @@ import kotlinx.coroutines.experimental.android.UI
  ******************************************************************************/
 
 interface ModuleRepository {
-    fun getModules(): Deferred<List<ModuleEntity>>
+    fun loadModules(): LiveData<Resource<List<ModuleEntity>>>
 }
 
 class ModuleRepositoryImpl(
@@ -31,9 +36,24 @@ class ModuleRepositoryImpl(
     val apiService: ApiService
 ) : ModuleRepository {
 
-    override fun getModules(): Deferred<List<ModuleEntity>> {
-        //todo must perform persistence after call and handle error
-        return apiService.fetchModules("", "")
+    override fun loadModules(): LiveData<Resource<List<ModuleEntity>>> {
+        return object : NetworkBoundResource<List<ModuleEntity>, List<ModuleEntity>>(dispatcher) {
+            override fun saveCallResult(item: List<ModuleEntity>) {
+                applicationDatabase.moduleDao().insertAll(item)
+            }
+
+            override fun shouldFetch(data: List<ModuleEntity>?): Boolean {
+                return data == null || data.isEmpty()
+            }
+
+            override fun loadFromDb() =    applicationDatabase.moduleDao().retrieveAll()
+
+            override fun createCall() = apiService.fetchModules()
+
+            override fun onFetchFailed() {
+//                repoListRateLimit.reset(owner)
+            }
+        }.asLiveData()
     }
 
 }
