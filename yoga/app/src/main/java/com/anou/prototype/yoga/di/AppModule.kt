@@ -3,15 +3,25 @@ package com.anou.prototype.yoga.di
 import androidx.room.Room
 import com.anou.prototype.yoga.BuildConfig
 import com.anou.prototype.yoga.api.ApiService
+import com.anou.prototype.yoga.common.AppCoroutineDispatchers
 import com.anou.prototype.yoga.db.ApplicationDatabase
+import com.anou.prototype.yoga.repository.ModuleRepository
+import com.anou.prototype.yoga.repository.ModuleRepositoryImpl
+import com.anou.prototype.yoga.viewmodel.MainViewModel
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
+import kotlinx.coroutines.experimental.CoroutineDispatcher
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.newSingleThreadContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
+import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.coroutines.experimental.CoroutineContext
 
 /*******************************************************************************
  * QuickSeries® Publishing inc.
@@ -26,7 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  * <p>
  * Created by Anou Chanthavong on 2018-10-24.
  ******************************************************************************/
-val appModule = module {
+val commonModule = module {
     single {
         Room.databaseBuilder(androidApplication(), ApplicationDatabase::class.java, ApplicationDatabase.DATABASE_NAME)
             .build();
@@ -44,11 +54,35 @@ val appModule = module {
         Retrofit.Builder()
             .baseUrl(ApiService.URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(client)
             .build()
             .create(ApiService::class.java)
     }
+    single {
+        AppCoroutineDispatchers(
+            database = newSingleThreadContext("database"),
+            computation = newSingleThreadContext("computation"),
+            network = newSingleThreadContext("network"),
+            main = UI
+        )
+    }
 }
 
-val modules = listOf(appModule)
+val repositoryModule = module {
+//    single { HelloServiceImpl(get()) as HelloService }
+    single { ModuleRepositoryImpl(get(), get(), get()) as ModuleRepository }
+
+    // Declare a controller
+//    controller { HelloController(get()) }
+}
+
+val viewModelModule = module {
+    //    single { HelloServiceImpl(get()) as HelloService }
+    viewModel { MainViewModel(get(), get()) }
+
+    // Declare a controller
+//    controller { HelloController(get()) }
+}
+
+val modules = listOf(commonModule, repositoryModule, viewModelModule)

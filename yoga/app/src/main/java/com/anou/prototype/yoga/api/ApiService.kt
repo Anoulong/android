@@ -18,6 +18,7 @@ package com.anou.prototype.yoga.api
 
 import androidx.lifecycle.LiveData
 import com.anou.prototype.yoga.db.ModuleEntity
+import kotlinx.coroutines.experimental.Deferred
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -33,5 +34,5 @@ interface ApiService {
     }
 
     @GET("apps/{appId}/custom-modules")
-    abstract fun fetchModules(@Header("Authorization") authorizationToken: String, @Path("appId") appId: String): LiveData<ApiResponse<List<ModuleEntity>>>
+    fun fetchModules(@Header("Authorization") authorizationToken: String, @Path("appId") appId: String): Deferred<List<ModuleEntity>>
 }
