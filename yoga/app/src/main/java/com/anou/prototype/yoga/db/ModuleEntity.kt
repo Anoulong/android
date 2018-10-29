@@ -47,24 +47,23 @@ class ModuleEntity {
     var content: String? = null
     var position: Int = 0
 
-    companion object {
-
-        val TEXT_TYPE = "text"
-        val ABOUT = "about-us"
-        val HOME = "home"
-        val QUIZ = "scored-assessment"
-        val NEWS = "news"
-        val RESOURCES = "resources"
-        val LIBRARY = "library"
-        val CHECKLIST = "checklists"
-        val VIDEOS = "videos"
-        val PDF = "pdfs"
-        val FAQ = "faq"
-        val REPORTING = "reporting"
-        val CATEGORY = "category"
-        val PUBLIC_USER = "public-user-registration"
-        val PRIVATE_USER = "private-user-registration"
-        val EVENTS = "events"
-        val ACCESS_CODE = "access-code"
+    enum class ModuleType(val type: String) {
+        TEXT_TYPE("text"),
+        ABOUT("about-us"),
+        HOME("home"),
+        QUIZ("scored-assessment"),
+        NEWS("news"),
+        RESOURCES("resources"),
+        LIBRARY("library"),
+        CHECKLIST("checklists"),
+        VIDEOS("videos"),
+        PDF("pdfs"),
+        FAQ("faq"),
+        REPORTING("reporting"),
+        CATEGORY("category"),
+        PUBLIC_USER("public-user-registration"),
+        PRIVATE_USER("private-user-registration"),
+        EVENTS("events"),
+        ACCESS_CODE("access-code")
     }
 }
