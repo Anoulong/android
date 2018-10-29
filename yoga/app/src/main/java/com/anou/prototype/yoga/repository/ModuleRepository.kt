@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit
  ******************************************************************************/
 
 interface ModuleRepository {
-    suspend fun loadModules(): Deferred<List<ModuleEntity>>
+     fun loadModules(): Deferred<List<ModuleEntity>>
 }
 
 class ModuleRepositoryImpl(
@@ -38,7 +38,7 @@ class ModuleRepositoryImpl(
         val apiService: ApiService
 ) : ModuleRepository {
 
-    override suspend fun loadModules():  Deferred<List<ModuleEntity>> {
+    override fun loadModules():  Deferred<List<ModuleEntity>> {
 //         val result = MediatorLiveData<List<ModuleEntity>>()
 
         return apiService.fetchModules()
