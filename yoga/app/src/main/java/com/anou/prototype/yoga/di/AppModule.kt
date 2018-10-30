@@ -4,6 +4,8 @@ import androidx.room.Room
 import com.anou.prototype.yoga.BuildConfig
 import com.anou.prototype.yoga.api.ApiService
 import com.anou.prototype.yoga.common.AppCoroutineDispatchers
+import com.anou.prototype.yoga.controller.ApplicationController
+import com.anou.prototype.yoga.controller.ApplicationControllerImpl
 import com.anou.prototype.yoga.db.ApplicationDatabase
 import com.anou.prototype.yoga.repository.ModuleRepository
 import com.anou.prototype.yoga.repository.ModuleRepositoryImpl
@@ -63,6 +65,10 @@ val commonModule = module {
     single {
         AppCoroutineDispatchers()
     }
+
+    single {
+        ApplicationControllerImpl() as ApplicationController
+    }
 }
 
 val repositoryModule = module {
@@ -75,7 +81,7 @@ val repositoryModule = module {
 
 val viewModelModule = module {
     //    single { HelloServiceImpl(get()) as HelloService }
-    viewModel { MainViewModel(get(), get()) }
+    viewModel { MainViewModel(get(), get(), get()) }
 
     // Declare a controller
 //    controller { HelloController(get()) }
