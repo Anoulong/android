@@ -170,7 +170,14 @@ dependencies {
     //Architecture component
     implementation 'androidx.lifecycle:lifecycle-runtime:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-common:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-process:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-service:2.0.0'
     kapt 'androidx.lifecycle:lifecycle-compiler:2.0.0'
+
+
 
     // Local data persistence
     implementation 'androidx.room:room-runtime:2.1.0-alpha01'

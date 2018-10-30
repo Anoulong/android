@@ -42,9 +42,7 @@ class MainViewModel(val dispatchers: AppCoroutineDispatchers, val applicationCon
                 result.postValue(modules.await())
 
             } catch (exception: Exception) {
-//                launch { sendString(channel, "foo", 200L) }
                 applicationController.sendErrorChannel(exception.message.plus("Exception: loadModules"))
-//                channel.send(exception.message.plus("Exception: loadModules"))
             }finally {
                 //load data from local
             }
