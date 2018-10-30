@@ -24,13 +24,13 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.getModules().observe(this@MainActivity, Observer { modules ->
             mainTextView.setText("modules count = ${modules?.size}")
         })
-       val channel  =  applicationController.getChannel()
+       val errorChannel  =  applicationController.receiveErrorChannel()
 
         GlobalScope.launch(dispatchers.computation, CoroutineStart.DEFAULT) {
-           val message =  channel.receive()
+           val errorMessage =  errorChannel.receive()
 
             withContext(dispatchers.main){
-                Toast.makeText(this@MainActivity, message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_LONG).show()
 
             }
 

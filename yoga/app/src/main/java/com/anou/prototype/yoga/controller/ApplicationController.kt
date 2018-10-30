@@ -18,8 +18,8 @@ import kotlinx.coroutines.experimental.channels.SendChannel
 
  ******************************************************************************/
 interface ApplicationController {
-    fun getChannel(): Channel<String>
-    suspend  fun sendError(message: String)
+    fun receiveErrorChannel(): Channel<String>
+    suspend  fun sendErrorChannel(message: String)
 
 }
 
@@ -27,11 +27,11 @@ class ApplicationControllerImpl() : ApplicationController {
 
     var errorChannel = Channel<String>()
 
-    override fun getChannel(): Channel<String> {
+    override fun receiveErrorChannel(): Channel<String> {
         return errorChannel
     }
 
-    override suspend fun sendError(message: String) {
+    override suspend fun sendErrorChannel(message: String) {
         errorChannel.send(message)
     }
 
