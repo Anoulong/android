@@ -148,13 +148,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.30.2"
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
 
-    // Anko
-    implementation "org.jetbrains.anko:anko-commons:$anko_version"
-    implementation "org.jetbrains.anko:anko-design:$anko_version"
-    implementation "org.jetbrains.anko:anko-support-v4-commons:$anko_version"
-    implementation "org.jetbrains.anko:anko-sdk21:$anko_version"
-    implementation "org.jetbrains.anko:anko-sdk21-coroutines:$anko_version"
-
     // Koin
     implementation "org.koin:koin-android:$koin_version"
 //    implementation "org.koin:koin-android-architecture:$koin_version"

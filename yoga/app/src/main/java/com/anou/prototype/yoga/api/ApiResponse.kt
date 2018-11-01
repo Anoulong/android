@@ -16,8 +16,7 @@
 
 package com.anou.prototype.yoga.api
 
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.warn
+import android.util.Log
 import retrofit2.Response
 import java.util.regex.Pattern
 
@@ -64,7 +63,7 @@ class ApiEmptyResponse<T> : ApiResponse<T>()
 data class ApiSuccessResponse<T>(
     val body: T,
     val links: Map<String, String>
-) : ApiResponse<T>(), AnkoLogger {
+) : ApiResponse<T>(){
     constructor(body: T, linkHeader: String?) : this(
         body = body,
         links = linkHeader?.extractLinks() ?: emptyMap()
@@ -79,7 +78,7 @@ data class ApiSuccessResponse<T>(
                 try {
                     Integer.parseInt(matcher.group(1))
                 } catch (ex: NumberFormatException) {
-                    warn("cannot parse next page from ${next}" )
+                    Log.d(TAG,"cannot parse next page from ${next}" )
                     null
                 }
             }
@@ -87,6 +86,7 @@ data class ApiSuccessResponse<T>(
     }
 
     companion object {
+        val TAG = ApiSuccessResponse::class.java.simpleName
         private val LINK_PATTERN = Pattern.compile("<([^>]*)>[\\s]*;[\\s]*rel=\"([a-zA-Z0-9]+)\"")
         private val PAGE_PATTERN = Pattern.compile("\\bpage=(\\d+)")
         private const val NEXT_LINK = "next"

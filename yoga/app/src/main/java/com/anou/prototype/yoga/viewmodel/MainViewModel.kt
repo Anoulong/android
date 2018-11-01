@@ -1,18 +1,15 @@
 package com.anou.prototype.yoga.viewmodel
 
-import androidx.lifecycle.*
-import com.anou.prototype.yoga.api.ApiResponse
-import com.anou.prototype.yoga.common.AbsentLiveData
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import com.anou.prototype.yoga.common.AppCoroutineDispatchers
 import com.anou.prototype.yoga.controller.ApplicationController
 import com.anou.prototype.yoga.db.ModuleEntity
 import com.anou.prototype.yoga.repository.ModuleRepository
-import com.anou.prototype.yoga.strategy.Resource
-import kotlinx.coroutines.experimental.*
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.channels.Channel
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.debug
+import kotlinx.coroutines.experimental.CoroutineStart
+import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.withContext
 
 /*******************************************************************************
  * QuickSeries® Publishing inc.

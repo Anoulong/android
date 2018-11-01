@@ -1,13 +1,10 @@
 package com.anou.prototype.yoga.repository
 
 import android.util.Log
-import com.anou.prototype.yoga.base.BaseFragment
 import kotlinx.coroutines.experimental.Job
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.debug
 
 
-open class BaseRepository : AnkoLogger{
+open class BaseRepository {
     protected var repositoryJob : Job? = null
 
     init {

@@ -2,13 +2,10 @@ package com.anou.prototype.yoga.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.anou.prototype.yoga.base.BaseFragment
-import com.anou.prototype.yoga.repository.BaseRepository
 import kotlinx.coroutines.experimental.Job
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.debug
 
-open class BaseViewModel :  ViewModel(), AnkoLogger {
+
+open class BaseViewModel :  ViewModel() {
     protected var viewModelJob : Job? = null
 
     init {

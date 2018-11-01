@@ -1,19 +1,10 @@
 package com.anou.prototype.yoga.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import com.anou.prototype.yoga.api.ApiResponse
 import com.anou.prototype.yoga.api.ApiService
 import com.anou.prototype.yoga.common.AppCoroutineDispatchers
-import com.anou.prototype.yoga.common.RateLimiter
 import com.anou.prototype.yoga.db.ApplicationDatabase
 import com.anou.prototype.yoga.db.ModuleEntity
-import com.anou.prototype.yoga.strategy.NetworkBoundResource
-import com.anou.prototype.yoga.strategy.Resource
-import kotlinx.coroutines.experimental.*
-import kotlinx.coroutines.experimental.android.UI
-import org.jetbrains.anko.debug
-import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.experimental.Deferred
 
 /*******************************************************************************
  * QuickSeries® Publishing inc.
