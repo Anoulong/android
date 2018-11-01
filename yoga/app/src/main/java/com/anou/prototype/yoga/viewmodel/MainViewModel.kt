@@ -27,12 +27,12 @@ import org.jetbrains.anko.debug
  * <p>
  * Created by Anou Chanthavong on 2018-10-25.
  ******************************************************************************/
-class MainViewModel(val dispatchers: AppCoroutineDispatchers, val applicationController: ApplicationController, val moduleRepository: ModuleRepository) : ViewModel(), AnkoLogger {
+class MainViewModel(val dispatchers: AppCoroutineDispatchers, val applicationController: ApplicationController, val moduleRepository: ModuleRepository) : BaseViewModel() {
     private var result = MediatorLiveData<List<ModuleEntity>>()
 
     fun getModules(): LiveData<List<ModuleEntity>> {
 
-        GlobalScope.launch(dispatchers.main, CoroutineStart.DEFAULT) {
+       viewModelJob = GlobalScope.launch(dispatchers.main, CoroutineStart.DEFAULT) {
 
             try {
 
@@ -47,9 +47,12 @@ class MainViewModel(val dispatchers: AppCoroutineDispatchers, val applicationCon
                 //load data from local
             }
 
-
-
         }
             return  result
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        moduleRepository.onJobCancelled()
     }
 }

@@ -8,7 +8,6 @@ import com.anou.prototype.yoga.controller.ApplicationController
 import com.anou.prototype.yoga.controller.ApplicationControllerImpl
 import com.anou.prototype.yoga.db.ApplicationDatabase
 import com.anou.prototype.yoga.repository.ModuleRepository
-import com.anou.prototype.yoga.repository.ModuleRepositoryImpl
 import com.anou.prototype.yoga.viewmodel.MainViewModel
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
@@ -73,7 +72,7 @@ val commonModule = module {
 
 val repositoryModule = module {
 //    single { HelloServiceImpl(get()) as HelloService }
-    single { ModuleRepositoryImpl(get(), get(), get()) as ModuleRepository }
+    single { ModuleRepository(get(), get(), get()) }
 
     // Declare a controller
 //    controller { HelloController(get()) }

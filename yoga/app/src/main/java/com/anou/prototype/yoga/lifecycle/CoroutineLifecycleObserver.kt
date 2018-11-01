@@ -1,9 +1,13 @@
 package com.anou.prototype.yoga.lifecycle
 
+import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import com.anou.prototype.yoga.base.BaseFragment
 import kotlinx.coroutines.experimental.Job
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.debug
 
 /**
  * class DetailFragment : Fragment() {
@@ -31,7 +35,7 @@ import kotlinx.coroutines.experimental.Job
 
  * LifecycleObserver which allows easy cancelling of coroutines
  */
-class CoroutineLifecycleObserver : LifecycleObserver {
+class CoroutineLifecycleObserver : LifecycleObserver, AnkoLogger {
     var job: Job = Job()
         private set
 
@@ -41,6 +45,7 @@ class CoroutineLifecycleObserver : LifecycleObserver {
         // lets create a new one
         if (job.isCompleted) {
             job = Job()
+            Log.d(TAG, "start")
         }
     }
 
@@ -49,6 +54,11 @@ class CoroutineLifecycleObserver : LifecycleObserver {
         // If the job is active (running) cancel it
         if (job.isActive) {
             job.cancel()
+            Log.d(TAG, "cancel")
         }
+    }
+
+    companion object {
+        val TAG = CoroutineLifecycleObserver::class.java.simpleName
     }
 }

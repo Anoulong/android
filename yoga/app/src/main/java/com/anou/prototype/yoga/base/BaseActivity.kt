@@ -1,6 +1,7 @@
 package com.anou.prototype.yoga.base
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.anou.prototype.yoga.lifecycle.CoroutineLifecycleObserver
@@ -8,6 +9,9 @@ import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.launch
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.debug
+import org.jetbrains.anko.warn
 
 /**
  *  private fun runTask() {
@@ -24,7 +28,7 @@ import kotlinx.coroutines.experimental.launch
         // both of these will be cancelled in onStop (if still running)
     }
  */
-open class BaseActivity : AppCompatActivity(){
+open class BaseActivity : AppCompatActivity(), AnkoLogger{
     protected val activityLifecycle = CoroutineLifecycleObserver()
     protected val activityScope :CoroutineScope = CoroutineScope(Dispatchers.Main + activityLifecycle.job)
 
@@ -32,5 +36,10 @@ open class BaseActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         // Add observer so any jobs are automatically cancelled
         lifecycle.addObserver(activityLifecycle)
+        Log.d(TAG, "onCreate")
+    }
+
+    companion object {
+        val TAG = BaseFragment::class.java.simpleName
     }
 }

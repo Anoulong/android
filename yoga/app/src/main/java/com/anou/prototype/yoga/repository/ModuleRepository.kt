@@ -12,6 +12,7 @@ import com.anou.prototype.yoga.strategy.NetworkBoundResource
 import com.anou.prototype.yoga.strategy.Resource
 import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.android.UI
+import org.jetbrains.anko.debug
 import java.util.concurrent.TimeUnit
 
 /*******************************************************************************
@@ -28,20 +29,23 @@ import java.util.concurrent.TimeUnit
  * Created by Anou Chanthavong on 2018-10-25.
  ******************************************************************************/
 
-interface ModuleRepository {
-     fun loadModules(): Deferred<List<ModuleEntity>>
-}
+//interface ModuleRepository {
+//     fun loadModules(): Deferred<List<ModuleEntity>>
+//}
 
-class ModuleRepositoryImpl(
+class ModuleRepository (
         val dispatcher: AppCoroutineDispatchers,
         val applicationDatabase: ApplicationDatabase,
         val apiService: ApiService
-) : ModuleRepository {
+) : BaseRepository() {
 
-    override fun loadModules():  Deferred<List<ModuleEntity>> {
+
+    fun loadModules():  Deferred<List<ModuleEntity>> {
 //         val result = MediatorLiveData<List<ModuleEntity>>()
 
         return apiService.fetchModules()
     }
+
+
 
 }
