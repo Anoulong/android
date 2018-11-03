@@ -24,28 +24,29 @@ import com.google.gson.annotations.SerializedName
 
 
 @Entity(tableName = "Module")
-class ModuleEntity {
-
+data class ModuleEntity(
     @PrimaryKey
     @NonNull
     @SerializedName("_id")
     @get:NonNull
-    var id: String? = null
+    var id: String,
     @SerializedName("app_eid")
-    var appEid: String? = null
-    var eid: String? = null
-    var title: String? = null
-    var slug: String? = null
-    var type: String? = null
-    var description: String? = null
-    var isActive: Boolean = false
-    var isGeocode = false
+    var appEid: String? = null,
+    var eid: String? = null,
+    var title: String? = null,
+    var slug: String? = null,
+    var type: String? = null,
+    var description: String? = null,
+    var isActive: Boolean = false,
+    var isGeocode: Boolean = false,
     @SerializedName("created_at")
-    var createdAt: String? = null
+    var createdAt: String? = null,
     @SerializedName("updated_at")
-    var updatedAt: String? = null
-    var content: String? = null
+    var updatedAt: String? = null,
+    var content: String? = null,
     var position: Int = 0
+) {
+
 
     enum class ModuleType(val type: String) {
         TEXT_TYPE("text"),
