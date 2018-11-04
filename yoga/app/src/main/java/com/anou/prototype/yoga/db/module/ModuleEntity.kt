@@ -14,7 +14,7 @@
  *
  * Created by Anou Chanthavong on 2018-01-29.
  */
-package com.anou.prototype.yoga.db.module
+package com.anou.prototype.yoga.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -24,48 +24,47 @@ import com.google.gson.annotations.SerializedName
 
 
 @Entity(tableName = "Module")
-data class ModuleEntity(
+class ModuleEntity {
+
     @PrimaryKey
     @NonNull
     @SerializedName("_id")
     @get:NonNull
-    var id: String,
+    var id: String? = null
     @SerializedName("app_eid")
-    var appEid: String? = null,
-    var eid: String? = null,
-    var title: String? = null,
-    var slug: String? = null,
-    var type: String? = null,
-    var description: String? = null,
-    @SerializedName("_active")
-    var active: Boolean = false,
-    var geocode: Boolean = false,
+    var appEid: String? = null
+    var eid: String? = null
+    var title: String? = null
+    var slug: String? = null
+    var type: String? = null
+    var description: String? = null
+    var isActive: Boolean = false
+    var isGeocode = false
     @SerializedName("created_at")
-    var createdAt: String? = null,
+    var createdAt: String? = null
     @SerializedName("updated_at")
-    var updatedAt: String? = null,
-    var content: String? = null,
+    var updatedAt: String? = null
+    var content: String? = null
     var position: Int = 0
-) {
 
+    companion object {
 
-    enum class ModuleType(val type: String) {
-        TEXT_TYPE("text"),
-        ABOUT("about-us"),
-        HOME("home"),
-        QUIZ("scored-assessment"),
-        NEWS("news"),
-        RESOURCES("resources"),
-        LIBRARY("library"),
-        CHECKLIST("checklists"),
-        VIDEOS("videos"),
-        PDF("pdfs"),
-        FAQ("faq"),
-        REPORTING("reporting"),
-        CATEGORY("category"),
-        PUBLIC_USER("public-user-registration"),
-        PRIVATE_USER("private-user-registration"),
-        EVENTS("events"),
-        ACCESS_CODE("access-code")
+        val TEXT_TYPE = "text"
+        val ABOUT = "about-us"
+        val HOME = "home"
+        val QUIZ = "scored-assessment"
+        val NEWS = "news"
+        val RESOURCES = "resources"
+        val LIBRARY = "library"
+        val CHECKLIST = "checklists"
+        val VIDEOS = "videos"
+        val PDF = "pdfs"
+        val FAQ = "faq"
+        val REPORTING = "reporting"
+        val CATEGORY = "category"
+        val PUBLIC_USER = "public-user-registration"
+        val PRIVATE_USER = "private-user-registration"
+        val EVENTS = "events"
+        val ACCESS_CODE = "access-code"
     }
 }
