@@ -19,8 +19,8 @@ package com.anou.prototype.yoga.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.anou.prototype.yoga.db.ModuleDao
-import com.anou.prototype.yoga.db.ModuleEntity
+import com.anou.prototype.yoga.db.module.ModuleDao
+import com.anou.prototype.yoga.db.module.ModuleEntity
 
 /**
  * Main database description.

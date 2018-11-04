@@ -3,7 +3,7 @@ package com.anou.prototype.yoga.repository
 import com.anou.prototype.yoga.api.ApiService
 import com.anou.prototype.yoga.common.AppCoroutineDispatchers
 import com.anou.prototype.yoga.db.ApplicationDatabase
-import com.anou.prototype.yoga.db.ModuleEntity
+import com.anou.prototype.yoga.db.module.ModuleEntity
 import kotlinx.coroutines.experimental.Deferred
 
 /*******************************************************************************

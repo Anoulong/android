@@ -14,7 +14,7 @@
  *
  * Created by Anou Chanthavong on 2018-01-29.
  */
-package com.anou.prototype.yoga.db
+package com.anou.prototype.yoga.db.module
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -37,8 +37,9 @@ data class ModuleEntity(
     var slug: String? = null,
     var type: String? = null,
     var description: String? = null,
-    var isActive: Boolean = false,
-    var isGeocode: Boolean = false,
+    @SerializedName("_active")
+    var active: Boolean = false,
+    var geocode: Boolean = false,
     @SerializedName("created_at")
     var createdAt: String? = null,
     @SerializedName("updated_at")

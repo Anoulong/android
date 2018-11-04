@@ -1,4 +1,4 @@
-package com.anou.prototype.yoga.db
+package com.anou.prototype.yoga.db.module
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

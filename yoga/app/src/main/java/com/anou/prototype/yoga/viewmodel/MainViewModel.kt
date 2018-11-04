@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.anou.prototype.yoga.common.AppCoroutineDispatchers
 import com.anou.prototype.yoga.controller.ApplicationController
-import com.anou.prototype.yoga.db.ModuleEntity
+import com.anou.prototype.yoga.db.module.ModuleEntity
 import com.anou.prototype.yoga.repository.ModuleRepository
 import kotlinx.coroutines.experimental.CoroutineStart
 import kotlinx.coroutines.experimental.GlobalScope

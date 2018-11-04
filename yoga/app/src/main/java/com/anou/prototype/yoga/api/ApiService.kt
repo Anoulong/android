@@ -16,14 +16,10 @@
 
 package com.anou.prototype.yoga.api
 
-import androidx.lifecycle.LiveData
-import com.anou.prototype.yoga.db.ModuleEntity
+import com.anou.prototype.yoga.db.module.ModuleEntity
+import com.anou.prototype.yoga.db.news.NewsEntity
 import kotlinx.coroutines.experimental.Deferred
-import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Path
-import retrofit2.http.Query
 
 /**
  * REST API access points
@@ -35,4 +31,7 @@ interface ApiService {
 
     @GET("modules.json")
     fun fetchModules(): Deferred<List<ModuleEntity>>
+
+    @GET("news.json")
+    fun fetchNews(): Deferred<List<NewsEntity>>
 }
