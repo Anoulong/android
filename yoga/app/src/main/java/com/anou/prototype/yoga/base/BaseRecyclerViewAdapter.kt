@@ -8,7 +8,7 @@ import java.util.ArrayList
 
 abstract class BaseRecyclerViewAdapter<T, U : RecyclerView.ViewHolder> : RecyclerView.Adapter<U>() {
 
-    private var data: MutableList<T> = ArrayList()
+    private var data: MutableList<T> = mutableListOf()
     private val selectedItems = SparseBooleanArray()
 
     /**
@@ -53,8 +53,9 @@ abstract class BaseRecyclerViewAdapter<T, U : RecyclerView.ViewHolder> : Recycle
 
         }
 
-    fun setData(data: MutableList<T>) {
-        this.data = data
+    open fun setData(data: List<T>) {
+        this.data.clear()
+        this.data.addAll(data)
         notifyDataSetChanged()
     }
 

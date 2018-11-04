@@ -63,9 +63,9 @@ class DrawerAdapter : BaseRecyclerViewAdapter<ModuleEntity, RecyclerView.ViewHol
 
 
 
-//    override fun setData(data: MutableList<ModuleEntity>) {
-//        super.setData(data)
-//    }
+    override fun setData(data: List<ModuleEntity>) {
+        super.setData(data)
+    }
 
     class DrawerModuleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var itemDrawerModuleTitle: TextView

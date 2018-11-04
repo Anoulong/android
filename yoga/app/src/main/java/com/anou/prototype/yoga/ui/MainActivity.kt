@@ -25,9 +25,6 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainViewModel.getModules().observe(this@MainActivity, Observer { modules ->
-            toolbar.setTitle("modules count = ${modules?.size}")
-        })
 
         val errorChannel = applicationController.receiveErrorChannel()
 
@@ -47,9 +44,12 @@ class MainActivity : BaseActivity() {
         val drawerAdapter = DrawerAdapter()
         drawerRecyclerView.setAdapter(drawerAdapter)
 
+        mainViewModel.getModules().observe(this@MainActivity, Observer { modules ->
+            toolbar.setTitle("modules count = ${modules?.size}")
+            drawerAdapter.setData(modules)
+        })
 
     }
-
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
