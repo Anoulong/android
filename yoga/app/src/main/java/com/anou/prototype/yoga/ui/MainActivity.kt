@@ -2,16 +2,20 @@ package com.anou.prototype.yoga.ui
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.R.id.toggle
 import com.anou.prototype.yoga.base.BaseActivity
 import com.anou.prototype.yoga.common.AppCoroutineDispatchers
 import com.anou.prototype.yoga.controller.ApplicationController
+import com.anou.prototype.yoga.databinding.ActivityMainBinding
 import com.anou.prototype.yoga.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.experimental.*
@@ -21,33 +25,23 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : BaseActivity() {
     val mainViewModel by viewModel<MainViewModel>()
     val applicationController: ApplicationController by inject()
+    lateinit var binding: ActivityMainBinding
+    lateinit var adapter:DrawerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val view = bind()
+        initRecyclerView(view)
+    }
 
+    override fun onResume() {
+        super.onResume()
         val errorChannel = applicationController.receiveErrorChannel()
 
         activityScope.launch() {
             val errorMessage = errorChannel.receive()
             Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_LONG).show()
         }
-
-        setSupportActionBar(toolbar)
-        val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
-        )
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
-        toggle.setDrawerIndicatorEnabled(true)
-
-        val drawerAdapter = DrawerAdapter()
-        drawerRecyclerView.setAdapter(drawerAdapter)
-
-        mainViewModel.getModules().observe(this@MainActivity, Observer { modules ->
-            toolbar.setTitle("modules count = ${modules?.size}")
-            drawerAdapter.setData(modules)
-        })
 
     }
 
@@ -57,5 +51,36 @@ class MainActivity : BaseActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    private fun bind(): View {
+        binding  = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+                .apply {
+                    this.setLifecycleOwner(this@MainActivity)
+                    this.viewModel
+                }
+
+        return binding.root
+    }
+
+    private fun initRecyclerView(view: View) {
+
+        setSupportActionBar(toolbar)
+        val toggle = ActionBarDrawerToggle(
+                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
+        toggle.setDrawerIndicatorEnabled(true)
+
+        adapter = DrawerAdapter(this, inflater = LayoutInflater.from(this@MainActivity))
+        binding.drawerRecyclerView.adapter = adapter
+
+
+        mainViewModel.getModules().observe(this@MainActivity, Observer { modules ->
+            //            toolbar.setTitle("modules count = ${modules?.size}")
+            adapter.setData(modules)
+        })
+
     }
 }

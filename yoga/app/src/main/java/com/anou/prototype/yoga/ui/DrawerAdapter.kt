@@ -6,75 +6,45 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseRecyclerViewAdapter
+import com.anou.prototype.yoga.databinding.ItemDrawerModuleBinding
 import com.anou.prototype.yoga.db.ModuleEntity
+import kotlinx.android.synthetic.main.item_drawer_module.view.*
 
 
 import java.util.HashMap
 
 
-class DrawerAdapter : BaseRecyclerViewAdapter<ModuleEntity, RecyclerView.ViewHolder>() {
-
-    private var mListener: DrawerAdapterListener? = null
-
-    interface DrawerAdapterListener {
-        fun onDrawerItemSelected(v: View, item: ModuleEntity, position: Int)
+class DrawerAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutInflater, private val itemList: MutableList<ModuleEntity> = mutableListOf()) : RecyclerView.Adapter<DrawerAdapter.DrawerModuleViewHolder>() {
+    override fun onBindViewHolder(holder: DrawerModuleViewHolder, position: Int) {
+        holder.bind(itemList[position])
     }
 
+    override fun getItemCount(): Int = itemList.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view: View
-
-        view = LayoutInflater.from(parent.context).inflate(R.layout.item_drawer_module, parent, false)
-
-        return DrawerModuleViewHolder(view)
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DrawerModuleViewHolder {
+        return DrawerModuleViewHolder(lifecycleOwner, inflater, parent)
     }
 
     override fun getItemViewType(position: Int): Int {
         return position
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = getItem(position)
-
-        val settingViewHolder = holder as DrawerModuleViewHolder
-        setupDrawer(settingViewHolder, item)
-
+    fun setData(data: List<ModuleEntity>) {
+        itemList.addAll(data)
+        notifyDataSetChanged()
     }
 
+    class DrawerModuleViewHolder(lifecycleOwner: LifecycleOwner, val binding: ItemDrawerModuleBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    private fun setupDrawer(moduleViewHolder: DrawerModuleViewHolder, item: ModuleEntity) {
-        moduleViewHolder.itemDrawerModuleTitle.setText(item.title)
-        moduleViewHolder.itemView.setOnClickListener { v ->
-            mListener!!.onDrawerItemSelected(
-                v,
-                item,
-                moduleViewHolder.adapterPosition
-            )
-        }
-    }
+        constructor(lifecycleOwner: LifecycleOwner, inflater: LayoutInflater, container: ViewGroup) : this(lifecycleOwner, DataBindingUtil.inflate(inflater, R.layout.item_drawer_module, container, false))
 
-    fun setListener(listener: DrawerAdapterListener) {
-        this.mListener = listener
-    }
-
-
-
-    override fun setData(data: List<ModuleEntity>) {
-        super.setData(data)
-    }
-
-    class DrawerModuleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var itemDrawerModuleTitle: TextView
-        internal var itemDrawerModuleLayout: LinearLayout
-
-
-        init {
-            itemDrawerModuleTitle = itemView.findViewById(R.id.itemDrawerModuleTitle)
-            itemDrawerModuleLayout = itemView.findViewById(R.id.itemDrawerModuleLayout)
+        fun bind(module: ModuleEntity) {
+            binding.module = module
         }
     }
 
