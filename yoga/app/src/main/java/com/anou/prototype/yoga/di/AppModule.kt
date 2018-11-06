@@ -8,6 +8,9 @@ import com.anou.prototype.yoga.controller.ApplicationController
 import com.anou.prototype.yoga.controller.ApplicationControllerImpl
 import com.anou.prototype.yoga.db.ApplicationDatabase
 import com.anou.prototype.yoga.repository.ModuleRepository
+import com.anou.prototype.yoga.service.NetworkConnectivityService
+import com.anou.prototype.yoga.service.NetworkConnectivityServiceImpl
+import com.anou.prototype.yoga.service.NetworkStateBroadcastReceiver
 import com.anou.prototype.yoga.viewmodel.MainViewModel
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
@@ -67,6 +70,14 @@ val commonModule = module {
 
     single {
         ApplicationControllerImpl() as ApplicationController
+    }
+
+    single {
+        NetworkConnectivityServiceImpl() as NetworkConnectivityService
+    }
+
+    single {
+        NetworkStateBroadcastReceiver(get())
     }
 }
 

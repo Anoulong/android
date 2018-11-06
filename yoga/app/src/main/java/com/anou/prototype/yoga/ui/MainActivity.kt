@@ -12,6 +12,7 @@ import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseActivity
 import com.anou.prototype.yoga.controller.ApplicationController
 import com.anou.prototype.yoga.databinding.ActivityMainBinding
+import com.anou.prototype.yoga.service.NetworkConnectivityService
 import com.anou.prototype.yoga.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.experimental.*
@@ -21,6 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : BaseActivity() {
     val mainViewModel by viewModel<MainViewModel>()
     val applicationController: ApplicationController by inject()
+    val networkConnectivityService: NetworkConnectivityService by inject()
     lateinit var binding: ActivityMainBinding
     lateinit var adapter:DrawerAdapter
 
@@ -37,6 +39,13 @@ class MainActivity : BaseActivity() {
         activityScope.launch() {
             val errorMessage = errorChannel.receive()
             Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_LONG).show()
+        }
+
+        val connectionTypeChannel = networkConnectivityService.receiveConnectionTypeChannel()
+
+        activityScope.launch() {
+            val errorMessage =  connectionTypeChannel.receive()
+            Toast.makeText(this@MainActivity, errorMessage.name, Toast.LENGTH_LONG).show()
         }
 
     }
