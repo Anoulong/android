@@ -18,7 +18,7 @@ package com.anou.prototype.yoga.api
 
 import com.anou.prototype.yoga.db.ModuleEntity
 import com.anou.prototype.yoga.db.news.NewsEntity
-import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 
 /**

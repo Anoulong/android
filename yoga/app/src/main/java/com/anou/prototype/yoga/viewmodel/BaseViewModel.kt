@@ -2,7 +2,7 @@ package com.anou.prototype.yoga.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.experimental.Job
+import kotlinx.coroutines.Job
 
 
 open class BaseViewModel :  ViewModel() {

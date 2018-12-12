@@ -1,7 +1,7 @@
 package com.anou.prototype.yoga.repository
 
 import android.util.Log
-import kotlinx.coroutines.experimental.Job
+import kotlinx.coroutines.Job
 
 
 open class BaseRepository {

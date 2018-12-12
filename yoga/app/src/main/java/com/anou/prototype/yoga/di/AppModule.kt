@@ -10,10 +10,9 @@ import com.anou.prototype.yoga.db.ApplicationDatabase
 import com.anou.prototype.yoga.repository.ModuleRepository
 import com.anou.prototype.yoga.viewmodel.MainViewModel
 import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
-import kotlinx.coroutines.experimental.CoroutineDispatcher
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.newSingleThreadContext
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.newSingleThreadContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
@@ -22,7 +21,7 @@ import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlin.coroutines.CoroutineContext
 
 /*******************************************************************************
  * QuickSeries® Publishing inc.

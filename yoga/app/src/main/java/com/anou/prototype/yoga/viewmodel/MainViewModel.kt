@@ -6,10 +6,10 @@ import com.anou.prototype.yoga.common.AppCoroutineDispatchers
 import com.anou.prototype.yoga.controller.ApplicationController
 import com.anou.prototype.yoga.db.ModuleEntity
 import com.anou.prototype.yoga.repository.ModuleRepository
-import kotlinx.coroutines.experimental.CoroutineStart
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.withContext
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /*******************************************************************************
  * QuickSeries® Publishing inc.

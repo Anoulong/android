@@ -1,7 +1,7 @@
 package com.anou.prototype.yoga.controller
 
-import kotlinx.coroutines.experimental.channels.Channel
-import kotlinx.coroutines.experimental.channels.SendChannel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.SendChannel
 
 /*******************************************************************************
  * QuickSeries® Publishing inc.

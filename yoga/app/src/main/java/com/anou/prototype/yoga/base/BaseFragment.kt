@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import com.anou.prototype.yoga.lifecycle.CoroutineLifecycleObserver
-import kotlinx.coroutines.experimental.CoroutineScope
-import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
-class BaseFragment : Fragment(){
+abstract class BaseFragment : Fragment(){
     protected val fragmentLifecycle = CoroutineLifecycleObserver()
     protected val fragmentScope : CoroutineScope = CoroutineScope(Dispatchers.Main + fragmentLifecycle.job)
 

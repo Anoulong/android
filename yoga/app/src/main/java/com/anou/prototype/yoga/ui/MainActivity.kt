@@ -12,17 +12,19 @@ import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseActivity
 import com.anou.prototype.yoga.controller.ApplicationController
 import com.anou.prototype.yoga.databinding.ActivityMainBinding
+import com.anou.prototype.yoga.navigation.MainNavigationListener
 import com.anou.prototype.yoga.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.experimental.*
+import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), MainNavigationListener {
+
     val mainViewModel by viewModel<MainViewModel>()
     val applicationController: ApplicationController by inject()
     lateinit var binding: ActivityMainBinding
-    lateinit var adapter:DrawerAdapter
+    lateinit var adapter: DrawerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +52,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun bind(): View {
-        binding  = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
                 .apply {
                     this.setLifecycleOwner(this@MainActivity)
                     this.viewModel
@@ -78,5 +80,10 @@ class MainActivity : BaseActivity() {
             adapter.setData(modules)
         })
 
+    }
+
+    override fun onFragmentViewed(string: String) {
+        println("Log state ==> $string")
+        supportActionBar?.title = string
     }
 }

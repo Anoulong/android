@@ -26,7 +26,7 @@ import com.anou.prototype.yoga.api.ApiResponse
 import com.anou.prototype.yoga.api.ApiSuccessResponse
 import com.anou.prototype.yoga.common.AppCoroutineDispatchers
 import com.anou.prototype.yoga.strategy.Resource
-import kotlinx.coroutines.experimental.*
+import kotlinx.coroutines.*
 
 /**
  * A generic class that can provide a resource backed by both the sqlite database and the network.

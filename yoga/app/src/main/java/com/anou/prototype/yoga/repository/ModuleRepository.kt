@@ -4,7 +4,7 @@ import com.anou.prototype.yoga.api.ApiService
 import com.anou.prototype.yoga.common.AppCoroutineDispatchers
 import com.anou.prototype.yoga.db.ApplicationDatabase
 import com.anou.prototype.yoga.db.ModuleEntity
-import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.Deferred
 
 /*******************************************************************************
  * QuickSeries® Publishing inc.
