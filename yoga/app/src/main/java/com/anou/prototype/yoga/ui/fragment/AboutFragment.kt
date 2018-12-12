@@ -15,7 +15,7 @@ import com.anou.prototype.yoga.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class FaqFragment : BaseMainFragment() {
+class AboutFragment : BaseMainFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

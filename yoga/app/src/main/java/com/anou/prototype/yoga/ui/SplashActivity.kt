@@ -26,6 +26,6 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         ActivityNavigator(this).navigate(ActivityNavigator(this).createDestination()
                 .setIntent(Intent(this, MainActivity::class.java)), null, null, null)
-
+        finish()
     }
 }
