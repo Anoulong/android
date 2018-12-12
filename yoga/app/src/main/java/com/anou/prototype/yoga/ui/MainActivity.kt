@@ -8,10 +8,12 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseActivity
 import com.anou.prototype.yoga.controller.ApplicationController
 import com.anou.prototype.yoga.databinding.ActivityMainBinding
+import com.anou.prototype.yoga.db.ModuleEntity
 import com.anou.prototype.yoga.navigation.MainNavigationListener
 import com.anou.prototype.yoga.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -44,8 +46,8 @@ class MainActivity : BaseActivity(), MainNavigationListener {
     }
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
+        if (mainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mainDrawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
@@ -65,18 +67,16 @@ class MainActivity : BaseActivity(), MainNavigationListener {
 
         setSupportActionBar(toolbar)
         val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+                this, mainDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
-        drawer_layout.addDrawerListener(toggle)
+        mainDrawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         toggle.setDrawerIndicatorEnabled(true)
 
         adapter = DrawerAdapter(this, inflater = LayoutInflater.from(this@MainActivity))
         binding.drawerRecyclerView.adapter = adapter
 
-
         mainViewModel.getModules().observe(this@MainActivity, Observer { modules ->
-            //            toolbar.setTitle("modules count = ${modules?.size}")
             adapter.setData(modules)
         })
 
@@ -86,4 +86,12 @@ class MainActivity : BaseActivity(), MainNavigationListener {
         println("Log state ==> $string")
         supportActionBar?.title = string
     }
+
+    override fun onSupportNavigateUp(): Boolean = Navigation.findNavController(this, R.id.mainNavigationHost).navigateUp()
+
+    override fun onModuleSelected(module: ModuleEntity) {
+
+       Toast.makeText(this, module.title, Toast.LENGTH_LONG).show()
+    }
+
 }

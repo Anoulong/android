@@ -15,13 +15,13 @@ import com.anou.prototype.yoga.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class LoadingFragment : BaseMainFragment() {
+class FaqFragment : BaseMainFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         mainNavigationListener?.onFragmentViewed("I am in Loading Fragment!")
-        return inflater.inflate(R.layout.fragment_loading, container, false)
+        return inflater.inflate(R.layout.fragment_faq   , container, false)
     }
 
     val mainViewModel by viewModel<MainViewModel>()

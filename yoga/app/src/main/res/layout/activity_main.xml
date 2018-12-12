@@ -11,7 +11,7 @@
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+        android:id="@+id/mainDrawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
@@ -43,7 +43,7 @@
                 tools:context="com.quickseries.ui.MainActivity">
 
                 <fragment
-                    android:id="@+id/container"
+                    android:id="@+id/mainNavigationHost"
                     android:name="androidx.navigation.fragment.NavHostFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

@@ -1,5 +1,7 @@
 package com.anou.prototype.yoga.navigation
 
+import com.anou.prototype.yoga.db.ModuleEntity
+
 
 /**
  * This interface must be implemented by activities that contain this
@@ -14,4 +16,5 @@ package com.anou.prototype.yoga.navigation
  */
 interface MainNavigationListener {
     fun onFragmentViewed(string: String)
+    fun onModuleSelected(module: ModuleEntity)
 }
