@@ -8,22 +8,21 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseActivity
 import com.anou.prototype.yoga.controller.ApplicationController
 import com.anou.prototype.yoga.databinding.ActivityMainBinding
 import com.anou.prototype.yoga.db.ModuleEntity
 import com.anou.prototype.yoga.navigation.MainNavigationListener
-import com.anou.prototype.yoga.ui.fragment.FaqFragment
-import com.anou.prototype.yoga.ui.fragment.LoadingFragment
-import com.anou.prototype.yoga.ui.fragment.LoadingFragmentDirections
 import com.anou.prototype.yoga.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -33,6 +32,7 @@ class MainActivity : BaseActivity(), MainNavigationListener {
     val applicationController: ApplicationController by inject()
     lateinit var binding: ActivityMainBinding
     lateinit var adapter: DrawerAdapter
+    lateinit var drawerNavController : NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,10 +82,36 @@ class MainActivity : BaseActivity(), MainNavigationListener {
         adapter = DrawerAdapter(this, inflater = LayoutInflater.from(this@MainActivity))
         binding.drawerRecyclerView.adapter = adapter
 
+        drawerNavController = Navigation.findNavController(this, R.id.mainNavigationHost)
+        val graph = drawerNavController.navInflater.inflate(R.navigation.navigation_main)
+
         mainViewModel.getModules().observe(this@MainActivity, Observer { modules ->
             adapter.setData(modules)
-            onModuleSelected(modules.get(0))
+
+
+            val firstModule = modules.get(0)
+                        onModuleSelected(firstModule)
+
+            when (firstModule.type) {
+                ModuleEntity.FAQ ->{
+                    firstModule.eid?.let {
+                        graph.startDestination = R.id.faqFragment
+                    }
+                }
+                ModuleEntity.ABOUT -> {
+                    firstModule.eid?.let {
+                        graph.startDestination = R.id.aboutFragment
+                    }
+                }
+                else -> Toast.makeText(this, firstModule.title, Toast.LENGTH_SHORT).show()
+            }
+            onModuleSelected(firstModule)
+
+            drawerNavController.graph = graph
+
+            NavigationUI.setupWithNavController(toolbar, drawerNavController, mainDrawerLayout)
         })
+
 
     }
 
@@ -97,37 +123,24 @@ class MainActivity : BaseActivity(), MainNavigationListener {
     override fun onSupportNavigateUp(): Boolean =  findNavController(this, R.id.mainNavigationHost).navigateUp()
 
     override fun onModuleSelected(module: ModuleEntity) {
-
+        val navBuilder = NavOptions.Builder()
+        val navOptions = navBuilder.setPopUpTo(R.id.loadingFragment, true).build()
         when (module.type) {
             ModuleEntity.FAQ ->{
-                val directions = LoadingFragmentDirections.actionLoadingFragmentToFaqFragment()
                 module.eid?.let {
-                    directions.setModuleEid(it)
-                    findNavController(this, R.id.mainNavigationHost).navigate(directions, null)
+                    drawerNavController.navigate(R.id.faqFragment, null, navOptions)
                 }
             }
             ModuleEntity.ABOUT -> {
-                val directions = LoadingFragmentDirections.actionLoadingFragmentToAboutFragment()
                 module.eid?.let {
-                    directions.setModuleEid(it)
-                    findNavController(this, R.id.mainNavigationHost).navigate(directions, null)
+                    drawerNavController.navigate(R.id.aboutFragment)
                 }
             }
             else -> Toast.makeText(this, module.title, Toast.LENGTH_SHORT).show()
         }
 
-
-
-//        val navBuilder = NavOptions.Builder()
-//        val navOptions = navBuilder.setPopUpTo(R.id.loadingFragment, true).build()
-//
-//        NavHostFragment.findNavController(this).navigate(R.id.faqFragment, null, navOptions)
-
-
-//        val navBuilder = NavOptions.Builder()
-//        val navOptions = navBuilder.setPopUpTo(R.id.loadingFragment, true).build()
-//        NavHostFragment.findNavController(this).navigate(R.id.faqFragment, null, navOptions)
-       Toast.makeText(this, module.title, Toast.LENGTH_SHORT).show()
+        mainDrawerLayout.closeDrawers()
+//       Toast.makeText(this, module.title, Toast.LENGTH_SHORT).show()
     }
 
 }

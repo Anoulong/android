@@ -20,22 +20,8 @@ class FaqFragment : BaseMainFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        mainNavigationListener?.onFragmentViewed("I am in Loading Fragment!")
+        mainNavigationListener?.onFragmentViewed("FAQ Fragment")
         return inflater.inflate(R.layout.fragment_faq   , container, false)
     }
 
-    val mainViewModel by viewModel<MainViewModel>()
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//        val navBuilder = NavOptions.Builder()
-//        val navOptions = navBuilder.setPopUpTo(R.id.loadingFragment, true).build()
-//        NavHostFragment.findNavController(this).navigate(R.id.welcomeFragment, null, navOptions)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        mainNavigationListener = null
-    }
 }

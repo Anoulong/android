@@ -20,8 +20,8 @@ class AboutFragment : BaseMainFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        mainNavigationListener?.onFragmentViewed("I am in Loading Fragment!")
-        return inflater.inflate(R.layout.fragment_faq   , container, false)
+        mainNavigationListener?.onFragmentViewed("About Fragment")
+        return inflater.inflate(R.layout.fragment_about   , container, false)
     }
 
     val mainViewModel by viewModel<MainViewModel>()
@@ -34,8 +34,4 @@ class AboutFragment : BaseMainFragment() {
 //        NavHostFragment.findNavController(this).navigate(R.id.welcomeFragment, null, navOptions)
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        mainNavigationListener = null
-    }
 }

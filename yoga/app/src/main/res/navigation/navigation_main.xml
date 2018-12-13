@@ -8,12 +8,6 @@
         android:name="com.anou.prototype.yoga.ui.fragment.LoadingFragment"
         android:label="Loading Fragment"
         tools:layout="@layout/fragment_loading">
-        <action
-            android:id="@+id/action_loadingFragment_to_faqFragment"
-            app:destination="@id/faqFragment" />
-        <action
-            android:id="@+id/action_loadingFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment" />
     </fragment>
     <fragment
         android:id="@+id/faqFragment"

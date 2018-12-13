@@ -11,6 +11,7 @@ import androidx.navigation.NavOptions
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseFragment
 import com.anou.prototype.yoga.base.BaseMainFragment
+import com.anou.prototype.yoga.ui.MainActivity
 import com.anou.prototype.yoga.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
