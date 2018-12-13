@@ -32,7 +32,6 @@ class MainActivity : BaseActivity(), MainNavigationListener {
     val applicationController: ApplicationController by inject()
     lateinit var binding: ActivityMainBinding
     lateinit var adapter: DrawerAdapter
-    lateinit var drawerNavController : NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,36 +81,30 @@ class MainActivity : BaseActivity(), MainNavigationListener {
         adapter = DrawerAdapter(this, inflater = LayoutInflater.from(this@MainActivity))
         binding.drawerRecyclerView.adapter = adapter
 
-        drawerNavController = Navigation.findNavController(this, R.id.mainNavigationHost)
-        val graph = drawerNavController.navInflater.inflate(R.navigation.navigation_main)
-
         mainViewModel.getModules().observe(this@MainActivity, Observer { modules ->
             adapter.setData(modules)
 
 
             val firstModule = modules.get(0)
-                        onModuleSelected(firstModule)
+            onModuleSelected(firstModule)
 
             when (firstModule.type) {
-                ModuleEntity.FAQ ->{
+                ModuleEntity.FAQ -> {
                     firstModule.eid?.let {
-                        graph.startDestination = R.id.faqFragment
+                        Navigation.findNavController(this, R.id.mainNavigationHost).graph.startDestination = R.id.faqFragment
                     }
                 }
                 ModuleEntity.ABOUT -> {
                     firstModule.eid?.let {
-                        graph.startDestination = R.id.aboutFragment
+                        Navigation.findNavController(this, R.id.mainNavigationHost).graph.startDestination = R.id.aboutFragment
                     }
                 }
                 else -> Toast.makeText(this, firstModule.title, Toast.LENGTH_SHORT).show()
             }
             onModuleSelected(firstModule)
 
-            drawerNavController.graph = graph
-
-            NavigationUI.setupWithNavController(toolbar, drawerNavController, mainDrawerLayout)
+            NavigationUI.setupWithNavController(toolbar, Navigation.findNavController(this, R.id.mainNavigationHost), mainDrawerLayout)
         })
-
 
     }
 
@@ -120,27 +113,26 @@ class MainActivity : BaseActivity(), MainNavigationListener {
         supportActionBar?.title = string
     }
 
-    override fun onSupportNavigateUp(): Boolean =  findNavController(this, R.id.mainNavigationHost).navigateUp()
+    override fun onSupportNavigateUp(): Boolean = findNavController(this, R.id.mainNavigationHost).navigateUp()
 
     override fun onModuleSelected(module: ModuleEntity) {
         val navBuilder = NavOptions.Builder()
         val navOptions = navBuilder.setPopUpTo(R.id.loadingFragment, true).build()
         when (module.type) {
-            ModuleEntity.FAQ ->{
+            ModuleEntity.FAQ -> {
                 module.eid?.let {
-                    drawerNavController.navigate(R.id.faqFragment, null, navOptions)
+                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.faqFragment)
                 }
             }
             ModuleEntity.ABOUT -> {
                 module.eid?.let {
-                    drawerNavController.navigate(R.id.aboutFragment)
+                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.aboutFragment, null, navOptions)
                 }
             }
             else -> Toast.makeText(this, module.title, Toast.LENGTH_SHORT).show()
         }
 
         mainDrawerLayout.closeDrawers()
-//       Toast.makeText(this, module.title, Toast.LENGTH_SHORT).show()
     }
 
 }
