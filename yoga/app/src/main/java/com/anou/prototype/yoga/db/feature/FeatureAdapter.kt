@@ -12,8 +12,7 @@ import com.anou.prototype.yoga.databinding.ItemFeatureBinding
 import com.anou.prototype.yoga.navigation.MainNavigationListener
 import android.text.method.TextKeyListener.clear
 import androidx.recyclerview.widget.DiffUtil
-
-
+import com.anou.prototype.yoga.common.DiffCallback
 
 
 class FeatureAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutInflater, private val itemList: MutableList<FeatureEntity> = mutableListOf()) : RecyclerView.Adapter<FeatureAdapter.FeatureViewHolder>() {
@@ -35,13 +34,9 @@ class FeatureAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutInf
     }
 
     fun setData(data: List<FeatureEntity>) {
-
-        val diffCallback = FeatureDiffCallback(this.itemList, data)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-
+        val diffResult = DiffUtil.calculateDiff(DiffCallback(this.itemList, data))
         this.itemList.clear()
         this.itemList.addAll(data)
-//        notifyDataSetChanged()
         diffResult.dispatchUpdatesTo(this)
     }
 
