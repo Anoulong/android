@@ -15,12 +15,10 @@ data class FeatureEntity(
         @SerializedName("_id")
         var id: String,
         @ColumnInfo(index = true)
-        @SerializedName("eid")
-        var moduleEid: String?,
+        @SerializedName("category_eid")
+        var categoryEid: String?,
         var slug: String?,
         var eid: String?,
-        var title: String?,
-        var nbItems: Int = 0,
         @SerializedName("updated_at")
         var updatedAt: String?,
         @SerializedName("created_at")
@@ -28,31 +26,27 @@ data class FeatureEntity(
 ) : Parcelable, Comparable<FeatureEntity> {
 
     override fun compareTo(other: FeatureEntity): Int {
-        return if (eid == other.eid) {
+        return if (id == other.id) {
             0
         } else {
-            title?.compareTo(other.title ?: "") ?: slug?.compareTo(other.slug ?: "") ?: -1
+            eid?.compareTo(other.eid ?: "") ?: slug?.compareTo(other.slug ?: "") ?: -1
         }
     }
 
     constructor(parcel: Parcel) : this(
             id = parcel.readString() ?: "",
-            moduleEid = parcel.readString(),
+            categoryEid = parcel.readString(),
             slug = parcel.readString(),
             eid = parcel.readString(),
-            title = parcel.readString(),
-            nbItems = parcel.readInt(),
             updatedAt = parcel.readString(),
             createdAt = parcel.readString()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
-        parcel.writeString(moduleEid)
+        parcel.writeString(categoryEid)
         parcel.writeString(slug)
         parcel.writeString(eid)
-        parcel.writeString(title)
-        parcel.writeInt(nbItems)
         parcel.writeString(updatedAt)
         parcel.writeString(createdAt)
 

@@ -5,7 +5,9 @@ import androidx.lifecycle.MediatorLiveData
 import com.anou.prototype.yoga.common.AppCoroutineDispatchers
 import com.anou.prototype.yoga.controller.ApplicationController
 import com.anou.prototype.yoga.db.category.CategoryEntity
+import com.anou.prototype.yoga.db.feature.FeatureEntity
 import com.anou.prototype.yoga.repository.CategoryRepository
+import com.anou.prototype.yoga.repository.FeatureRepository
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -24,22 +26,22 @@ import kotlinx.coroutines.withContext
  * <p>
  * Created by Anou Chanthavong on 2018-10-25.
  ******************************************************************************/
-class FeatureViewModel(val dispatchers: AppCoroutineDispatchers, val applicationController: ApplicationController, val categoryRepository: CategoryRepository) : BaseViewModel() {
-    private var result = MediatorLiveData<List<CategoryEntity>>()
+class FeatureViewModel(val dispatchers: AppCoroutineDispatchers, val applicationController: ApplicationController, val featureRepository: FeatureRepository) : BaseViewModel() {
+    private var result = MediatorLiveData<List<FeatureEntity>>()
 
-    fun getFaqs(): LiveData<List<CategoryEntity>> {
+    fun getFeatures(): LiveData<List<FeatureEntity>> {
 
        viewModelJob = GlobalScope.launch(dispatchers.main, CoroutineStart.DEFAULT) {
 
             try {
 
-                val faqs = withContext(dispatchers.network) {
-//                    categoryRepository.loadFaqs()
+                val features = withContext(dispatchers.network) {
+                    featureRepository.loadFeatures()
                 }
-//                result.postValue(faqs.await())
+                result.postValue(features.await())
 
             } catch (exception: Exception) {
-                applicationController.sendErrorChannel(exception.message.plus("Exception: getFaqs"))
+                applicationController.sendErrorChannel(exception.message.plus("Exception: getFeatures"))
             }finally {
                 //load data from local
             }
@@ -50,6 +52,6 @@ class FeatureViewModel(val dispatchers: AppCoroutineDispatchers, val application
 
     override fun onCleared() {
         super.onCleared()
-        categoryRepository.onJobCancelled()
+        featureRepository.onJobCancelled()
     }
 }

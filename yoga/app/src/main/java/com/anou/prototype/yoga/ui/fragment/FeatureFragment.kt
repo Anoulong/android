@@ -10,37 +10,36 @@ import androidx.lifecycle.Observer
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseMainFragment
 import com.anou.prototype.yoga.common.Constants
-import com.anou.prototype.yoga.databinding.FragmentCategoryBinding
+import com.anou.prototype.yoga.databinding.FragmentFeatureBinding
 import com.anou.prototype.yoga.db.category.CategoryAdapter
-import com.anou.prototype.yoga.viewmodel.CategoryViewModel
-import kotlinx.android.synthetic.main.fragment_category.*
+import com.anou.prototype.yoga.db.feature.FeatureAdapter
+import com.anou.prototype.yoga.viewmodel.FeatureViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.lang.Exception
 
 
 class FeatureFragment : BaseMainFragment() {
-    val categoryViewModel by viewModel<CategoryViewModel>()
-    lateinit var binding: FragmentCategoryBinding
-    lateinit var adapter: CategoryAdapter
-    lateinit var moduleEid: String
+    val featureViewModel by viewModel<FeatureViewModel>()
+    lateinit var binding: FragmentFeatureBinding
+    lateinit var adapter: FeatureAdapter
+    lateinit var categoryEid: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         arguments?.let { bundle ->
-            bundle.get(Constants.MODULE_EID)?.let { eid ->
-                moduleEid = eid.toString()
+            bundle.get(Constants.CATEGORY_EID)?.let { eid ->
+                categoryEid = eid.toString()
             }
-            bundle.get(Constants.MODULE_TITLE)?.let { title ->
+            bundle.get(Constants.CATEGORY_TITLE)?.let { title ->
                 mainNavigationListener?.onFragmentViewed(title.toString())
             }
         }
 
         // Bind views
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_category, container, false)
-        adapter = CategoryAdapter(this, inflater)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_feature, container, false)
+        adapter = FeatureAdapter(this, inflater)
         binding.setLifecycleOwner(this)
-        binding.categoryRecyclerView.adapter = adapter
+        binding.featureRecyclerView.adapter = adapter
         return binding.root
     }
 
@@ -49,11 +48,10 @@ class FeatureFragment : BaseMainFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         try {
-            categoryViewModel.getCategory().observe(this, Observer { categories ->
+            featureViewModel.getFeatures().observe(this, Observer { features ->
 
-                categories?.let { listOfCategory ->
-                    adapter.setData(listOfCategory)
-//                    textViewTitleFaq?.text =  "Count = ${listOfFaqs.count()}"
+                features?.let { listOfFeature ->
+                    adapter.setData(listOfFeature)
                 }
 
             })
@@ -65,7 +63,7 @@ class FeatureFragment : BaseMainFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.categoryViewModel = categoryViewModel
+        binding.featureViewModel = featureViewModel
     }
 
 }

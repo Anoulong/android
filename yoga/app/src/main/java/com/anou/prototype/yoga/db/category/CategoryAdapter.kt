@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.databinding.ItemCategoryBinding
@@ -30,8 +31,13 @@ class CategoryAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutIn
     }
 
     fun setData(data: List<CategoryEntity>) {
-        itemList.addAll(data)
-        notifyDataSetChanged()
+        val diffCallback = CategoryDiffCallback(this.itemList, data)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
+        this.itemList.clear()
+        this.itemList.addAll(data)
+//        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     class CategoryViewHolder(lifecycleOwner: LifecycleOwner, val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {

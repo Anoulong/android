@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/loadingFragment">
     <fragment
         android:id="@+id/loadingFragment"
         android:name="com.anou.prototype.yoga.ui.fragment.LoadingFragment"
         android:label="Loading Fragment"
-        tools:layout="@layout/fragment_loading">
-    </fragment>
+        tools:layout="@layout/fragment_loading"></fragment>
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.anou.prototype.yoga.ui.fragment.CategoryFragment"
@@ -18,9 +17,30 @@
             android:name="moduleEid"
             android:defaultValue="null"
             app:argType="string" />
+        <argument
+            android:name="moduleTitle"
+            android:defaultValue="null"
+            app:argType="string" />
         <!--<action-->
-            <!--android:id="@+id/action_welcomeFragment_to_startFragment"-->
-            <!--app:destination="@id/startFragment" />-->
+        <!--android:id="@+id/action_welcomeFragment_to_startFragment"-->
+        <!--app:destination="@id/startFragment" />-->
+    </fragment>
+    <fragment
+        android:id="@+id/featureFragment"
+        android:name="com.anou.prototype.yoga.ui.fragment.FeatureFragment"
+        android:label="Feature Fragment"
+        tools:layout="@layout/fragment_feature">
+        <argument
+            android:name="categoryEid"
+            android:defaultValue="null"
+            app:argType="string" />
+        <argument
+            android:name="categoryTitle"
+            android:defaultValue="null"
+            app:argType="string" />
+        <!--<action-->
+        <!--android:id="@+id/action_welcomeFragment_to_startFragment"-->
+        <!--app:destination="@id/startFragment" />-->
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -36,23 +56,23 @@
         <!--app:destination="@id/startFragment" />-->
     </fragment>
     <!--<fragment-->
-        <!--android:id="@+id/startFragment"-->
-        <!--android:name="com.bhaicompany.kotlinarchitecturalcomponents.fragments.StartFragment"-->
-        <!--android:label="Start Fragment"-->
-        <!--tools:layout="@layout/fragment_start"-->
-        <!--&gt;-->
-        <!--<action-->
-            <!--android:id="@+id/action_startFragment_to_listingFragment"-->
-            <!--app:destination="@id/listingFragment" />-->
+    <!--android:id="@+id/startFragment"-->
+    <!--android:name="com.bhaicompany.kotlinarchitecturalcomponents.fragments.StartFragment"-->
+    <!--android:label="Start Fragment"-->
+    <!--tools:layout="@layout/fragment_start"-->
+    <!--&gt;-->
+    <!--<action-->
+    <!--android:id="@+id/action_startFragment_to_listingFragment"-->
+    <!--app:destination="@id/listingFragment" />-->
     <!--</fragment>-->
     <!--<fragment-->
-        <!--android:id="@+id/listingFragment"-->
-        <!--android:name="com.bhaicompany.kotlinarchitecturalcomponents.fragments.ListingFragment"-->
-        <!--android:label="Listing Fragment">-->
-        <!--<argument-->
-            <!--android:name="Query"-->
-            <!--android:defaultValue="null"-->
-            <!--app:argType="string" />-->
-        <!--<deepLink app:uri="www.example.com/{myarg}" />-->
+    <!--android:id="@+id/listingFragment"-->
+    <!--android:name="com.bhaicompany.kotlinarchitecturalcomponents.fragments.ListingFragment"-->
+    <!--android:label="Listing Fragment">-->
+    <!--<argument-->
+    <!--android:name="Query"-->
+    <!--android:defaultValue="null"-->
+    <!--app:argType="string" />-->
+    <!--<deepLink app:uri="www.example.com/{myarg}" />-->
     <!--</fragment>-->
 </navigation>

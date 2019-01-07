@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="categoryViewModel"
-            type="com.anou.prototype.yoga.viewmodel.CategoryViewModel" />
+            name="featureViewModel"
+            type="com.anou.prototype.yoga.viewmodel.FeatureViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/white"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_category"/>
+            tools:listitem="@layout/item_feature"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

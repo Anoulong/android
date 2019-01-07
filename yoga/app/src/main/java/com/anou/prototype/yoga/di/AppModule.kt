@@ -8,8 +8,10 @@ import com.anou.prototype.yoga.controller.ApplicationController
 import com.anou.prototype.yoga.controller.ApplicationControllerImpl
 import com.anou.prototype.yoga.db.ApplicationDatabase
 import com.anou.prototype.yoga.repository.CategoryRepository
+import com.anou.prototype.yoga.repository.FeatureRepository
 import com.anou.prototype.yoga.repository.ModuleRepository
 import com.anou.prototype.yoga.viewmodel.CategoryViewModel
+import com.anou.prototype.yoga.viewmodel.FeatureViewModel
 import com.anou.prototype.yoga.viewmodel.MainViewModel
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -71,6 +73,7 @@ val repositoryModule = module {
 //    single { HelloServiceImpl(get()) as HelloService }
     single { ModuleRepository(get(), get(), get()) }
     single { CategoryRepository(get(), get(), get()) }
+    single { FeatureRepository(get(), get(), get()) }
 
     // Declare a controller
 //    controller { HelloController(get()) }
@@ -80,6 +83,7 @@ val viewModelModule = module {
     //    single { HelloServiceImpl(get()) as HelloService }
     viewModel { MainViewModel(get(), get(), get()) }
     viewModel { CategoryViewModel(get(), get(), get()) }
+    viewModel { FeatureViewModel(get(), get(), get()) }
 
     // Declare a controller
 //    controller { HelloController(get()) }

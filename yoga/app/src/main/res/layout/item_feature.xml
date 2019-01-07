@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="feature"
+            type="com.anou.prototype.yoga.db.feature.FeatureEntity" />
+        <variable
+            name="navigation"
+            type="com.anou.prototype.yoga.navigation.MainNavigationListener" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/itemFeatureLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:onClick="@{()->navigation.onFeatureSelected(feature)}"
+        android:orientation="vertical"
+        tools:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/itemFeatureTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical"
+            android:text="@{feature.eid}" />
+
+    </LinearLayout>
+</layout>

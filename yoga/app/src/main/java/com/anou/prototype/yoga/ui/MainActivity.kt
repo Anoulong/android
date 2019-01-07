@@ -19,6 +19,7 @@ import com.anou.prototype.yoga.controller.ApplicationController
 import com.anou.prototype.yoga.databinding.ActivityMainBinding
 import com.anou.prototype.yoga.db.ModuleEntity
 import com.anou.prototype.yoga.db.category.CategoryEntity
+import com.anou.prototype.yoga.db.feature.FeatureEntity
 import com.anou.prototype.yoga.navigation.MainNavigationListener
 import com.anou.prototype.yoga.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,6 +28,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity(), MainNavigationListener {
+
     val mainViewModel by viewModel<MainViewModel>()
     val applicationController: ApplicationController by inject()
     lateinit var binding: ActivityMainBinding
@@ -136,7 +138,18 @@ class MainActivity : BaseActivity(), MainNavigationListener {
     }
 
     override fun onCategorySelected(category: CategoryEntity) {
+        var bundle = Bundle()
+        category.let {
+            bundle.putString(Constants.CATEGORY_EID, category.eid)
+            bundle.putString(Constants.CATEGORY_TITLE, category.title)
+
+            Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.featureFragment, bundle)
+        }
         Toast.makeText(this, category.title, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onFeatureSelected(featureEntity: FeatureEntity) {
+        Toast.makeText(this, featureEntity.eid, Toast.LENGTH_SHORT).show()
     }
 
 
