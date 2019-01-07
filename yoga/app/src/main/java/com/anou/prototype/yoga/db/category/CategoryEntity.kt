@@ -15,7 +15,7 @@ data class CategoryEntity(
         @SerializedName("_id")
         var id: String,
         @ColumnInfo(index = true)
-        @SerializedName("eid")
+        @SerializedName("custom_module_eid")
         var moduleEid: String?,
         var slug: String?,
         var eid: String?,
@@ -44,9 +44,9 @@ data class CategoryEntity(
             eid = parcel.readString(),
             title = parcel.readString(),
             nbItems = parcel.readInt(),
-            updatedAt = parcel.readString(),
             type = parcel.readString(),
             description = parcel.readString(),
+            updatedAt = parcel.readString(),
             createdAt = parcel.readString()) {
     }
 
