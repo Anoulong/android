@@ -8,14 +8,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseActivity
+import com.anou.prototype.yoga.common.Constants
 import com.anou.prototype.yoga.controller.ApplicationController
 import com.anou.prototype.yoga.databinding.ActivityMainBinding
 import com.anou.prototype.yoga.db.ModuleEntity
@@ -115,22 +114,22 @@ class MainActivity : BaseActivity(), MainNavigationListener {
 
     override fun onModuleSelected(module: ModuleEntity, isLaunchModule: Boolean) {
         val navBuilder = NavOptions.Builder()
-        val navOptions = if(isLaunchModule) navBuilder.setPopUpTo(R.id.loadingFragment, true).build() else null
+        val navOptions = if (isLaunchModule) navBuilder.setPopUpTo(R.id.loadingFragment, true).build() else null
         var bundle = Bundle()
-        when (module.type) {
-            ModuleEntity.FAQ -> {
-                module.eid?.let {
-                    bundle.putString("moduleEid", it)
+
+        module.let {
+            bundle.putString(Constants.MODULE_EID, module.eid)
+            bundle.putString(Constants.MODULE_TITLE, module.title)
+
+            when (module.type) {
+                ModuleEntity.FAQ -> {
                     Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.faqFragment, bundle, navOptions)
                 }
-            }
-            ModuleEntity.ABOUT -> {
-                module.eid?.let {
-                    bundle.putString("moduleEid", it)
+                ModuleEntity.ABOUT -> {
                     Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.aboutFragment, bundle, navOptions)
                 }
+                else -> Toast.makeText(this, module.title, Toast.LENGTH_SHORT).show()
             }
-            else -> Toast.makeText(this, module.title, Toast.LENGTH_SHORT).show()
         }
 
         mainDrawerLayout.closeDrawers()

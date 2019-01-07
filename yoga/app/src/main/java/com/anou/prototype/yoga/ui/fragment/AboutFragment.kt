@@ -1,16 +1,12 @@
 package com.anou.prototype.yoga.ui.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.NavOptions
 import com.anou.prototype.yoga.R
-import com.anou.prototype.yoga.base.BaseFragment
 import com.anou.prototype.yoga.base.BaseMainFragment
+import com.anou.prototype.yoga.common.Constants
 import com.anou.prototype.yoga.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_about.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,7 +19,7 @@ class AboutFragment : BaseMainFragment() {
                               savedInstanceState: Bundle?): View? {
 
         arguments?.let {bundle ->
-            bundle.get("moduleEid")?.let {eid ->
+            bundle.get(Constants.MODULE_EID)?.let { eid ->
                 moduleEid = eid.toString()
             }
         }

@@ -22,17 +22,17 @@ import io.reactivex.Flowable
 
 @Dao
 abstract class NewsDao {
-
-    @Query("SELECT * FROM News where customModuleEid LIKE :moduleEid AND status LIKE 'published' ORDER BY updatedAt DESC ")
-    abstract fun loadNews(moduleEid: String): Flowable<List<NewsEntity>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertAll(news: List<NewsEntity>)
-
-    @Query("DELETE FROM News WHERE customModuleEid = :moduleEid")
-    abstract fun deleteByModuleEid(moduleEid: String)
-
-    @Query("SELECT COUNT(*) from News where status LIKE 'published'")
-    abstract fun count(): Flowable<Int>
+//
+//    @Query("SELECT * FROM News where customModuleEid LIKE :MODULE_EID AND status LIKE 'published' ORDER BY updatedAt DESC ")
+//    abstract fun loadNews(moduleEid: String): Flowable<List<NewsEntity>>
+//
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    abstract fun insertAll(news: List<NewsEntity>)
+//
+//    @Query("DELETE FROM News WHERE customModuleEid = :MODULE_EID")
+//    abstract fun deleteByModuleEid(moduleEid: String)
+//
+//    @Query("SELECT COUNT(*) from News where status LIKE 'published'")
+//    abstract fun count(): Flowable<Int>
 
 }
