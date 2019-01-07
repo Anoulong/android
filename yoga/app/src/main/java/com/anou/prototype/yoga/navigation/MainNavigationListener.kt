@@ -16,5 +16,5 @@ import com.anou.prototype.yoga.db.ModuleEntity
  */
 interface MainNavigationListener {
     fun onFragmentViewed(string: String)
-    fun onModuleSelected(module: ModuleEntity)
+    fun onModuleSelected(module: ModuleEntity, isLaunchModule : Boolean = false)
 }

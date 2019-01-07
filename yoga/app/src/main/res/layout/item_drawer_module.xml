@@ -16,7 +16,7 @@
         android:id="@+id/itemDrawerModuleLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:onClick="@{()->navigation.onModuleSelected(module)}"
+        android:onClick="@{()->navigation.onModuleSelected(module, false)}"
         android:orientation="vertical"
         tools:layout_gravity="center">
 

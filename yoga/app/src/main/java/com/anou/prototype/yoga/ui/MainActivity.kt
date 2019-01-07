@@ -84,9 +84,7 @@ class MainActivity : BaseActivity(), MainNavigationListener {
         mainViewModel.getModules().observe(this@MainActivity, Observer { modules ->
             adapter.setData(modules)
 
-
             val firstModule = modules.get(0)
-            onModuleSelected(firstModule)
 
             when (firstModule.type) {
                 ModuleEntity.FAQ -> {
@@ -101,7 +99,7 @@ class MainActivity : BaseActivity(), MainNavigationListener {
                 }
                 else -> Toast.makeText(this, firstModule.title, Toast.LENGTH_SHORT).show()
             }
-            onModuleSelected(firstModule)
+            onModuleSelected(firstModule, true)
 
             NavigationUI.setupWithNavController(toolbar, Navigation.findNavController(this, R.id.mainNavigationHost), mainDrawerLayout)
         })
@@ -115,18 +113,21 @@ class MainActivity : BaseActivity(), MainNavigationListener {
 
     override fun onSupportNavigateUp(): Boolean = findNavController(this, R.id.mainNavigationHost).navigateUp()
 
-    override fun onModuleSelected(module: ModuleEntity) {
+    override fun onModuleSelected(module: ModuleEntity, isLaunchModule: Boolean) {
         val navBuilder = NavOptions.Builder()
-        val navOptions = navBuilder.setPopUpTo(R.id.loadingFragment, true).build()
+        val navOptions = if(isLaunchModule) navBuilder.setPopUpTo(R.id.loadingFragment, true).build() else null
+        var bundle = Bundle()
         when (module.type) {
             ModuleEntity.FAQ -> {
                 module.eid?.let {
-                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.faqFragment)
+                    bundle.putString("moduleEid", it)
+                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.faqFragment, bundle, navOptions)
                 }
             }
             ModuleEntity.ABOUT -> {
                 module.eid?.let {
-                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.aboutFragment, null, navOptions)
+                    bundle.putString("moduleEid", it)
+                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.aboutFragment, bundle, navOptions)
                 }
             }
             else -> Toast.makeText(this, module.title, Toast.LENGTH_SHORT).show()

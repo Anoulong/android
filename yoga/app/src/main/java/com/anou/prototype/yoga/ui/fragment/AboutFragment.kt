@@ -12,15 +12,21 @@ import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseFragment
 import com.anou.prototype.yoga.base.BaseMainFragment
 import com.anou.prototype.yoga.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.fragment_about.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class AboutFragment : BaseMainFragment() {
+    lateinit var moduleEid : String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        mainNavigationListener?.onFragmentViewed("About Fragment")
+
+        arguments?.let {bundle ->
+            bundle.get("moduleEid")?.let {eid ->
+                moduleEid = eid.toString()
+            }
+        }
         return inflater.inflate(R.layout.fragment_about   , container, false)
     }
 
@@ -32,6 +38,10 @@ class AboutFragment : BaseMainFragment() {
 //        val navBuilder = NavOptions.Builder()
 //        val navOptions = navBuilder.setPopUpTo(R.id.loadingFragment, true).build()
 //        NavHostFragment.findNavController(this).navigate(R.id.welcomeFragment, null, navOptions)
+
+
+        textViewTitleAbout?.text = moduleEid
+        mainNavigationListener?.onFragmentViewed("About Fragment")
     }
 
 }
