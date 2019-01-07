@@ -34,10 +34,10 @@ class CategoryViewModel(val dispatchers: AppCoroutineDispatchers, val applicatio
 
             try {
 
-                val faqs = withContext(dispatchers.network) {
+                val categories = withContext(dispatchers.network) {
                     categoryRepository.loadCategory()
                 }
-                result.postValue(faqs.await())
+                result.postValue(categories.await())
 
             } catch (exception: Exception) {
                 Log.e(CategoryViewModel::class.java.simpleName, exception.message)

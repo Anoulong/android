@@ -58,7 +58,7 @@ class FeatureFragment : BaseMainFragment() {
 
             })
         } catch (e: Exception) {
-            Log.e("CategoryFragment", e.message)
+            Log.e("FeatureFragment", e.message)
         }
 
     }
