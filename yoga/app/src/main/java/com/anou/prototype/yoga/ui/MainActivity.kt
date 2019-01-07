@@ -136,7 +136,7 @@ class MainActivity : BaseActivity(), MainNavigationListener {
     }
 
     override fun onCategorySelected(category: CategoryEntity) {
-
+        Toast.makeText(this, category.title, Toast.LENGTH_SHORT).show()
     }
 
 
