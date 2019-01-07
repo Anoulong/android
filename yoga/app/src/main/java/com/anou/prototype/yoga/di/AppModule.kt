@@ -7,23 +7,19 @@ import com.anou.prototype.yoga.common.AppCoroutineDispatchers
 import com.anou.prototype.yoga.controller.ApplicationController
 import com.anou.prototype.yoga.controller.ApplicationControllerImpl
 import com.anou.prototype.yoga.db.ApplicationDatabase
-import com.anou.prototype.yoga.repository.FaqRepository
+import com.anou.prototype.yoga.repository.CategoryRepository
 import com.anou.prototype.yoga.repository.ModuleRepository
-import com.anou.prototype.yoga.viewmodel.FaqViewModel
+import com.anou.prototype.yoga.viewmodel.CategoryViewModel
 import com.anou.prototype.yoga.viewmodel.MainViewModel
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.newSingleThreadContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.coroutines.CoroutineContext
 
 /*******************************************************************************
  * QuickSeries® Publishing inc.
@@ -74,7 +70,7 @@ val commonModule = module {
 val repositoryModule = module {
 //    single { HelloServiceImpl(get()) as HelloService }
     single { ModuleRepository(get(), get(), get()) }
-    single { FaqRepository(get(), get(), get()) }
+    single { CategoryRepository(get(), get(), get()) }
 
     // Declare a controller
 //    controller { HelloController(get()) }
@@ -83,7 +79,7 @@ val repositoryModule = module {
 val viewModelModule = module {
     //    single { HelloServiceImpl(get()) as HelloService }
     viewModel { MainViewModel(get(), get(), get()) }
-    viewModel { FaqViewModel(get(), get(), get()) }
+    viewModel { CategoryViewModel(get(), get(), get()) }
 
     // Declare a controller
 //    controller { HelloController(get()) }

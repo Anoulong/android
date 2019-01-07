@@ -18,6 +18,7 @@ import com.anou.prototype.yoga.common.Constants
 import com.anou.prototype.yoga.controller.ApplicationController
 import com.anou.prototype.yoga.databinding.ActivityMainBinding
 import com.anou.prototype.yoga.db.ModuleEntity
+import com.anou.prototype.yoga.db.category.CategoryEntity
 import com.anou.prototype.yoga.navigation.MainNavigationListener
 import com.anou.prototype.yoga.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,7 +27,6 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity(), MainNavigationListener {
-
     val mainViewModel by viewModel<MainViewModel>()
     val applicationController: ApplicationController by inject()
     lateinit var binding: ActivityMainBinding
@@ -61,7 +61,7 @@ class MainActivity : BaseActivity(), MainNavigationListener {
         binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
                 .apply {
                     this.setLifecycleOwner(this@MainActivity)
-                    this.viewModel
+                    this.mainViewModel
                 }
 
         return binding.root
@@ -88,7 +88,7 @@ class MainActivity : BaseActivity(), MainNavigationListener {
             when (firstModule.type) {
                 ModuleEntity.FAQ -> {
                     firstModule.eid?.let {
-                        Navigation.findNavController(this, R.id.mainNavigationHost).graph.startDestination = R.id.faqFragment
+                        Navigation.findNavController(this, R.id.mainNavigationHost).graph.startDestination = R.id.categoryFragment
                     }
                 }
                 ModuleEntity.ABOUT -> {
@@ -123,7 +123,7 @@ class MainActivity : BaseActivity(), MainNavigationListener {
 
             when (module.type) {
                 ModuleEntity.FAQ -> {
-                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.faqFragment, bundle, navOptions)
+                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.categoryFragment, bundle, navOptions)
                 }
                 ModuleEntity.ABOUT -> {
                     Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.aboutFragment, bundle, navOptions)
@@ -134,5 +134,10 @@ class MainActivity : BaseActivity(), MainNavigationListener {
 
         mainDrawerLayout.closeDrawers()
     }
+
+    override fun onCategorySelected(category: CategoryEntity) {
+
+    }
+
 
 }

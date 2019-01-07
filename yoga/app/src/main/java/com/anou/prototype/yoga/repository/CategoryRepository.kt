@@ -3,7 +3,7 @@ package com.anou.prototype.yoga.repository
 import com.anou.prototype.yoga.api.ApiService
 import com.anou.prototype.yoga.common.AppCoroutineDispatchers
 import com.anou.prototype.yoga.db.ApplicationDatabase
-import com.anou.prototype.yoga.db.faq.FaqEntity
+import com.anou.prototype.yoga.db.category.CategoryEntity
 import kotlinx.coroutines.Deferred
 
 /*******************************************************************************
@@ -24,17 +24,17 @@ import kotlinx.coroutines.Deferred
 //     fun loadModules(): Deferred<List<ModuleEntity>>
 //}
 
-class FaqRepository (
+class CategoryRepository (
         val dispatcher: AppCoroutineDispatchers,
         val applicationDatabase: ApplicationDatabase,
         val apiService: ApiService
 ) : BaseRepository() {
 
 
-    fun loadFaqs():  Deferred<List<FaqEntity>> {
+    fun loadCategory():  Deferred<List<CategoryEntity>> {
 //         val result = MediatorLiveData<List<ModuleEntity>>()
 
-        return apiService.fetchFaqs()
+        return apiService.fetchCategory()
     }
 
 

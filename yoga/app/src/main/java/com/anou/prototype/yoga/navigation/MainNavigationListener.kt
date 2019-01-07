@@ -1,6 +1,7 @@
 package com.anou.prototype.yoga.navigation
 
 import com.anou.prototype.yoga.db.ModuleEntity
+import com.anou.prototype.yoga.db.category.CategoryEntity
 
 
 /**
@@ -17,4 +18,5 @@ import com.anou.prototype.yoga.db.ModuleEntity
 interface MainNavigationListener {
     fun onFragmentViewed(string: String)
     fun onModuleSelected(module: ModuleEntity, isLaunchModule : Boolean = false)
+    fun onCategorySelected(category: CategoryEntity)
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="category"
+            type="com.anou.prototype.yoga.db.category.CategoryEntity" />
+        <variable
+            name="navigation"
+            type="com.anou.prototype.yoga.navigation.MainNavigationListener" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/itemDrawerModuleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:onClick="@{()->navigation.onCategorySelected(category)}"
+        android:orientation="vertical"
+        tools:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/itemDrawerModuleTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical"
+            android:text="@{category.title}" />
+
+    </LinearLayout>
+</layout>

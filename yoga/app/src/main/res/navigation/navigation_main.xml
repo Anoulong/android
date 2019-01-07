@@ -10,10 +10,10 @@
         tools:layout="@layout/fragment_loading">
     </fragment>
     <fragment
-        android:id="@+id/faqFragment"
-        android:name="com.anou.prototype.yoga.ui.fragment.FaqFragment"
-        android:label="Faq Fragment"
-        tools:layout="@layout/fragment_faq">
+        android:id="@+id/categoryFragment"
+        android:name="com.anou.prototype.yoga.ui.fragment.CategoryFragment"
+        android:label="Category Fragment"
+        tools:layout="@layout/fragment_category">
         <argument
             android:name="moduleEid"
             android:defaultValue="null"

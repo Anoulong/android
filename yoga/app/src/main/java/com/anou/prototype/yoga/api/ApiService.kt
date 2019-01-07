@@ -17,7 +17,7 @@
 package com.anou.prototype.yoga.api
 
 import com.anou.prototype.yoga.db.ModuleEntity
-import com.anou.prototype.yoga.db.faq.FaqEntity
+import com.anou.prototype.yoga.db.category.CategoryEntity
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 
@@ -33,8 +33,11 @@ interface ApiService {
     fun fetchModules(): Deferred<List<ModuleEntity>>
 
     @GET("news.json")
-    fun fetchNews(): Deferred<List<FaqEntity>>
+    fun fetchNews(): Deferred<List<CategoryEntity>>
 
     @GET("https://raw.githubusercontent.com/Anoulong/android/master/api-example/categories/faqs.json")
-    fun fetchFaqs(): Deferred<List<FaqEntity>>
+    fun fetchCategory(): Deferred<List<CategoryEntity>>
+
+    @GET("https://raw.githubusercontent.com/Anoulong/android/master/api-example/categories/features/faqs.json")
+    fun fetchFaqs(): Deferred<List<CategoryEntity>>
 }

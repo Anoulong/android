@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="mainViewModel"
             type="com.anou.prototype.yoga.viewmodel.MainViewModel" />
     </data>
 

@@ -1,33 +1,35 @@
-package com.anou.prototype.yoga.db.faq
+package com.anou.prototype.yoga.db.category
 
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "Faq")
-data class FaqEntity(
+@Entity(tableName = "Category")
+data class CategoryEntity(
         @PrimaryKey
         @NonNull
         @SerializedName("_id")
         var id: String,
         @ColumnInfo(index = true)
-        @SerializedName("custom_module_eid")
+        @SerializedName("eid")
         var moduleEid: String?,
         var slug: String?,
         var eid: String?,
         var title: String?,
+        var nbItems: Int = 0,
+        var type: String?,
+        var description: String?,
         @SerializedName("updated_at")
         var updatedAt: String?,
         @SerializedName("created_at")
         var createdAt: String?
-) : Parcelable, Comparable<FaqEntity> {
+) : Parcelable, Comparable<CategoryEntity> {
 
-    override fun compareTo(other: FaqEntity): Int {
+    override fun compareTo(other: CategoryEntity): Int {
         return if (eid == other.eid) {
             0
         } else {
@@ -41,7 +43,10 @@ data class FaqEntity(
             slug = parcel.readString(),
             eid = parcel.readString(),
             title = parcel.readString(),
+            nbItems = parcel.readInt(),
             updatedAt = parcel.readString(),
+            type = parcel.readString(),
+            description = parcel.readString(),
             createdAt = parcel.readString()) {
     }
 
@@ -51,6 +56,9 @@ data class FaqEntity(
         parcel.writeString(slug)
         parcel.writeString(eid)
         parcel.writeString(title)
+        parcel.writeInt(nbItems)
+        parcel.writeString(type)
+        parcel.writeString(description)
         parcel.writeString(updatedAt)
         parcel.writeString(createdAt)
 
@@ -60,12 +68,12 @@ data class FaqEntity(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<FaqEntity> {
-        override fun createFromParcel(parcel: Parcel): FaqEntity {
-            return FaqEntity(parcel)
+    companion object CREATOR : Parcelable.Creator<CategoryEntity> {
+        override fun createFromParcel(parcel: Parcel): CategoryEntity {
+            return CategoryEntity(parcel)
         }
 
-        override fun newArray(size: Int): Array<FaqEntity?> {
+        override fun newArray(size: Int): Array<CategoryEntity?> {
             return arrayOfNulls(size)
         }
     }

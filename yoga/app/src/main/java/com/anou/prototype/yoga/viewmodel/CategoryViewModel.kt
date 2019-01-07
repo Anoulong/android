@@ -1,11 +1,12 @@
 package com.anou.prototype.yoga.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.anou.prototype.yoga.common.AppCoroutineDispatchers
 import com.anou.prototype.yoga.controller.ApplicationController
-import com.anou.prototype.yoga.db.faq.FaqEntity
-import com.anou.prototype.yoga.repository.FaqRepository
+import com.anou.prototype.yoga.db.category.CategoryEntity
+import com.anou.prototype.yoga.repository.CategoryRepository
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -24,22 +25,23 @@ import kotlinx.coroutines.withContext
  * <p>
  * Created by Anou Chanthavong on 2018-10-25.
  ******************************************************************************/
-class FaqViewModel(val dispatchers: AppCoroutineDispatchers, val applicationController: ApplicationController, val faqRepository: FaqRepository) : BaseViewModel() {
-    private var result = MediatorLiveData<List<FaqEntity>>()
+class CategoryViewModel(val dispatchers: AppCoroutineDispatchers, val applicationController: ApplicationController, val categoryRepository: CategoryRepository) : BaseViewModel() {
+    private var result = MediatorLiveData<List<CategoryEntity>>()
 
-    fun getFaqs(): LiveData<List<FaqEntity>> {
+    fun getCategory(): LiveData<List<CategoryEntity>> {
 
        viewModelJob = GlobalScope.launch(dispatchers.main, CoroutineStart.DEFAULT) {
 
             try {
 
                 val faqs = withContext(dispatchers.network) {
-                    faqRepository.loadFaqs()
+                    categoryRepository.loadCategory()
                 }
                 result.postValue(faqs.await())
 
             } catch (exception: Exception) {
-                applicationController.sendErrorChannel(exception.message.plus("Exception: getFaqs"))
+                Log.e(CategoryViewModel::class.java.simpleName, exception.message)
+                applicationController.sendErrorChannel(exception.message.plus("Exception: getCategory"))
             }finally {
                 //load data from local
             }
@@ -50,6 +52,6 @@ class FaqViewModel(val dispatchers: AppCoroutineDispatchers, val applicationCont
 
     override fun onCleared() {
         super.onCleared()
-        faqRepository.onJobCancelled()
+        categoryRepository.onJobCancelled()
     }
 }

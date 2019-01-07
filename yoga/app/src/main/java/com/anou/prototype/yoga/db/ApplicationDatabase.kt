@@ -19,8 +19,9 @@ package com.anou.prototype.yoga.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.anou.prototype.yoga.db.faq.FaqDao
-import com.anou.prototype.yoga.db.faq.FaqEntity
+import com.anou.prototype.yoga.db.category.FaqDao
+import com.anou.prototype.yoga.db.category.CategoryEntity
+import com.anou.prototype.yoga.db.feature.FeatureEntity
 import com.anou.prototype.yoga.db.module.ModuleDao
 
 /**
@@ -28,7 +29,7 @@ import com.anou.prototype.yoga.db.module.ModuleDao
  */
 @Database(
     entities = [
-        ModuleEntity::class, FaqEntity::class],
+        ModuleEntity::class, CategoryEntity::class, FeatureEntity::class],
     version = 1,
     exportSchema = false
 )
