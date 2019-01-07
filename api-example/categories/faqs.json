@@ -1,0 +1,44 @@
+[
+    {
+        "_id": "5c3378fb8f74fb6456462c09",
+        "updated_at": "2019-01-07T16:13:52.039Z",
+        "slug": "yoga",
+        "custom_module_eid": "12af7106-f97c-4133-ac1f-ecd10318490d",
+        "eid": "83888dd1-8acd-433b-a0e2-a5011766f66a",
+        "title": "Yoga",
+        "description": "Here are a few questions and answers collected over the years, that offer insights into the fundamentals of yoga and meditation.",
+        "__v": 0,
+        "_active": true,
+        "created_at": "2019-01-07T16:06:19.777Z",
+        "nbItems": 8,
+        "type": "faq"
+    },
+    {
+        "_id": "5c3379738f74fb6456462c57",
+        "updated_at": "2019-01-07T16:13:52.040Z",
+        "slug": "technologies-for-wellbeing",
+        "custom_module_eid": "12af7106-f97c-4133-ac1f-ecd10318490d",
+        "eid": "cbd43e8e-0b0b-480a-8dbd-dd2795b9a468",
+        "title": "Technologies for Wellbeing",
+        "description": "https://www.ishafoundation.org/Ishakriya/FAQs",
+        "__v": 0,
+        "_active": true,
+        "created_at": "2019-01-07T16:08:19.646Z",
+        "nbItems": 5,
+        "type": "faq"
+    },
+    {
+        "_id": "5c3379c98f74fb6456462c8b",
+        "updated_at": "2019-01-07T16:13:52.040Z",
+        "slug": "uyir-nokkam",
+        "custom_module_eid": "12af7106-f97c-4133-ac1f-ecd10318490d",
+        "eid": "c49d3ba4-a38e-4808-83b4-85c9e5901c5c",
+        "title": "Uyir Nokkam",
+        "description": "http://www.ishayoga.org/en/faqs",
+        "__v": 0,
+        "_active": true,
+        "created_at": "2019-01-07T16:09:45.987Z",
+        "nbItems": 2,
+        "type": "faq"
+    }
+]
