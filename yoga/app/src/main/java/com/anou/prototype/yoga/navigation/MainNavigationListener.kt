@@ -1,8 +1,8 @@
 package com.anou.prototype.yoga.navigation
 
-import com.anou.prototype.yoga.db.ModuleEntity
-import com.anou.prototype.yoga.db.category.CategoryEntity
-import com.anou.prototype.yoga.db.feature.FeatureEntity
+import com.anou.prototype.core.db.ModuleEntity
+import com.anou.prototype.core.db.category.CategoryEntity
+import com.anou.prototype.core.db.feature.FeatureEntity
 
 
 /**

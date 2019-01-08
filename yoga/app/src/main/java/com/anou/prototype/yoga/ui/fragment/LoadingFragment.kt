@@ -1,19 +1,12 @@
 package com.anou.prototype.yoga.ui.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.NavOptions
 import com.anou.prototype.yoga.R
-import com.anou.prototype.yoga.base.BaseFragment
 import com.anou.prototype.yoga.base.BaseMainFragment
-import com.anou.prototype.yoga.ui.MainActivity
-import com.anou.prototype.yoga.viewmodel.MainViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.anou.prototype.core.viewmodel.MainViewModel
 
 
 class LoadingFragment : BaseMainFragment() {

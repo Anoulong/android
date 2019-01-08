@@ -2,17 +2,17 @@ package com.anou.prototype.yoga.di
 
 import androidx.room.Room
 import com.anou.prototype.yoga.BuildConfig
-import com.anou.prototype.yoga.api.ApiService
-import com.anou.prototype.yoga.common.AppCoroutineDispatchers
-import com.anou.prototype.yoga.controller.ApplicationController
+import com.anou.prototype.core.api.ApiService
+import com.anou.prototype.core.common.AppCoroutineDispatchers
+import com.anou.prototype.core.controller.ApplicationController
 import com.anou.prototype.yoga.controller.ApplicationControllerImpl
-import com.anou.prototype.yoga.db.ApplicationDatabase
-import com.anou.prototype.yoga.repository.CategoryRepository
-import com.anou.prototype.yoga.repository.FeatureRepository
-import com.anou.prototype.yoga.repository.ModuleRepository
-import com.anou.prototype.yoga.viewmodel.CategoryViewModel
-import com.anou.prototype.yoga.viewmodel.FeatureViewModel
-import com.anou.prototype.yoga.viewmodel.MainViewModel
+import com.anou.prototype.core.db.ApplicationDatabase
+import com.anou.prototype.core.repository.CategoryRepository
+import com.anou.prototype.core.repository.FeatureRepository
+import com.anou.prototype.core.repository.ModuleRepository
+import com.anou.prototype.core.viewmodel.CategoryViewModel
+import com.anou.prototype.core.viewmodel.FeatureViewModel
+import com.anou.prototype.core.viewmodel.MainViewModel
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient

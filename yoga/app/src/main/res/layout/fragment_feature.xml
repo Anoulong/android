@@ -7,7 +7,7 @@
 
         <variable
             name="featureViewModel"
-            type="com.anou.prototype.yoga.viewmodel.FeatureViewModel" />
+            type="com.anou.prototype.core.viewmodel.FeatureViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

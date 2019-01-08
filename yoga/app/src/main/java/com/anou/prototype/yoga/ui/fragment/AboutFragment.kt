@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseMainFragment
-import com.anou.prototype.yoga.common.Constants
-import com.anou.prototype.yoga.viewmodel.MainViewModel
+import com.anou.prototype.yoga.utils.Constants
+import com.anou.prototype.core.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_about.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

@@ -6,7 +6,7 @@
 
         <variable
             name="category"
-            type="com.anou.prototype.yoga.db.category.CategoryEntity" />
+            type="com.anou.prototype.core.db.category.CategoryEntity" />
         <variable
             name="navigation"
             type="com.anou.prototype.yoga.navigation.MainNavigationListener" />

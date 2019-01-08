@@ -8,7 +8,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.databinding.ItemDrawerModuleBinding
-import com.anou.prototype.yoga.db.ModuleEntity
+import com.anou.prototype.core.db.ModuleEntity
 import com.anou.prototype.yoga.navigation.MainNavigationListener
 
 

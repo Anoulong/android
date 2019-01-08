@@ -9,11 +9,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseMainFragment
-import com.anou.prototype.yoga.common.Constants
+import com.anou.prototype.yoga.utils.Constants
 import com.anou.prototype.yoga.databinding.FragmentFeatureBinding
-import com.anou.prototype.yoga.db.category.CategoryAdapter
-import com.anou.prototype.yoga.db.feature.FeatureAdapter
-import com.anou.prototype.yoga.viewmodel.FeatureViewModel
+import com.anou.prototype.core.viewmodel.FeatureViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

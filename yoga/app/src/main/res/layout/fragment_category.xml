@@ -7,7 +7,7 @@
 
         <variable
             name="categoryViewModel"
-            type="com.anou.prototype.yoga.viewmodel.CategoryViewModel" />
+            type="com.anou.prototype.core.viewmodel.CategoryViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

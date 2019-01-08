@@ -125,6 +125,14 @@ ext {
 }
 
 dependencies {
+    implementation(project(':core')) {
+        exclude group: 'androidx.lifecycle'
+        exclude group: 'androidx.room'
+        exclude group: 'com.squareup.retrofit2'
+        exclude group: 'com.google.code.gson'
+        exclude group: 'javax.annotation'
+    }
+
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     // KTLint
@@ -177,8 +185,6 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-process:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-service:2.0.0'
     kapt 'androidx.lifecycle:lifecycle-compiler:2.0.0'
-
-
 
     // Local data persistence
     implementation 'androidx.room:room-runtime:2.1.0-alpha03'
