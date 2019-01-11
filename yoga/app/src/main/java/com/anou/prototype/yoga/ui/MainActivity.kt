@@ -11,7 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.anou.prototype.core.controller.ApplicationController
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseActivity
@@ -33,6 +35,7 @@ class MainActivity : BaseActivity(), MainNavigationListener {
     val applicationController: ApplicationController by inject()
     lateinit var binding: ActivityMainBinding
     lateinit var adapter: DrawerAdapter
+    lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +81,8 @@ class MainActivity : BaseActivity(), MainNavigationListener {
         mainDrawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         toggle.setDrawerIndicatorEnabled(true)
+        val topLevelDestinations = setOf(R.id.categoryFragment, R.id.aboutFragment, R.id.textFragment)
+         appBarConfiguration = AppBarConfiguration.Builder(topLevelDestinations).setDrawerLayout(mainDrawerLayout).build()
 
         adapter = DrawerAdapter(this, inflater = LayoutInflater.from(this@MainActivity))
         binding.drawerRecyclerView.adapter = adapter
@@ -86,23 +91,9 @@ class MainActivity : BaseActivity(), MainNavigationListener {
             adapter.setData(modules)
 
             val firstModule = modules.get(0)
-
-            when (firstModule.type) {
-                ModuleEntity.FAQ -> {
-                    firstModule.eid?.let {
-                        Navigation.findNavController(this, R.id.mainNavigationHost).graph.startDestination = R.id.categoryFragment
-                    }
-                }
-                ModuleEntity.ABOUT -> {
-                    firstModule.eid?.let {
-                        Navigation.findNavController(this, R.id.mainNavigationHost).graph.startDestination = R.id.aboutFragment
-                    }
-                }
-                else -> Toast.makeText(this, firstModule.title, Toast.LENGTH_SHORT).show()
-            }
             onModuleSelected(firstModule, true)
+            NavigationUI.setupActionBarWithNavController(this, Navigation.findNavController(this, R.id.mainNavigationHost), appBarConfiguration)
 
-            NavigationUI.setupWithNavController(toolbar, Navigation.findNavController(this, R.id.mainNavigationHost), mainDrawerLayout)
         })
 
     }
@@ -112,11 +103,12 @@ class MainActivity : BaseActivity(), MainNavigationListener {
         supportActionBar?.title = string
     }
 
-    override fun onSupportNavigateUp(): Boolean = findNavController(this, R.id.mainNavigationHost).navigateUp()
+    override fun onSupportNavigateUp(): Boolean = NavigationUI.navigateUp(Navigation.findNavController(this, R.id.mainNavigationHost), appBarConfiguration)
 
     override fun onModuleSelected(module: ModuleEntity, isLaunchModule: Boolean) {
         val navBuilder = NavOptions.Builder()
         val navOptions = if (isLaunchModule) navBuilder.setPopUpTo(R.id.loadingFragment, true).build() else null
+
         var bundle = Bundle()
 
         module.let {
@@ -129,6 +121,9 @@ class MainActivity : BaseActivity(), MainNavigationListener {
                 }
                 ModuleEntity.ABOUT -> {
                     Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.aboutFragment, bundle, navOptions)
+                }
+                ModuleEntity.TEXT_TYPE -> {
+                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.textFragment, bundle, navOptions)
                 }
                 else -> Toast.makeText(this, module.title, Toast.LENGTH_SHORT).show()
             }
