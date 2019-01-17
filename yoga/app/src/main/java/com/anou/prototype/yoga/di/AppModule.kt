@@ -24,24 +24,8 @@ import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-/*******************************************************************************
- * QuickSeries® Publishing inc.
- * <p>
- * Copyright (c) 1992-2017 QuickSeries® Publishing inc.
- * All rights reserved.
- * <p>
- * This software is the confidential and proprietary information of QuickSeries®
- * ("Confidential Information"). You shall not disclose such Confidential
- * Information and shall use it only in accordance with the terms of the license
- * agreement you entered into with QuickSeries® and QuickSeries's Partners.
- * <p>
- * Created by Anou Chanthavong on 2018-10-24.
- ******************************************************************************/
 val commonModule = module {
-    single {
-        Room.databaseBuilder(androidApplication(), ApplicationDatabase::class.java, ApplicationDatabase.DATABASE_NAME)
-            .build()
-    }
+    single {Room.databaseBuilder(androidApplication(), ApplicationDatabase::class.java, ApplicationDatabase.DATABASE_NAME).build() }
     single {
         var client = OkHttpClient.Builder().build()
 
@@ -61,37 +45,21 @@ val commonModule = module {
             .create(ApiService::class.java)
     }
 
-    single {
-        AppCoroutineDispatchers()
-    }
-
-    single {
-        ApplicationControllerImpl() as ApplicationController
-    }
-
-    single {
-        MainRouter() as MainRouter
-    }
+    single {AppCoroutineDispatchers()}
+    single {ApplicationControllerImpl() as ApplicationController}
+    single { MainRouter()}
 }
 
 val repositoryModule = module {
-//    single { HelloServiceImpl(get()) as HelloService }
     single { ModuleRepository(get(), get(), get()) }
     single { CategoryRepository(get(), get(), get()) }
     single { FeatureRepository(get(), get(), get()) }
-
-    // Declare a controller
-//    controller { HelloController(get()) }
 }
 
 val viewModelModule = module {
-    //    single { HelloServiceImpl(get()) as HelloService }
     viewModel { MainViewModel(get(), get(), get()) }
     viewModel { CategoryViewModel(get(), get(), get()) }
     viewModel { FeatureViewModel(get(), get(), get()) }
-
-    // Declare a controller
-//    controller { HelloController(get()) }
 }
 
 val modules = listOf(commonModule, repositoryModule, viewModelModule)

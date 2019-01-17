@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/loadingFragment">
+    app:startDestination="@id/loadingFragmentDestination">
     <fragment
-        android:id="@+id/loadingFragment"
+        android:id="@+id/loadingFragmentDestination"
         android:name="com.anou.prototype.yoga.ui.fragment.LoadingFragment"
         android:label="Loading Fragment"
-        tools:layout="@layout/fragment_loading"></fragment>
+        tools:layout="@layout/fragment_loading"/>
     <fragment
         android:id="@+id/categoryFragmentDestination"
         android:name="com.anou.prototype.yoga.ui.fragment.CategoryFragment"
@@ -26,7 +26,7 @@
         <!--app:destination="@id/startFragment" />-->
     </fragment>
     <fragment
-        android:id="@+id/featureFragment"
+        android:id="@+id/featureFragmentDestination"
         android:name="com.anou.prototype.yoga.ui.fragment.FeatureFragment"
         android:label="Feature Fragment"
         tools:layout="@layout/fragment_feature">

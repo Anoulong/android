@@ -32,7 +32,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val view = bind()
-        setupViews(view)
+        setupViews()
     }
 
     override fun onResume() {
@@ -56,7 +56,7 @@ class MainActivity : BaseActivity() {
         return binding.root
     }
 
-    private fun setupViews(view: View) {
+    private fun setupViews() {
 
         setSupportActionBar(toolbar)
         val topLevelDestinations = setOf(R.id.categoryFragmentDestination, R.id.aboutFragmentDestination, R.id.textFragmentDestination)
