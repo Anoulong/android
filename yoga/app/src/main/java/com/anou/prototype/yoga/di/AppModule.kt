@@ -13,6 +13,7 @@ import com.anou.prototype.core.repository.ModuleRepository
 import com.anou.prototype.core.viewmodel.CategoryViewModel
 import com.anou.prototype.core.viewmodel.FeatureViewModel
 import com.anou.prototype.core.viewmodel.MainViewModel
+import com.anou.prototype.yoga.navigation.MainRouter
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
@@ -66,6 +67,10 @@ val commonModule = module {
 
     single {
         ApplicationControllerImpl() as ApplicationController
+    }
+
+    single {
+        MainRouter() as MainRouter
     }
 }
 

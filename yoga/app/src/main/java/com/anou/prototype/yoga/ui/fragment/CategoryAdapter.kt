@@ -11,10 +11,11 @@ import com.anou.prototype.core.db.category.CategoryEntity
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.utils.DiffCallback
 import com.anou.prototype.yoga.databinding.ItemCategoryBinding
-import com.anou.prototype.yoga.navigation.MainNavigationListener
+import com.anou.prototype.yoga.navigation.MainRouter
+import com.anou.prototype.yoga.ui.MainActivity
 
 
-class CategoryAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutInflater, private val itemList: MutableList<CategoryEntity> = mutableListOf()) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+class CategoryAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutInflater,val mainRouter: MainRouter, private val itemList: MutableList<CategoryEntity> = mutableListOf()) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -23,6 +24,7 @@ class CategoryAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutIn
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.bind(itemList[position])
+        holder.itemView.setOnClickListener { mainRouter.onCategorySelected(holder.itemView.context as MainActivity, itemList.get(position)) }
 
     }
 
@@ -42,12 +44,6 @@ class CategoryAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutIn
     class CategoryViewHolder(lifecycleOwner: LifecycleOwner, val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
 
             constructor(lifecycleOwner: LifecycleOwner, inflater: LayoutInflater, container: ViewGroup) : this(lifecycleOwner, DataBindingUtil.inflate(inflater, R.layout.item_category, container, false))
-
-        init {
-            if (binding.root.context is MainNavigationListener) {
-                binding.navigation = binding.root.context as MainNavigationListener
-            }
-        }
 
         fun bind(category: CategoryEntity) {
             binding.category = category

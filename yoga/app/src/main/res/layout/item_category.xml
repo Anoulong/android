@@ -7,16 +7,13 @@
         <variable
             name="category"
             type="com.anou.prototype.core.db.category.CategoryEntity" />
-        <variable
-            name="navigation"
-            type="com.anou.prototype.yoga.navigation.MainNavigationListener" />
+
     </data>
 
     <LinearLayout
         android:id="@+id/itemDrawerModuleLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:onClick="@{()->navigation.onCategorySelected(category)}"
         android:orientation="vertical"
         tools:layout_gravity="center">
 

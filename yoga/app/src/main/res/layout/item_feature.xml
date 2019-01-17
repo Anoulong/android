@@ -7,16 +7,13 @@
         <variable
             name="feature"
             type="com.anou.prototype.core.db.feature.FeatureEntity" />
-        <variable
-            name="navigation"
-            type="com.anou.prototype.yoga.navigation.MainNavigationListener" />
+
     </data>
 
     <LinearLayout
         android:id="@+id/itemFeatureLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:onClick="@{()->navigation.onFeatureSelected(feature)}"
         android:orientation="vertical"
         tools:layout_gravity="center">
 

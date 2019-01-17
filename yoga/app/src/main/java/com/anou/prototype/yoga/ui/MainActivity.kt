@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -15,21 +13,18 @@ import com.anou.prototype.core.controller.ApplicationController
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseActivity
 import com.anou.prototype.yoga.databinding.ActivityMainBinding
-import com.anou.prototype.core.db.ModuleEntity
-import com.anou.prototype.core.db.category.CategoryEntity
-import com.anou.prototype.core.db.feature.FeatureEntity
-import com.anou.prototype.yoga.navigation.MainNavigationListener
 import com.anou.prototype.core.viewmodel.MainViewModel
-import com.anou.prototype.yoga.utils.Constants
+import com.anou.prototype.yoga.navigation.MainRouter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity(), MainNavigationListener {
+class MainActivity : BaseActivity() {
 
     val mainViewModel by viewModel<MainViewModel>()
     val applicationController: ApplicationController by inject()
+    val mainRouter: MainRouter by inject()
     lateinit var binding: ActivityMainBinding
     lateinit var adapter: DrawerAdapter
     lateinit var appBarConfiguration: AppBarConfiguration
@@ -65,67 +60,25 @@ class MainActivity : BaseActivity(), MainNavigationListener {
 
         setSupportActionBar(toolbar)
         val topLevelDestinations = setOf(R.id.categoryFragmentDestination, R.id.aboutFragmentDestination, R.id.textFragmentDestination)
-         appBarConfiguration = AppBarConfiguration.Builder(topLevelDestinations).setDrawerLayout(mainDrawerLayout).build()
+        appBarConfiguration = AppBarConfiguration.Builder(topLevelDestinations).setDrawerLayout(mainDrawerLayout).build()
 
-        adapter = DrawerAdapter(this, inflater = LayoutInflater.from(this@MainActivity))
+        adapter = DrawerAdapter(this, inflater = LayoutInflater.from(this@MainActivity), mainRouter = mainRouter)
         binding.drawerRecyclerView.adapter = adapter
 
         mainViewModel.getModules().observe(this@MainActivity, Observer { modules ->
             adapter.setData(modules)
 
+            //initialize the first module as the landing screen
             val firstModule = modules.get(0)
-            onModuleSelected(firstModule, true)
+            mainRouter.onModuleSelected(this@MainActivity, firstModule, true)
             NavigationUI.setupActionBarWithNavController(this, Navigation.findNavController(this, R.id.mainNavigationHost), appBarConfiguration)
 
         })
     }
 
-    override fun onFragmentViewed(string: String) {
-        println("Log state ==> $string")
-        supportActionBar?.title = string
-    }
-
     override fun onSupportNavigateUp(): Boolean = NavigationUI.navigateUp(Navigation.findNavController(this, R.id.mainNavigationHost), appBarConfiguration)
 
-    override fun onModuleSelected(module: ModuleEntity, isLaunchModule: Boolean) {
-        val navBuilder = NavOptions.Builder()
-        val navOptions = if (isLaunchModule) navBuilder.setPopUpTo(R.id.loadingFragment, true).build() else null
-
-        var bundle = Bundle()
-
-        module.let {
-            bundle.putString(Constants.MODULE_EID, module.eid)
-            bundle.putString(Constants.MODULE_TITLE, module.title)
-
-            when (module.type) {
-                ModuleEntity.FAQ -> {
-                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.categoryFragmentDestination, bundle, navOptions)
-                }
-                ModuleEntity.ABOUT -> {
-                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.aboutFragmentDestination, bundle, navOptions)
-                }
-                ModuleEntity.TEXT_TYPE -> {
-                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.textFragmentDestination, bundle, navOptions)
-                }
-                else -> Toast.makeText(this, module.title, Toast.LENGTH_SHORT).show()
-            }
-        }
-
+    fun closeDrawer() {
         mainDrawerLayout.closeDrawers()
-    }
-
-    override fun onCategorySelected(category: CategoryEntity) {
-        var bundle = Bundle()
-        category.let {
-            bundle.putString(Constants.CATEGORY_EID, category.eid)
-            bundle.putString(Constants.CATEGORY_TITLE, category.title)
-
-            Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.featureFragment, bundle)
-        }
-        Toast.makeText(this, category.title, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onFeatureSelected(featureEntity: FeatureEntity) {
-        Toast.makeText(this, featureEntity.eid, Toast.LENGTH_SHORT).show()
     }
 }
