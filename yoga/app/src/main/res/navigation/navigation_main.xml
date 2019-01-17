@@ -9,7 +9,7 @@
         android:label="Loading Fragment"
         tools:layout="@layout/fragment_loading"></fragment>
     <fragment
-        android:id="@+id/categoryFragment"
+        android:id="@+id/categoryFragmentDestination"
         android:name="com.anou.prototype.yoga.ui.fragment.CategoryFragment"
         android:label="Category Fragment"
         tools:layout="@layout/fragment_category">
@@ -43,7 +43,7 @@
         <!--app:destination="@id/startFragment" />-->
     </fragment>
     <fragment
-        android:id="@+id/aboutFragment"
+        android:id="@+id/aboutFragmentDestination"
         android:name="com.anou.prototype.yoga.ui.fragment.AboutFragment"
         android:label="About Fragment"
         tools:layout="@layout/fragment_about">
@@ -56,7 +56,7 @@
         <!--app:destination="@id/startFragment" />-->
     </fragment>
     <fragment
-        android:id="@+id/textFragment"
+        android:id="@+id/textFragmentDestination"
         android:name="com.anou.prototype.yoga.ui.fragment.TextFragment"
         android:label="Text Fragment"
         tools:layout="@layout/fragment_text">

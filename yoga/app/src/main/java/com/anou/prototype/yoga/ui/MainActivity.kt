@@ -4,16 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.anou.prototype.core.controller.ApplicationController
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseActivity
@@ -54,14 +51,6 @@ class MainActivity : BaseActivity(), MainNavigationListener {
 
     }
 
-    override fun onBackPressed() {
-        if (mainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mainDrawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
-    }
-
     private fun bind(): View {
         binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
                 .apply {
@@ -75,13 +64,7 @@ class MainActivity : BaseActivity(), MainNavigationListener {
     private fun setupViews(view: View) {
 
         setSupportActionBar(toolbar)
-        val toggle = ActionBarDrawerToggle(
-                this, mainDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
-        )
-        mainDrawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        toggle.setDrawerIndicatorEnabled(true)
-        val topLevelDestinations = setOf(R.id.categoryFragment, R.id.aboutFragment, R.id.textFragment)
+        val topLevelDestinations = setOf(R.id.categoryFragmentDestination, R.id.aboutFragmentDestination, R.id.textFragmentDestination)
          appBarConfiguration = AppBarConfiguration.Builder(topLevelDestinations).setDrawerLayout(mainDrawerLayout).build()
 
         adapter = DrawerAdapter(this, inflater = LayoutInflater.from(this@MainActivity))
@@ -95,7 +78,6 @@ class MainActivity : BaseActivity(), MainNavigationListener {
             NavigationUI.setupActionBarWithNavController(this, Navigation.findNavController(this, R.id.mainNavigationHost), appBarConfiguration)
 
         })
-
     }
 
     override fun onFragmentViewed(string: String) {
@@ -117,13 +99,13 @@ class MainActivity : BaseActivity(), MainNavigationListener {
 
             when (module.type) {
                 ModuleEntity.FAQ -> {
-                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.categoryFragment, bundle, navOptions)
+                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.categoryFragmentDestination, bundle, navOptions)
                 }
                 ModuleEntity.ABOUT -> {
-                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.aboutFragment, bundle, navOptions)
+                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.aboutFragmentDestination, bundle, navOptions)
                 }
                 ModuleEntity.TEXT_TYPE -> {
-                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.textFragment, bundle, navOptions)
+                    Navigation.findNavController(this, R.id.mainNavigationHost).navigate(R.id.textFragmentDestination, bundle, navOptions)
                 }
                 else -> Toast.makeText(this, module.title, Toast.LENGTH_SHORT).show()
             }
@@ -146,6 +128,4 @@ class MainActivity : BaseActivity(), MainNavigationListener {
     override fun onFeatureSelected(featureEntity: FeatureEntity) {
         Toast.makeText(this, featureEntity.eid, Toast.LENGTH_SHORT).show()
     }
-
-
 }
