@@ -1,8 +1,7 @@
-package com.anou.prototype.yoga.ui
+package com.anou.prototype.yoga.ui.fragment
 
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
@@ -12,10 +11,11 @@ import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.databinding.ItemDrawerModuleBinding
 import com.anou.prototype.core.db.ModuleEntity
 import com.anou.prototype.yoga.navigation.MainRouter
+import com.anou.prototype.yoga.ui.MainActivity
 import com.anou.prototype.yoga.utils.DiffCallback
 
 
-class DrawerAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutInflater, val mainRouter: MainRouter, private val itemList: MutableList<ModuleEntity> = mutableListOf()) : RecyclerView.Adapter<DrawerAdapter.DrawerModuleViewHolder>() {
+class SideMenuAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutInflater, val mainRouter: MainRouter, private val itemList: MutableList<ModuleEntity> = mutableListOf()) : RecyclerView.Adapter<SideMenuAdapter.DrawerModuleViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DrawerModuleViewHolder {

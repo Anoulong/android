@@ -39,7 +39,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.quickseries.ui.MainActivity">
+                tools:context="com.anou.prototype.yoga.ui.MainActivity">
 
                 <fragment
                     android:id="@+id/mainNavigationHost"
@@ -56,16 +56,14 @@
 
 
         <!-- Navigation Drawer-->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/drawerRecyclerView"
+        <fragment
+            android:name="com.anou.prototype.yoga.ui.fragment.SideMenuFragment"
             android:layout_width="280dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="@android:color/white"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_drawer_module">
+            android:background="@android:color/white">
 
-        </androidx.recyclerview.widget.RecyclerView>
+        </fragment>
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
