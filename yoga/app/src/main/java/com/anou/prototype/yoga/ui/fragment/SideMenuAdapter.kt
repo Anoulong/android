@@ -42,7 +42,7 @@ class SideMenuAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutIn
 
     class DrawerModuleViewHolder(lifecycleOwner: LifecycleOwner, val binding: ItemDrawerModuleBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        constructor(lifecycleOwner: LifecycleOwner, inflater: LayoutInflater, container: ViewGroup) : this(lifecycleOwner, DataBindingUtil.inflate(inflater, R.layout.item_drawer_module, container, false))
+        constructor(lifecycleOwner: LifecycleOwner, inflater: LayoutInflater, container: ViewGroup) : this(lifecycleOwner, DataBindingUtil.inflate(inflater, R.layout.item_side_menuxml, container, false))
 
         fun bind(module: ModuleEntity) {
             binding.module = module

@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/white"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_drawer_module"/>
+            tools:listitem="@layout/item_side_menuxml"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
