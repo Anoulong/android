@@ -29,10 +29,10 @@ data class ModuleEntity(@PrimaryKey
                         @SerializedName("updated_at")
                         var updatedAt: String? = null,
                         var content: String? = null,
-                        var position: Int = 100) : Parcelable, Comparable<ModuleEntity> {
+                        var position: Int = 0) : Parcelable, Comparable<ModuleEntity> {
 
     override fun compareTo(other: ModuleEntity): Int {
-        return if (position == other.position) {
+        return if (id == other.id) {
             0
         } else {
             eid?.compareTo(other.eid ?: "") ?: slug?.compareTo(other.slug ?: "") ?: -1
