@@ -28,7 +28,7 @@ import retrofit2.http.GET
  */
 interface ApiService {
     companion object {
-        val URL = "https://raw.githubusercontent.com/Anoulong/android/master/api-example/"
+        val URL = "https://raw.githubusercontent.com/Anoulong/android/feature/moduleFragment/api-example/"
     }
 
     @GET("about.json")
@@ -40,9 +40,9 @@ interface ApiService {
     @GET("news.json")
     fun fetchNews(): Deferred<List<CategoryEntity>>
 
-    @GET("https://raw.githubusercontent.com/Anoulong/android/master/api-example/categories/faqs.json")
+    @GET("https://raw.githubusercontent.com/Anoulong/android/feature/moduleFragment/api-example/categories/faqs.json")
     fun fetchCategory(): Deferred<List<CategoryEntity>>
 
-    @GET("https://raw.githubusercontent.com/Anoulong/android/master/api-example/categories/features/faqs.json")
+    @GET("https://raw.githubusercontent.com/Anoulong/android/feature/moduleFragment/api-example/categories/features/faqs.json")
     fun fetchFeatures(): Deferred<List<FeatureEntity>>
 }
