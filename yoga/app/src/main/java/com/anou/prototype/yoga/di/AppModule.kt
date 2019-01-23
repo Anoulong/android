@@ -16,6 +16,8 @@ import com.anou.prototype.core.viewmodel.MainViewModel
 import com.anou.prototype.yoga.navigation.MainRouter
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.quickseries.core.service.NetworkConnectivityService
+import com.quickseries.service.network.NetworkConnectivityServiceImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
@@ -46,6 +48,7 @@ val commonModule = module {
     }
 
     single {AppCoroutineDispatchers()}
+    single {NetworkConnectivityServiceImpl() as NetworkConnectivityService}
     single {ApplicationControllerImpl() as ApplicationController}
     single { MainRouter()}
 }

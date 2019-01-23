@@ -17,6 +17,7 @@ import com.anou.prototype.core.viewmodel.MainViewModel
 import com.anou.prototype.yoga.base.BaseFragment
 import com.anou.prototype.yoga.navigation.MainRouter
 import com.anou.prototype.yoga.ui.MainActivity
+import com.quickseries.core.remote.ResourceStatus
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -54,12 +55,28 @@ class SideMenuFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         try {
-            mainViewModel.getModules().observe(this, Observer { modules ->
-                adapter.setData(modules)
+            mainViewModel.getModules().observe(this, Observer { result ->
 
-                //initialize the first module as the landing screen
-                val firstModule = modules.get(0)
-                mainRouter.onModuleSelected(activity as MainActivity, firstModule, true)
+                when (result.status) {
+                    ResourceStatus.LOADING, ResourceStatus.FETCHING -> {
+//                        showTransparentProgressDialog()
+                    }
+                    ResourceStatus.SUCCESS -> {
+                        result.value?.let { data ->
+                            adapter.setData(data)
+
+                        }
+                        adapter.getItem(0)?.let { firstModule ->
+                            mainRouter.onModuleSelected(activity as MainActivity, firstModule, true)
+                        }
+                        //initialize the first module as the landing screen
+//                        dismissProgressDialog()
+                    }
+                    ResourceStatus.ERROR -> {
+//                        dismissProgressDialog()
+                    }
+                }
+
 
 
             })
