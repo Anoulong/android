@@ -36,9 +36,9 @@ class FeatureAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutInf
 
     fun setData(data: List<FeatureEntity>) {
         val diffResult = DiffUtil.calculateDiff(DiffCallback(this.itemList, data))
+        diffResult.dispatchUpdatesTo(this)
         this.itemList.clear()
         this.itemList.addAll(data)
-        diffResult.dispatchUpdatesTo(this)
     }
 
     class FeatureViewHolder(lifecycleOwner: LifecycleOwner, val binding: ItemFeatureBinding) : RecyclerView.ViewHolder(binding.root) {
