@@ -19,6 +19,7 @@ package com.anou.prototype.core.api
 import com.anou.prototype.core.db.ModuleEntity
 import com.anou.prototype.core.db.category.CategoryEntity
 import com.anou.prototype.core.db.feature.FeatureEntity
+import com.quickseries.core.local.about.AboutEntity
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 
@@ -29,6 +30,9 @@ interface ApiService {
     companion object {
         val URL = "https://raw.githubusercontent.com/Anoulong/android/master/api-example/"
     }
+
+    @GET("about.json")
+    fun fetchAbout(): Deferred<AboutEntity>
 
     @GET("modules.json")
     fun fetchModules(): Deferred<List<ModuleEntity>>

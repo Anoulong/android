@@ -23,13 +23,15 @@ import com.anou.prototype.core.db.category.FaqDao
 import com.anou.prototype.core.db.category.CategoryEntity
 import com.anou.prototype.core.db.feature.FeatureEntity
 import com.anou.prototype.core.db.module.ModuleDao
+import com.quickseries.core.local.about.AboutDao
+import com.quickseries.core.local.about.AboutEntity
 
 /**
  * Main database description.
  */
 @Database(
     entities = [
-        ModuleEntity::class, CategoryEntity::class, FeatureEntity::class],
+        ModuleEntity::class, CategoryEntity::class, FeatureEntity::class, AboutEntity::class],
     version = 1,
     exportSchema = false
 )
@@ -40,5 +42,6 @@ abstract class ApplicationDatabase : RoomDatabase() {
 
     abstract fun moduleDao(): ModuleDao
     abstract fun faqDao(): FaqDao
+    abstract fun aboutDao(): AboutDao
 
 }

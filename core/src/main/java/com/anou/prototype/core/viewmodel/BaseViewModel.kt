@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.Job
 
-
 open class BaseViewModel :  ViewModel() {
     protected var viewModelJob : Job? = null
 
