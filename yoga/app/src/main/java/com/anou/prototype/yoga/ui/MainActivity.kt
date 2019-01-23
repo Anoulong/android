@@ -50,7 +50,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun bind(): View {
-        binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         return binding.root
     }
 
