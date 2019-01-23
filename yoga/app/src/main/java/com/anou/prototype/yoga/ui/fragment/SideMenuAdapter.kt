@@ -8,7 +8,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.anou.prototype.yoga.R
-import com.anou.prototype.yoga.databinding.ItemDrawerModuleBinding
+import com.anou.prototype.yoga.databinding.ItemSideMenuBinding
 import com.anou.prototype.core.db.ModuleEntity
 import com.anou.prototype.yoga.navigation.MainRouter
 import com.anou.prototype.yoga.ui.MainActivity
@@ -40,9 +40,9 @@ class SideMenuAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutIn
         this.itemList.addAll(data)
     }
 
-    class DrawerModuleViewHolder(lifecycleOwner: LifecycleOwner, val binding: ItemDrawerModuleBinding) : RecyclerView.ViewHolder(binding.root) {
+    class DrawerModuleViewHolder(lifecycleOwner: LifecycleOwner, val binding: ItemSideMenuBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        constructor(lifecycleOwner: LifecycleOwner, inflater: LayoutInflater, container: ViewGroup) : this(lifecycleOwner, DataBindingUtil.inflate(inflater, R.layout.item_side_menuxml, container, false))
+        constructor(lifecycleOwner: LifecycleOwner, inflater: LayoutInflater, container: ViewGroup) : this(lifecycleOwner, DataBindingUtil.inflate(inflater, R.layout.item_side_menu, container, false))
 
         fun bind(module: ModuleEntity) {
             binding.module = module
