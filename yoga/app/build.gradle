@@ -140,7 +140,7 @@ dependencies {
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     // Support libraries
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     implementation 'androidx.annotation:annotation:1.0.1'
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation('androidx.legacy:legacy-support-v4:1.0.0') {
@@ -161,8 +161,8 @@ dependencies {
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
 
     //Navigation
-    implementation "android.arch.navigation:navigation-fragment:1.0.0-alpha08"
-    implementation "android.arch.navigation:navigation-ui:1.0.0-alpha08"
+    implementation "android.arch.navigation:navigation-fragment:1.0.0-alpha10"
+    implementation "android.arch.navigation:navigation-ui:1.0.0-alpha10"
 
     // Koin
     implementation "org.koin:koin-android:$koin_version"
@@ -206,7 +206,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
 
     // Utils
-    implementation 'androidx.multidex:multidex:2.0.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation('com.github.bumptech.glide:glide:4.8.0') {
         exclude group: "androidx"
     }
@@ -228,7 +228,7 @@ dependencies {
 
     // Android Test
     testImplementation 'junit:junit:4.12'
-    testImplementation "org.mockito:mockito-core:2.22.0"
+    testImplementation "org.mockito:mockito-core:2.23.4"
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestUtil 'com.android.support.test:orchestrator:1.0.2'
 }

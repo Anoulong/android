@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
@@ -58,7 +59,8 @@ class SideMenuFragment : BaseFragment() {
             mainViewModel.getModules().observe(this, Observer { result ->
 
                 when (result.status) {
-                    ResourceStatus.LOADING, ResourceStatus.FETCHING -> {
+                    ResourceStatus.LOADING,
+                    ResourceStatus.FETCHING -> {
 //                        showTransparentProgressDialog()
                     }
                     ResourceStatus.SUCCESS -> {
@@ -66,8 +68,12 @@ class SideMenuFragment : BaseFragment() {
                             adapter.setData(data)
 
                         }
-                        adapter.getItem(0)?.let { firstModule ->
-                            mainRouter.onModuleSelected(activity as MainActivity, firstModule, true)
+                        if(adapter.itemCount > 0) {
+                            adapter.getItem(0).let { firstModule ->
+                                mainRouter.onModuleSelected(activity as MainActivity, firstModule, true)
+                            }
+                        }else{
+                            Toast.makeText(activity, "", Toast.LENGTH_LONG).show()
                         }
                         //initialize the first module as the landing screen
 //                        dismissProgressDialog()
@@ -75,13 +81,20 @@ class SideMenuFragment : BaseFragment() {
                     ResourceStatus.ERROR -> {
 //                        dismissProgressDialog()
                     }
+                    ResourceStatus.UNKNOWN,
+                    ResourceStatus.INVALID ->{
+
+                    }
+                    else -> {
+
+                    }
                 }
 
 
 
             })
         } catch (e: Exception) {
-            Log.e("FeatureFragment", e.message)
+            Log.e("SideMenuFragment", e.message)
         }
 
     }

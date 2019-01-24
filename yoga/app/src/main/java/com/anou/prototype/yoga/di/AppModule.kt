@@ -27,7 +27,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val commonModule = module {
-    single {Room.databaseBuilder(androidApplication(), ApplicationDatabase::class.java, ApplicationDatabase.DATABASE_NAME).build() }
+    single { Room.databaseBuilder(androidApplication(), ApplicationDatabase::class.java, ApplicationDatabase.DATABASE_NAME).build() }
     single {
         var client = OkHttpClient.Builder().build()
 
@@ -35,22 +35,22 @@ val commonModule = module {
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
             client = OkHttpClient.Builder().addInterceptor(interceptor).addNetworkInterceptor(StethoInterceptor())
-                .build()
+                    .build()
         }
 
         Retrofit.Builder()
-            .baseUrl(ApiService.URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .client(client)
-            .build()
-            .create(ApiService::class.java)
+                .baseUrl(ApiService.URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                .client(client)
+                .build()
+                .create(ApiService::class.java)
     }
 
-    single {AppCoroutineDispatchers()}
-    single {NetworkConnectivityServiceImpl() as NetworkConnectivityService}
-    single {ApplicationControllerImpl() as ApplicationController}
-    single { MainRouter()}
+    single { AppCoroutineDispatchers() }
+    single { NetworkConnectivityServiceImpl() as NetworkConnectivityService }
+    single { ApplicationControllerImpl() as ApplicationController }
+    single { MainRouter() }
 }
 
 val repositoryModule = module {
