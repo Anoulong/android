@@ -1,13 +1,7 @@
-package com.quickseries.core.remote.strategy
+package com.anou.prototype.core.strategy
 
 import androidx.annotation.WorkerThread
-import com.quickseries.core.remote.ResourceStatus
-import com.quickseries.core.remote.ResourceWrapper
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 abstract class WriteLocalDataStrategy<T>(val value: T, mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) : DataStrategy<T>(mainScope = mainScope, localScope = localScope) {
 

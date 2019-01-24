@@ -8,17 +8,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
-import androidx.navigation.ui.NavigationUI
-import com.anou.prototype.yoga.R
-import com.anou.prototype.yoga.utils.Constants
-import com.anou.prototype.yoga.databinding.FragmentSideMenuBinding
-import com.anou.prototype.core.viewmodel.FeatureViewModel
+import com.anou.prototype.core.strategy.ResourceStatus
 import com.anou.prototype.core.viewmodel.MainViewModel
+import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseFragment
+import com.anou.prototype.yoga.databinding.FragmentSideMenuBinding
 import com.anou.prototype.yoga.navigation.MainRouter
 import com.anou.prototype.yoga.ui.MainActivity
-import com.quickseries.core.remote.ResourceStatus
+import com.anou.prototype.yoga.utils.Constants
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

@@ -1,4 +1,4 @@
-package com.quickseries.core.remote
+package com.anou.prototype.core.strategy
 
 enum class ResourceStatus {
     LOADING,

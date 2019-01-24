@@ -1,5 +1,5 @@
 
-package com.quickseries.core.local.about
+package com.anou.prototype.core.db.about
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

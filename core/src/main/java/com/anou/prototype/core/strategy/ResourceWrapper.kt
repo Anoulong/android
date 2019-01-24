@@ -1,6 +1,5 @@
-package com.quickseries.core.remote
+package com.anou.prototype.core.strategy
 
-import com.quickseries.core.remote.strategy.DataStrategy
 import kotlin.reflect.KClass
 
 class ResourceWrapper<T>(

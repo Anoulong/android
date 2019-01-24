@@ -1,6 +1,6 @@
 package com.quickseries.service.network
 
-import com.quickseries.core.service.NetworkConnectivityService
+import com.anou.prototype.core.service.NetworkConnectivityService
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import kotlinx.coroutines.CoroutineStart

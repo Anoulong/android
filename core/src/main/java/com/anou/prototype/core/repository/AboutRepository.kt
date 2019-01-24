@@ -4,9 +4,9 @@ package com.anou.prototype.core.repository
 import com.anou.prototype.core.api.ApiService
 import com.anou.prototype.core.controller.ApplicationController
 import com.anou.prototype.core.db.ApplicationDatabase
-import com.quickseries.core.local.about.AboutEntity
-import com.quickseries.core.remote.strategy.RemoteDataFirstStrategy
-import com.quickseries.core.service.NetworkConnectivityService
+import com.anou.prototype.core.db.about.AboutEntity
+import com.anou.prototype.core.strategy.RemoteDataFirstStrategy
+import com.anou.prototype.core.service.NetworkConnectivityService
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred

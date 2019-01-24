@@ -1,7 +1,6 @@
 
-package com.quickseries.core.service
+package com.anou.prototype.core.service
 
-import io.reactivex.Observable
 import kotlinx.coroutines.channels.Channel
 
 /**

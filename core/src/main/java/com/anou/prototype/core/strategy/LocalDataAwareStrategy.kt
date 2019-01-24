@@ -1,10 +1,8 @@
-package com.quickseries.core.remote.strategy
+package com.anou.prototype.core.strategy
 
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import com.quickseries.core.remote.ResourceStatus
-import com.quickseries.core.remote.ResourceWrapper
 import kotlinx.coroutines.*
 
 abstract class LocalDataAwareStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) : DataStrategy<T>(mainScope = mainScope, localScope = localScope) {

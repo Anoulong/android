@@ -8,7 +8,7 @@ import android.net.NetworkInfo
 import android.telephony.PhoneStateListener
 import android.telephony.TelephonyManager
 
-import com.quickseries.core.service.NetworkConnectivityService
+import com.anou.prototype.core.service.NetworkConnectivityService
 
 import android.telephony.TelephonyManager.DATA_CONNECTED
 

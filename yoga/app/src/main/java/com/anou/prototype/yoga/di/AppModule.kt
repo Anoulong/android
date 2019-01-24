@@ -1,22 +1,22 @@
 package com.anou.prototype.yoga.di
 
 import androidx.room.Room
-import com.anou.prototype.yoga.BuildConfig
 import com.anou.prototype.core.api.ApiService
 import com.anou.prototype.core.common.AppCoroutineDispatchers
 import com.anou.prototype.core.controller.ApplicationController
-import com.anou.prototype.yoga.controller.ApplicationControllerImpl
 import com.anou.prototype.core.db.ApplicationDatabase
 import com.anou.prototype.core.repository.CategoryRepository
 import com.anou.prototype.core.repository.FeatureRepository
 import com.anou.prototype.core.repository.ModuleRepository
+import com.anou.prototype.core.service.NetworkConnectivityService
 import com.anou.prototype.core.viewmodel.CategoryViewModel
 import com.anou.prototype.core.viewmodel.FeatureViewModel
 import com.anou.prototype.core.viewmodel.MainViewModel
+import com.anou.prototype.yoga.BuildConfig
+import com.anou.prototype.yoga.controller.ApplicationControllerImpl
 import com.anou.prototype.yoga.navigation.MainRouter
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.quickseries.core.service.NetworkConnectivityService
 import com.quickseries.service.network.NetworkConnectivityServiceImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
