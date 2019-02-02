@@ -15,13 +15,13 @@ import com.anou.prototype.core.db.ModuleEntity
  * <p>
  * Created by Anou Chanthavong on 2019-02-02.
  ******************************************************************************/
-sealed class ModuleUseCase {
-    class SetData(val modules : List<ModuleEntity>): ModuleUseCase()
-    class InitializeModule(val module : ModuleEntity): ModuleUseCase()
-    class ShowError(val errorMessage : String): ModuleUseCase()
-    class ShowSuccess(val successMessage : String): ModuleUseCase()
-    class ShowEmpty(val emptyMessage : String): ModuleUseCase()
-    object ShowLoading: ModuleUseCase()
-    object HideLoading: ModuleUseCase()
+sealed class SideMenuUseCase {
+    class SetData(val modules : List<ModuleEntity>): SideMenuUseCase()
+    class InitializeModule(val module : ModuleEntity): SideMenuUseCase()
+    class ShowError(val errorMessage : String): SideMenuUseCase()
+    class ShowSuccess(val successMessage : String): SideMenuUseCase()
+    class ShowEmpty(val emptyMessage : String): SideMenuUseCase()
+    object ShowLoading: SideMenuUseCase()
+    object HideLoading: SideMenuUseCase()
 
 }

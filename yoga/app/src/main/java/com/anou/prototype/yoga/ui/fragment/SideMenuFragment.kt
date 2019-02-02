@@ -1,15 +1,19 @@
 package com.anou.prototype.yoga.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.anou.prototype.core.strategy.ResourceStatus
-import com.anou.prototype.core.usecase.ModuleUseCase
+import com.anou.prototype.core.usecase.SideMenuUseCase.SetData
+import com.anou.prototype.core.usecase.SideMenuUseCase.InitializeModule
+import com.anou.prototype.core.usecase.SideMenuUseCase.ShowSuccess
+import com.anou.prototype.core.usecase.SideMenuUseCase.ShowEmpty
+import com.anou.prototype.core.usecase.SideMenuUseCase.ShowLoading
+import com.anou.prototype.core.usecase.SideMenuUseCase.HideLoading
+import com.anou.prototype.core.usecase.SideMenuUseCase.ShowError
 import com.anou.prototype.core.viewmodel.MainViewModel
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseFragment
@@ -57,26 +61,25 @@ class SideMenuFragment : BaseFragment() {
             usecases?.let {
 
                 when (usecases) {
-                    is ModuleUseCase.SetData -> {
+                    is SetData -> {
                         adapter.setData(usecases.modules)
                     }
-                    is ModuleUseCase.InitializeModule -> {
+                    is InitializeModule -> {
                         mainRouter.onModuleSelected(activity as MainActivity, usecases.module, true)
-
                     }
-                    is ModuleUseCase.ShowError -> {
+                    is ShowError -> {
                         Toast.makeText(activity, usecases.errorMessage, Toast.LENGTH_LONG).show()
                     }
-                    is ModuleUseCase.ShowSuccess -> {
+                    is ShowSuccess -> {
                         Toast.makeText(activity, usecases.successMessage, Toast.LENGTH_LONG).show()
                     }
-                    is ModuleUseCase.ShowEmpty -> {
+                    is ShowEmpty -> {
                         Toast.makeText(activity, usecases.emptyMessage, Toast.LENGTH_LONG).show()
                     }
-                    ModuleUseCase.ShowLoading -> {
+                    ShowLoading -> {
 //                        showTransparentProgressDialog()
                     }
-                    ModuleUseCase.HideLoading -> {
+                     HideLoading -> {
 //                        dismissProgressDialog()
                     }
                 }
