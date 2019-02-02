@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.anou.prototype.core.strategy.ResourceStatus
+import com.anou.prototype.core.usecase.ModuleUseCase
 import com.anou.prototype.core.viewmodel.MainViewModel
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseFragment
@@ -52,48 +53,35 @@ class SideMenuFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        try {
-            mainViewModel.getModules().observe(this, Observer { result ->
+        mainViewModel.getModules().observe(this, Observer { usecases ->
+            usecases?.let {
 
-                when (result.status) {
-                    ResourceStatus.LOADING,
-                    ResourceStatus.FETCHING -> {
+                when (usecases) {
+                    is ModuleUseCase.SetData -> {
+                        adapter.setData(usecases.modules)
+                    }
+                    is ModuleUseCase.InitializeModule -> {
+                        mainRouter.onModuleSelected(activity as MainActivity, usecases.module, true)
+
+                    }
+                    is ModuleUseCase.ShowError -> {
+                        Toast.makeText(activity, usecases.errorMessage, Toast.LENGTH_LONG).show()
+                    }
+                    is ModuleUseCase.ShowSuccess -> {
+                        Toast.makeText(activity, usecases.successMessage, Toast.LENGTH_LONG).show()
+                    }
+                    is ModuleUseCase.ShowEmpty -> {
+                        Toast.makeText(activity, usecases.emptyMessage, Toast.LENGTH_LONG).show()
+                    }
+                    ModuleUseCase.ShowLoading -> {
 //                        showTransparentProgressDialog()
                     }
-                    ResourceStatus.SUCCESS -> {
-                        result.value?.let { data ->
-                            adapter.setData(data)
-
-                        }
-                        if(adapter.itemCount > 0) {
-                            adapter.getItem(0).let { firstModule ->
-                                mainRouter.onModuleSelected(activity as MainActivity, firstModule, true)
-                            }
-                        }else{
-                            Toast.makeText(activity, "", Toast.LENGTH_LONG).show()
-                        }
-                        //initialize the first module as the landing screen
+                    ModuleUseCase.HideLoading -> {
 //                        dismissProgressDialog()
-                    }
-                    ResourceStatus.ERROR -> {
-//                        dismissProgressDialog()
-                    }
-                    ResourceStatus.UNKNOWN,
-                    ResourceStatus.INVALID ->{
-
-                    }
-                    else -> {
-
                     }
                 }
-
-
-
-            })
-        } catch (e: Exception) {
-            Log.e("SideMenuFragment", e.message)
-        }
-
+            }
+        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
