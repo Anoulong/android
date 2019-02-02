@@ -12,15 +12,9 @@ import com.anou.prototype.core.strategy.ResourceStatus
 import com.anou.prototype.core.usecase.ModuleUseCase
 
 class MainViewModel(val dispatchers: AppCoroutineDispatchers, val applicationController: ApplicationController, val moduleRepository: ModuleRepository) : BaseViewModel() {
-    val stateLiveData = MutableLiveData<ModuleUseCase>()
-
-
-    init {
-        stateLiveData.value = ModuleUseCase.ShowLoading
-    }
 
     fun getModules(): LiveData<ModuleUseCase> {
-
+        val stateLiveData = MutableLiveData<ModuleUseCase>()
 
         try {
             moduleRepository.loadModules().observeForever(Observer { result ->
