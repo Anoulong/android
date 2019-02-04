@@ -16,13 +16,13 @@ class MainViewModel(val dispatchers: AppCoroutineDispatchers, val applicationCon
         val stateLiveData = MutableLiveData<SideMenuUseCase>()
 
         try {
-            moduleRepository.loadModules().observeForever(Observer { result ->
+            moduleRepository.loadModules().observeForever { result ->
 
                 when (result.status) {
                     ResourceStatus.LOADING,
                     ResourceStatus.FETCHING -> {
                         stateLiveData.value = SideMenuUseCase.ShowLoading
-//                        showTransparentProgressDialog()
+    //                        showTransparentProgressDialog()
                     }
                     ResourceStatus.SUCCESS -> {
                         stateLiveData.value = SideMenuUseCase.ShowSuccess("Bravo")
@@ -32,18 +32,18 @@ class MainViewModel(val dispatchers: AppCoroutineDispatchers, val applicationCon
                             if (data.size > 0) {
                                 data.get(0).let { firstModule ->
                                     stateLiveData.value = SideMenuUseCase.InitializeModule(firstModule)
-//                                mainRouter.onModuleSelected(activity as MainActivity, firstModule, true)
+    //                                mainRouter.onModuleSelected(activity as MainActivity, firstModule, true)
                                 }
                             } else {
 
                                 stateLiveData.value = SideMenuUseCase.ShowEmpty("No modules")
-//                            Toast.makeText(activity, "", Toast.LENGTH_LONG).show()
+    //                            Toast.makeText(activity, "", Toast.LENGTH_LONG).show()
                             }
 
                         }
 
                         //initialize the first module as the landing screen
-//                        dismissProgressDialog()
+    //                        dismissProgressDialog()
                         stateLiveData.value = SideMenuUseCase.HideLoading
 
                     }
@@ -52,16 +52,14 @@ class MainViewModel(val dispatchers: AppCoroutineDispatchers, val applicationCon
                             stateLiveData.value = SideMenuUseCase.ShowError(errorMessage)
                         }
                         stateLiveData.value = SideMenuUseCase.HideLoading
-//                        dismissProgressDialog()
+    //                        dismissProgressDialog()
                     }
                     ResourceStatus.UNKNOWN,
                     ResourceStatus.INVALID -> {
 
                     }
                 }
-
-
-            })
+            }
         } catch (e: Exception) {
             Log.e("SideMenuFragment", e.message)
         }
