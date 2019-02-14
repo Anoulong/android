@@ -16,7 +16,7 @@ import com.anou.prototype.core.db.ModuleEntity
  * Created by Anou Chanthavong on 2019-02-02.
  ******************************************************************************/
 sealed class SideMenuUseCase {
-    class SetData(val modules : List<ModuleEntity>): SideMenuUseCase()
+    class SetData(val modules : MutableList<ModuleEntity>): SideMenuUseCase()
     class InitializeModule(val module : ModuleEntity): SideMenuUseCase()
     class ShowError(val errorMessage : String): SideMenuUseCase()
     class ShowSuccess(val successMessage : String): SideMenuUseCase()

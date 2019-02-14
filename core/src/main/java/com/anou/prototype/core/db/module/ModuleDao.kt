@@ -10,10 +10,10 @@ import com.anou.prototype.core.db.ModuleEntity
 @Dao
 abstract class ModuleDao {
     @Query("SELECT * FROM Module ORDER BY position ASC")
-    abstract fun loadAllModules(): LiveData<List<ModuleEntity>>
+    abstract fun loadAllModules(): LiveData<MutableList<ModuleEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertAll(modules: List<ModuleEntity>)
+    abstract fun insertAll(modules: MutableList<ModuleEntity>)
 //
 //    @Query("SELECT COUNT(*) from Module")
 //    abstract fun count(): LiveData<Int>

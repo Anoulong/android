@@ -35,14 +35,14 @@ interface ApiService {
     fun fetchAbout(): Deferred<AboutEntity>
 
     @GET("modules.json")
-    fun fetchModules(): Deferred<List<ModuleEntity>>
+    fun fetchModules(): Deferred<MutableList<ModuleEntity>>
 
     @GET("news.json")
-    fun fetchNews(): Deferred<List<CategoryEntity>>
+    fun fetchNews(): Deferred<MutableList<CategoryEntity>>
 
     @GET("https://raw.githubusercontent.com/Anoulong/android/feature/moduleFragment/api-example/categories/faqs.json")
-    fun fetchCategory(): Deferred<List<CategoryEntity>>
+    fun fetchCategory(): Deferred<MutableList<CategoryEntity>>
 
     @GET("https://raw.githubusercontent.com/Anoulong/android/feature/moduleFragment/api-example/categories/features/faqs.json")
-    fun fetchFeatures(): Deferred<List<FeatureEntity>>
+    fun fetchFeatures(): Deferred<MutableList<FeatureEntity>>
 }

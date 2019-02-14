@@ -15,7 +15,7 @@ import com.anou.prototype.yoga.ui.MainActivity
 import com.anou.prototype.yoga.utils.DiffCallback
 
 
-class SideMenuAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutInflater, val mainRouter: MainRouter, private val itemList: MutableList<ModuleEntity> = mutableListOf()) : RecyclerView.Adapter<SideMenuAdapter.DrawerModuleViewHolder>() {
+class SideMenuAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutInflater, val mainRouter: MainRouter) : BaseRecyclerViewAdapter<ModuleEntity, SideMenuAdapter.DrawerModuleViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DrawerModuleViewHolder {
@@ -23,24 +23,14 @@ class SideMenuAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutIn
     }
 
     override fun onBindViewHolder(holder: DrawerModuleViewHolder, position: Int) {
-        holder.bind(itemList[position])
-        holder.itemView.setOnClickListener { mainRouter.onModuleSelected(holder.itemView.context as MainActivity, itemList.get(position), false) }
+        holder.bind(getItem(position))
+        holder.itemView.setOnClickListener { mainRouter.onModuleSelected(holder.itemView.context as MainActivity, getItem(position), false) }
     }
 
-    override fun getItemCount(): Int = itemList.size
 
     override fun getItemViewType(position: Int): Int {
         return position
     }
-
-    fun setData(data: List<ModuleEntity>) {
-        val diffResult = DiffUtil.calculateDiff(DiffCallback(this.itemList, data))
-        diffResult.dispatchUpdatesTo(this)
-        this.itemList.clear()
-        this.itemList.addAll(data)
-    }
-
-    fun getItem(postion: Int) = itemList.get(postion)
 
     class DrawerModuleViewHolder(lifecycleOwner: LifecycleOwner, val binding: ItemSideMenuBinding) : RecyclerView.ViewHolder(binding.root) {
 

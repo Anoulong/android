@@ -16,19 +16,19 @@ class ModuleRepository(
         private val networkConnectivityService: NetworkConnectivityService
 ) : BaseRepository() {
 
-    fun loadModules(): LiveData<ResourceWrapper<List<ModuleEntity>>> = object : LocalDataAwareFirstStrategy<List<ModuleEntity>>() {
+    fun loadModules(): LiveData<ResourceWrapper<MutableList<ModuleEntity>>> = object : LocalDataAwareFirstStrategy<MutableList<ModuleEntity>>() {
 //        override fun isRemoteAvailable() = networkConnectivityService.getConnectionType() != NetworkConnectivityService.ConnectionType.TYPE_NO_INTERNET
         override fun isRemoteAvailable() = true
 
-        override suspend fun fetchData(): Deferred<List<ModuleEntity>> {
+        override suspend fun fetchData(): Deferred<MutableList<ModuleEntity>> {
             return apiService.fetchModules()
         }
 
-        override suspend fun readData(): Deferred<LiveData<List<ModuleEntity>>> {
+        override suspend fun readData(): Deferred<LiveData<MutableList<ModuleEntity>>> {
             return CompletableDeferred(applicationDatabase.moduleDao().loadAllModules())
         }
 
-        override suspend fun writeData(data: List<ModuleEntity>) {
+        override suspend fun writeData(data: MutableList<ModuleEntity>) {
             applicationDatabase.moduleDao().insertAll(data)
         }
 
