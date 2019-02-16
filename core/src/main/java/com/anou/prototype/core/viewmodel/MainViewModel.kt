@@ -1,75 +1,74 @@
 package com.anou.prototype.core.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.anou.prototype.core.common.AppCoroutineDispatchers
 import com.anou.prototype.core.controller.ApplicationController
-import com.anou.prototype.core.db.ModuleEntity
 import com.anou.prototype.core.repository.ModuleRepository
 import com.anou.prototype.core.strategy.ResourceStatus
 import com.anou.prototype.core.usecase.SideMenuUseCase
 
 class MainViewModel(val dispatchers: AppCoroutineDispatchers, val applicationController: ApplicationController, val moduleRepository: ModuleRepository) : BaseViewModel() {
-    private val liveSource = MutableLiveData<Boolean>()
-    private val liveUseCase = MediatorLiveData<SideMenuUseCase>()
 
-    fun getModules(): LiveData<SideMenuUseCase> {
+    fun getModules(owner: LifecycleOwner): LiveData<SideMenuUseCase> {
+        val stateLiveData = MutableLiveData<SideMenuUseCase>()
 
-        val source = Transformations.switchMap(liveSource) {
-            moduleRepository.loadModules()
-        }
+        try {
+            moduleRepository.loadModules().observe(owner, Observer { result ->
 
-        liveUseCase.addSource(source) { result ->
-            when (result.status) {
-                ResourceStatus.LOADING,
-                ResourceStatus.FETCHING -> {
-                    liveUseCase.value = SideMenuUseCase.ShowLoading
-                    //                        showTransparentProgressDialog()
-                }
-                ResourceStatus.SUCCESS -> {
-                    liveUseCase.value = SideMenuUseCase.ShowSuccess("Bravo")
-                    result.value?.let { data ->
-                        liveUseCase.value = SideMenuUseCase.SetData(data)
+                when (result.status) {
+                    ResourceStatus.LOADING,
+                    ResourceStatus.FETCHING -> {
+                        stateLiveData.value = SideMenuUseCase.ShowLoading
+//                        showTransparentProgressDialog()
+                    }
+                    ResourceStatus.SUCCESS -> {
+                        stateLiveData.value = SideMenuUseCase.ShowSuccess("Bravo")
+                        result.value?.let { data ->
+                            stateLiveData.value = SideMenuUseCase.SetData(data)
 
-                        if (data.size > 0) {
-                            data.get(0).let { firstModule ->
-                                liveUseCase.value = SideMenuUseCase.InitializeModule(firstModule)
-                                //                                mainRouter.onModuleSelected(activity as MainActivity, firstModule, true)
+                            if (data.size > 0) {
+                                data.get(0).let { firstModule ->
+                                    stateLiveData.value = SideMenuUseCase.InitializeModule(firstModule)
+//                                mainRouter.onModuleSelected(activity as MainActivity, firstModule, true)
+                                }
+                            } else {
+
+                                stateLiveData.value = SideMenuUseCase.ShowEmpty("No modules")
+//                            Toast.makeText(activity, "", Toast.LENGTH_LONG).show()
                             }
-                        } else {
 
-                            liveUseCase.value = SideMenuUseCase.ShowEmpty("No modules")
-                            //                            Toast.makeText(activity, "", Toast.LENGTH_LONG).show()
                         }
 
+                        //initialize the first module as the landing screen
+//                        dismissProgressDialog()
+                        stateLiveData.value = SideMenuUseCase.HideLoading
+
                     }
-
-                    //initialize the first module as the landing screen
-                    //                        dismissProgressDialog()
-                    liveUseCase.value = SideMenuUseCase.HideLoading
-
-                }
-                ResourceStatus.ERROR -> {
-                    result.error?.message?.let { errorMessage ->
-                        liveUseCase.value = SideMenuUseCase.ShowError(errorMessage)
+                    ResourceStatus.ERROR -> {
+                        result.error?.message?.let { errorMessage ->
+                            stateLiveData.value = SideMenuUseCase.ShowError(errorMessage)
+                        }
+                        stateLiveData.value = SideMenuUseCase.HideLoading
+//                        dismissProgressDialog()
                     }
-                    liveUseCase.value = SideMenuUseCase.HideLoading
-                    //                        dismissProgressDialog()
-                }
-                ResourceStatus.UNKNOWN,
-                ResourceStatus.INVALID -> {
+                    ResourceStatus.UNKNOWN,
+                    ResourceStatus.INVALID -> {
 
+                    }
                 }
-            }
+
+
+            })
+        } catch (e: Exception) {
+            Log.e("SideMenuFragment", e.message)
         }
 
-        return liveUseCase
+        return stateLiveData
     }
-
-    fun refresh(refresh: Boolean? = false) {
-        liveSource.value = refresh
-    }
-
 
     override fun onCleared() {
         super.onCleared()

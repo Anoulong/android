@@ -15,7 +15,6 @@ import com.anou.prototype.core.usecase.SideMenuUseCase.ShowLoading
 import com.anou.prototype.core.usecase.SideMenuUseCase.HideLoading
 import com.anou.prototype.core.usecase.SideMenuUseCase.ShowError
 import com.anou.prototype.core.viewmodel.MainViewModel
-import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseFragment
 import com.anou.prototype.yoga.databinding.FragmentSideMenuBinding
 import com.anou.prototype.yoga.navigation.MainRouter
@@ -23,6 +22,8 @@ import com.anou.prototype.yoga.ui.MainActivity
 import com.anou.prototype.yoga.utils.Constants
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import androidx.appcompat.app.AppCompatActivity
+import com.anou.prototype.yoga.R
 
 
 class SideMenuFragment : BaseFragment() {
@@ -57,7 +58,7 @@ class SideMenuFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mainViewModel.getModules().observe(this, Observer { usecases ->
+        mainViewModel.getModules(activity as MainActivity).observe(this, Observer { usecases ->
             usecases?.let {
 
                 when (usecases) {
@@ -90,7 +91,6 @@ class SideMenuFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.mainViewModel = mainViewModel
-        mainViewModel.refresh(true)
     }
 
 }
