@@ -2,9 +2,17 @@ package com.anou.prototype.core.strategy
 
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
-import kotlinx.coroutines.*
+import androidx.lifecycle.MediatorLiveData
+import com.anou.prototype.core.strategy.ResourceStatus
+import com.anou.prototype.core.strategy.ResourceWrapper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope) {
+abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), liveData : MediatorLiveData<ResourceWrapper<T>> = MediatorLiveData()) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope, liveData = liveData) {
 
     override fun start(): Job = askLocal()
 
@@ -20,6 +28,7 @@ abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineSc
                     askRemote(data = data, warning = IllegalArgumentException("local value is not valid"))
                 }
             } catch (error: Throwable) {
+                withContext(remoteScope.coroutineContext) { onLocalFailed(error) }
                 askRemote(warning = error)
             }
         } else {
@@ -49,6 +58,9 @@ abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineSc
 
     @MainThread
     open fun isLocalAvailable(): Boolean = true
+
+    @MainThread
+    open fun onLocalFailed(error: Throwable){}
 
     @MainThread
     abstract suspend fun isValid(data: T): Boolean

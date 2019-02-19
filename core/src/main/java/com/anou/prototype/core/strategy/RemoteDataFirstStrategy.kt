@@ -2,9 +2,12 @@ package com.anou.prototype.core.strategy
 
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.MediatorLiveData
+import com.anou.prototype.core.strategy.ResourceStatus
+import com.anou.prototype.core.strategy.ResourceWrapper
 import kotlinx.coroutines.*
 
-abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope) {
+abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), liveData : MediatorLiveData<ResourceWrapper<T>> = MediatorLiveData()) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope, liveData = liveData) {
 
     override fun start(): Job = askRemote()
 
@@ -17,7 +20,8 @@ abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineS
                 liveData.postValue(ResourceWrapper(value = data, status = ResourceStatus.SUCCESS, localData = false, strategy = this@RemoteDataFirstStrategy::class))
 
                 withContext(localScope.coroutineContext) { writeData(data) }
-            } catch (error: Throwable) {
+            } catch (error: Throwable ) {
+                withContext(localScope.coroutineContext) {  onRemoteFailed(error) }
                 askLocal(error)
             }
         } else {
@@ -45,6 +49,9 @@ abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineS
 
     @MainThread
     open fun isLocalAvailable(): Boolean = true
+
+    @WorkerThread
+    open suspend fun onRemoteFailed(error: Throwable){}
 
     @WorkerThread
     abstract suspend fun fetchData(): Deferred<T>

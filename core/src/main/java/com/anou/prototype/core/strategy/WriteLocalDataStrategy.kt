@@ -1,9 +1,16 @@
 package com.anou.prototype.core.strategy
 
 import androidx.annotation.WorkerThread
-import kotlinx.coroutines.*
+import androidx.lifecycle.MediatorLiveData
+import com.anou.prototype.core.strategy.ResourceStatus
+import com.anou.prototype.core.strategy.ResourceWrapper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-abstract class WriteLocalDataStrategy<T>(val value: T, mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) : DataStrategy<T>(mainScope = mainScope, localScope = localScope) {
+abstract class WriteLocalDataStrategy<T>(val value: T, mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), liveData : MediatorLiveData<ResourceWrapper<T>> = MediatorLiveData()) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, liveData = liveData) {
 
     override fun start() = writeLocal()
 
