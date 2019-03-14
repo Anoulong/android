@@ -90,7 +90,5 @@ class SideMenuFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.mainViewModel = mainViewModel
-        mainViewModel.refresh(true)
     }
-
 }

@@ -10,10 +10,13 @@ import com.anou.prototype.core.strategy.ResourceStatus
 import com.anou.prototype.core.usecase.SideMenuUseCase
 
 class MainViewModel(val dispatchers: AppCoroutineDispatchers, val applicationController: ApplicationController, val moduleRepository: ModuleRepository) : BaseViewModel() {
-    private val liveSource = MutableLiveData<Boolean>()
-    private val liveUseCase = MediatorLiveData<SideMenuUseCase>()
 
     fun getModules(): LiveData<SideMenuUseCase> {
+        //initialize source to be triggered
+        val liveSource = MutableLiveData<SideMenuUseCase>()
+        liveSource.value = SideMenuUseCase.ShowEmpty("")
+
+        val liveUseCase = MediatorLiveData<SideMenuUseCase>()
 
         val source = Transformations.switchMap(liveSource) {
             moduleRepository.loadModules()
@@ -41,7 +44,6 @@ class MainViewModel(val dispatchers: AppCoroutineDispatchers, val applicationCon
                             liveUseCase.value = SideMenuUseCase.ShowEmpty("No modules")
                             //                            Toast.makeText(activity, "", Toast.LENGTH_LONG).show()
                         }
-
                     }
 
                     //initialize the first module as the landing screen
@@ -65,11 +67,6 @@ class MainViewModel(val dispatchers: AppCoroutineDispatchers, val applicationCon
 
         return liveUseCase
     }
-
-    fun refresh(refresh: Boolean? = false) {
-        liveSource.value = refresh
-    }
-
 
     override fun onCleared() {
         super.onCleared()
