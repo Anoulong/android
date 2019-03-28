@@ -1,6 +1,8 @@
 package com.anou.prototype.yoga.di
 
 import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.anou.prototype.core.api.ApiService
 import com.anou.prototype.core.common.AppCoroutineDispatchers
 import com.anou.prototype.core.controller.ApplicationController
@@ -18,16 +20,25 @@ import com.anou.prototype.yoga.navigation.MainRouter
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.quickseries.service.network.NetworkConnectivityServiceImpl
+import com.quickseries.service.network.NetworkStateBroadcastReceiver
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 val commonModule = module {
-    single { Room.databaseBuilder(androidApplication(), ApplicationDatabase::class.java, ApplicationDatabase.DATABASE_NAME).build() }
+    single { Room.databaseBuilder(androidContext(), ApplicationDatabase::class.java, ApplicationDatabase.DATABASE_NAME)
+            .fallbackToDestructiveMigration()
+            .addCallback(object : RoomDatabase.Callback() {
+                override fun onCreate(db: SupportSQLiteDatabase) {
+                    super.onCreate(db)
+                }
+            }).build() }
     single {
         var client = OkHttpClient.Builder().build()
 
@@ -41,12 +52,14 @@ val commonModule = module {
         Retrofit.Builder()
                 .baseUrl(ApiService.URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .client(client)
                 .build()
                 .create(ApiService::class.java)
     }
 
+    single { NetworkStateBroadcastReceiver(get()) }
     single { AppCoroutineDispatchers() }
     single { NetworkConnectivityServiceImpl() as NetworkConnectivityService }
     single { ApplicationControllerImpl() as ApplicationController }

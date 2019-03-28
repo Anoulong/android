@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
 import com.anou.prototype.yoga.di.modules
+import com.facebook.stetho.Stetho
 
 /*******************************************************************************
  * QuickSeries® Publishing inc.
@@ -26,6 +27,10 @@ class YogaApplication : MultiDexApplication() {
 
         // start Koin context
         startKoin(this, modules)
+        // Stetho
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this)
+        }
     }
 
     override fun attachBaseContext(base: Context) {
