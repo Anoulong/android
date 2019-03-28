@@ -1,6 +1,7 @@
 
 package com.anou.prototype.core.service
 
+import io.reactivex.Observable
 import kotlinx.coroutines.channels.Channel
 
 /**
@@ -14,6 +15,7 @@ interface NetworkConnectivityService {
     fun setConnectionType(connectionType: ConnectionType)
     fun getConnectionType(): ConnectionType
     fun receiveConnectionTypeChannel(): Channel<ConnectionType>
+    fun getConnectionTypeObservable(): Observable<ConnectionType>
 
     enum class ConnectionType {
         TYPE_WIFI,

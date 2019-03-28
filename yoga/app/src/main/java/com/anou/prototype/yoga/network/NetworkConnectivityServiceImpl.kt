@@ -28,18 +28,27 @@ import kotlinx.coroutines.launch
 class NetworkConnectivityServiceImpl : NetworkConnectivityService {
 
     private val connectionTypeChannel = Channel<NetworkConnectivityService.ConnectionType>()
+    private val connectionTypeObservable = BehaviorSubject.createDefault(NetworkConnectivityService.ConnectionType.TYPE_NO_INTERNET)
 
     override fun setConnectionType(connectionType: NetworkConnectivityService.ConnectionType) {
+        connectionTypeObservable.onNext(connectionType)
         GlobalScope.launch(Dispatchers.IO, CoroutineStart.DEFAULT) {
             connectionTypeChannel.send(connectionType)
         }
     }
 
     override fun getConnectionType(): NetworkConnectivityService.ConnectionType {
+        connectionTypeObservable.value?.let {
+            return it
+        }
         return NetworkConnectivityService.ConnectionType.TYPE_NO_INTERNET
     }
 
     override fun receiveConnectionTypeChannel(): Channel<NetworkConnectivityService.ConnectionType> {
         return connectionTypeChannel
+    }
+
+    override fun getConnectionTypeObservable(): Observable<NetworkConnectivityService.ConnectionType> {
+        return connectionTypeObservable
     }
 }
