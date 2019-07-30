@@ -11,6 +11,7 @@ import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseActivity
 import com.anou.prototype.yoga.databinding.ActivityAboutBinding
 import com.anou.prototype.yoga.navigation.MainRouter
+import com.anou.prototype.yoga.ui.fragment.CategoryFragment
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -43,6 +44,7 @@ class FaqActivity : BaseActivity() {
             val errorMessage = errorChannel.receive()
             Toast.makeText(this@FaqActivity, errorMessage, Toast.LENGTH_LONG).show()
         }
+
     }
 
 

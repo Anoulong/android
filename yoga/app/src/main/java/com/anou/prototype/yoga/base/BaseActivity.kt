@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
-abstract class BaseActivity : AppCompatActivity() {
+open class BaseActivity : AppCompatActivity() {
     protected val activityLifecycle = CoroutineLifecycleObserver()
     protected val activityScope: CoroutineScope = CoroutineScope(Dispatchers.Main + activityLifecycle.job)
 
@@ -53,7 +53,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    abstract val fragmentContainer : Int
-    abstract val fragmentManager : FragmentManager
+    protected open val fragmentContainer : Int = 0
+    protected open val fragmentManager : FragmentManager = this@BaseActivity.supportFragmentManager
 
 }

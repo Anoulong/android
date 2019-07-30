@@ -59,8 +59,8 @@ class MainRouter {
         Toast.makeText(BaseActivity, featureEntity.eid, Toast.LENGTH_SHORT).show()
     }
 
-    fun onFragmentViewed(BaseActivity: BaseActivity, string: String) {
-        println("Log state ==> $string")
-        BaseActivity.supportActionBar?.title = string
+    fun onFragmentViewed(baseActivity: BaseActivity, title: String) {
+        println("Log state ==> $title")
+        baseActivity.supportActionBar?.title = title
     }
 }

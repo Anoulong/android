@@ -37,11 +37,6 @@ class AboutFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val navBuilder = NavOptions.Builder()
-//        val navOptions = navBuilder.setPopUpTo(R.id.loadingFragment, true).build()
-//        NavHostFragment.findNavController(this).navigate(R.id.welcomeFragment, null, navOptions)
-
-
         textViewTitleAbout?.text = moduleEid
         mainRouter.onFragmentViewed(activity as AboutActivity, "About Fragment")
     }
