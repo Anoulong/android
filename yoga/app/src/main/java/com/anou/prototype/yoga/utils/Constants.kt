@@ -1,6 +1,7 @@
 package com.anou.prototype.yoga.utils
 
 object Constants {
+    const val KEY_MODULE = "KEY_MODULE"
     const val MODULE_EID = "MODULE_EID"
     const val MODULE_TITLE = "MODULE_TITLE"
 

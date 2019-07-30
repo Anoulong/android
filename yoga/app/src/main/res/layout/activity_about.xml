@@ -15,14 +15,6 @@
         android:id="@+id/aboutContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.quickseries.ui.MainActivity">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="About Activity"
-            android:textColor="@color/colorPrimaryDark"/>
-    </FrameLayout>
+        tools:context="com.quickseries.ui.MainActivity"/>
 
 </layout>

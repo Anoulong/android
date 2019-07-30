@@ -14,6 +14,7 @@ import com.anou.prototype.yoga.databinding.ActivityAboutBinding
 import com.anou.prototype.core.viewmodel.MainViewModel
 import com.anou.prototype.yoga.base.BaseFragment
 import com.anou.prototype.yoga.navigation.MainRouter
+import com.anou.prototype.yoga.ui.fragment.AboutFragment
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -45,6 +46,8 @@ class AboutActivity : BaseActivity() {
             val errorMessage = errorChannel.receive()
             Toast.makeText(this@AboutActivity, errorMessage, Toast.LENGTH_LONG).show()
         }
+
+        replaceFragment(AboutFragment.newInstance("test", "About title"), true, true)
 
     }
 }
