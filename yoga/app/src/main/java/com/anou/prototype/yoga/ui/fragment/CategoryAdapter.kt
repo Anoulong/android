@@ -12,7 +12,7 @@ import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.utils.DiffCallback
 import com.anou.prototype.yoga.databinding.ItemCategoryBinding
 import com.anou.prototype.yoga.navigation.MainRouter
-import com.anou.prototype.yoga.ui.MainActivity
+import com.anou.prototype.yoga.ui.AboutActivity
 
 
 class CategoryAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutInflater,val mainRouter: MainRouter, private val itemList: MutableList<CategoryEntity> = mutableListOf()) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
@@ -24,7 +24,7 @@ class CategoryAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutIn
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.bind(itemList[position])
-        holder.itemView.setOnClickListener { mainRouter.onCategorySelected(holder.itemView.context as MainActivity, itemList.get(position)) }
+        holder.itemView.setOnClickListener { mainRouter.onCategorySelected(holder.itemView.context as AboutActivity, itemList.get(position)) }
 
     }
 

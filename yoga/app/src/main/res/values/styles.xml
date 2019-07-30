@@ -15,6 +15,7 @@
         <item name="android:actionModeCloseButtonStyle">@style/ActionModeStyle</item>
         <item name="actionModeCloseButtonStyle">@style/ActionModeStyle</item>
         <item name="actionModeStyle">@style/ActionModeStyle</item>
+        <item name="android:windowAnimationStyle">@null</item>
         <item name="android:textAllCaps">false</item>
 
     </style>

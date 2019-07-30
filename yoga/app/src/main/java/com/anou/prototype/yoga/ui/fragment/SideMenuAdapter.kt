@@ -1,4 +1,4 @@
-package com.anou.prototype.yoga.ui
+package com.anou.prototype.yoga.ui.fragment
 
 
 import android.view.LayoutInflater
@@ -8,13 +8,15 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.anou.prototype.yoga.R
-import com.anou.prototype.yoga.databinding.ItemDrawerModuleBinding
+import com.anou.prototype.yoga.databinding.ItemSideMenuBinding
 import com.anou.prototype.core.db.ModuleEntity
+import com.anou.prototype.yoga.base.BaseActivity
 import com.anou.prototype.yoga.navigation.MainRouter
+import com.anou.prototype.yoga.ui.AboutActivity
 import com.anou.prototype.yoga.utils.DiffCallback
 
 
-class DrawerAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutInflater, val mainRouter: MainRouter, private val itemList: MutableList<ModuleEntity> = mutableListOf()) : RecyclerView.Adapter<DrawerAdapter.DrawerModuleViewHolder>() {
+class SideMenuAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutInflater, val mainRouter: MainRouter, private val itemList: MutableList<ModuleEntity> = mutableListOf()) : RecyclerView.Adapter<SideMenuAdapter.DrawerModuleViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DrawerModuleViewHolder {
@@ -23,7 +25,7 @@ class DrawerAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutInfl
 
     override fun onBindViewHolder(holder: DrawerModuleViewHolder, position: Int) {
         holder.bind(itemList[position])
-        holder.itemView.setOnClickListener { mainRouter.onModuleSelected(holder.itemView.context as AboutActivity, itemList.get(position), false) }
+        holder.itemView.setOnClickListener { mainRouter.onModuleSelected(holder.itemView.context as BaseActivity, itemList.get(position), false) }
     }
 
     override fun getItemCount(): Int = itemList.size
@@ -39,9 +41,11 @@ class DrawerAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutInfl
         this.itemList.addAll(data)
     }
 
-    class DrawerModuleViewHolder(lifecycleOwner: LifecycleOwner, val binding: ItemDrawerModuleBinding) : RecyclerView.ViewHolder(binding.root) {
+    fun getItem(postion: Int) = itemList.get(postion)
 
-        constructor(lifecycleOwner: LifecycleOwner, inflater: LayoutInflater, container: ViewGroup) : this(lifecycleOwner, DataBindingUtil.inflate(inflater, R.layout.item_drawer_module, container, false))
+    class DrawerModuleViewHolder(lifecycleOwner: LifecycleOwner, val binding: ItemSideMenuBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        constructor(lifecycleOwner: LifecycleOwner, inflater: LayoutInflater, container: ViewGroup) : this(lifecycleOwner, DataBindingUtil.inflate(inflater, R.layout.item_side_menu, container, false))
 
         fun bind(module: ModuleEntity) {
             binding.module = module

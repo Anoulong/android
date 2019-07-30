@@ -13,14 +13,15 @@ import com.anou.prototype.yoga.databinding.FragmentCategoryBinding
 import com.anou.prototype.core.viewmodel.CategoryViewModel
 import com.anou.prototype.yoga.base.BaseFragment
 import com.anou.prototype.yoga.navigation.MainRouter
-import com.anou.prototype.yoga.ui.MainActivity
-import com.squareup.haha.perflib.Main
+import com.anou.prototype.yoga.ui.AboutActivity
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Exception
 
 
 class CategoryFragment : BaseFragment() {
+    override val fragmentTag: String
+        get() = CategoryFragment::class.java.simpleName
     val categoryViewModel by viewModel<CategoryViewModel>()
     val mainRouter: MainRouter by inject()
 
@@ -36,7 +37,7 @@ class CategoryFragment : BaseFragment() {
                 moduleEid = eid.toString()
             }
             bundle.get(Constants.MODULE_TITLE)?.let { title ->
-                mainRouter?.onFragmentViewed(activity as MainActivity, title.toString())
+                mainRouter?.onFragmentViewed(activity as AboutActivity, title.toString())
             }
         }
 

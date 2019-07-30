@@ -11,7 +11,7 @@ import com.anou.prototype.yoga.databinding.ItemFeatureBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.anou.prototype.core.db.feature.FeatureEntity
 import com.anou.prototype.yoga.navigation.MainRouter
-import com.anou.prototype.yoga.ui.MainActivity
+import com.anou.prototype.yoga.ui.AboutActivity
 import com.anou.prototype.yoga.utils.DiffCallback
 
 
@@ -24,7 +24,7 @@ class FeatureAdapter(val lifecycleOwner: LifecycleOwner, val inflater: LayoutInf
 
     override fun onBindViewHolder(holder: FeatureViewHolder, position: Int) {
         holder.bind(itemList[position])
-        holder.itemView.setOnClickListener { mainRouter.onFeatureSelected(holder.itemView.context as MainActivity, itemList.get(position)) }
+        holder.itemView.setOnClickListener { mainRouter.onFeatureSelected(holder.itemView.context as AboutActivity, itemList.get(position)) }
 
     }
 

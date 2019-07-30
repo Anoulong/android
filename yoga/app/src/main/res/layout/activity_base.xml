@@ -11,7 +11,7 @@
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/mainDrawerLayout"
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
@@ -21,7 +21,7 @@
             android:id="@+id/mainCoordinatorLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.quickseries.ui.MainActivity">
+            tools:context="com.quickseries.base.BaseActivity">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
@@ -37,35 +37,22 @@
 
             <!-- The main content view -->
             <FrameLayout
+                android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.quickseries.ui.MainActivity">
-
-                <fragment
-                    android:id="@+id/mainNavigationHost"
-                    android:name="androidx.navigation.fragment.NavHostFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:defaultNavHost="true"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    app:navGraph="@navigation/navigation_main" />
-
-            </FrameLayout>
+                tools:context="com.anou.prototype.yoga.ui.AboutActivity"/>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
         <!-- Navigation Drawer-->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/drawerRecyclerView"
+        <fragment
+            android:name="com.anou.prototype.yoga.ui.fragment.SideMenuFragment"
             android:layout_width="280dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="@android:color/white"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_drawer_module">
-
-        </androidx.recyclerview.widget.RecyclerView>
+            tools:layout="@layout/fragment_side_menu"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

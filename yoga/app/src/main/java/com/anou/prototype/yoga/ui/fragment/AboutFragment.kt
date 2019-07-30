@@ -9,13 +9,15 @@ import com.anou.prototype.yoga.utils.Constants
 import com.anou.prototype.core.viewmodel.MainViewModel
 import com.anou.prototype.yoga.base.BaseFragment
 import com.anou.prototype.yoga.navigation.MainRouter
-import com.anou.prototype.yoga.ui.MainActivity
+import com.anou.prototype.yoga.ui.AboutActivity
 import kotlinx.android.synthetic.main.fragment_about.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class AboutFragment : BaseFragment() {
+    override val fragmentTag: String
+        get() = AboutFragment::class.java.simpleName
 
     val mainViewModel by viewModel<MainViewModel>()
     val mainRouter: MainRouter by inject()
@@ -41,7 +43,7 @@ class AboutFragment : BaseFragment() {
 
 
         textViewTitleAbout?.text = moduleEid
-        mainRouter.onFragmentViewed(activity as MainActivity, "About Fragment")
+        mainRouter.onFragmentViewed(activity as AboutActivity, "About Fragment")
     }
 
 }

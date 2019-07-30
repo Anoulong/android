@@ -5,27 +5,29 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.anou.prototype.core.viewmodel.MainViewModel
 import com.anou.prototype.yoga.R
-import com.anou.prototype.yoga.utils.Constants
-import com.anou.prototype.yoga.databinding.FragmentFeatureBinding
-import com.anou.prototype.core.viewmodel.FeatureViewModel
+import com.anou.prototype.yoga.base.BaseActivity
 import com.anou.prototype.yoga.base.BaseFragment
+import com.anou.prototype.yoga.databinding.FragmentSideMenuBinding
 import com.anou.prototype.yoga.navigation.MainRouter
-import com.anou.prototype.yoga.ui.AboutActivity
+import com.anou.prototype.yoga.utils.Constants
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class FeatureFragment : BaseFragment() {
+class SideMenuFragment : BaseFragment() {
     override val fragmentTag: String
-        get() = FeatureFragment::class.java.simpleName
-    val featureViewModel by viewModel<FeatureViewModel>()
+        get() =  SideMenuFragment::class.java.simpleName
+
+    val mainViewModel by viewModel<MainViewModel>()
     val mainRouter: MainRouter by inject()
 
-    lateinit var binding: FragmentFeatureBinding
-    lateinit var adapter: FeatureAdapter
+    lateinit var binding: FragmentSideMenuBinding
+    lateinit var adapter: SideMenuAdapter
     lateinit var categoryEid: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -36,15 +38,15 @@ class FeatureFragment : BaseFragment() {
                 categoryEid = eid.toString()
             }
             bundle.get(Constants.CATEGORY_TITLE)?.let { title ->
-                mainRouter.onFragmentViewed(activity as AboutActivity, title.toString())
+                mainRouter.onFragmentViewed(activity as BaseActivity, title.toString())
             }
         }
 
         // Bind views
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_feature, container, false)
-        adapter = FeatureAdapter(this, inflater, mainRouter)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_side_menu, container, false)
+        adapter = SideMenuAdapter(this, inflater = LayoutInflater.from(activity), mainRouter = mainRouter)
         binding.setLifecycleOwner(this)
-        binding.featureRecyclerView.adapter = adapter
+        binding.sideMenuRecyclerView.adapter = adapter
         return binding.root
     }
 
@@ -53,22 +55,32 @@ class FeatureFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         try {
-            featureViewModel.getFeatures().observe(this, Observer { features ->
+            mainViewModel.getModules().observe(this, Observer { result ->
 
-                features?.let { listOfFeature ->
-                    adapter.setData(listOfFeature)
+                result.let { data ->
+                    adapter.setData(data)
+
                 }
+//                if(adapter.itemCount > 0) {
+//                    adapter.getItem(0).let { firstModule ->
+//                        mainRouter.onModuleSelected(activity as BaseActivity, firstModule, true)
+//                    }
+//                }else{
+//                    Toast.makeText(activity, "", Toast.LENGTH_LONG).show()
+//                }
+
+
 
             })
         } catch (e: Exception) {
-            Log.e("FeatureFragment", e.message)
+            Log.e("SideMenuFragment", e.message)
         }
 
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.featureViewModel = featureViewModel
+        binding.mainViewModel = mainViewModel
     }
 
 }
