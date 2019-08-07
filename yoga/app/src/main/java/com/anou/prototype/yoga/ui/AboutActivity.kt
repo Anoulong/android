@@ -15,6 +15,7 @@ import com.anou.prototype.core.viewmodel.MainViewModel
 import com.anou.prototype.yoga.base.BaseFragment
 import com.anou.prototype.yoga.navigation.MainRouter
 import com.anou.prototype.yoga.ui.fragment.AboutFragment
+import com.anou.prototype.yoga.ui.fragment.TextFragment
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -36,6 +37,7 @@ class AboutActivity : BaseActivity() {
         val inflater = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val contentView = inflater.inflate(R.layout.activity_about, null, false)
         drawerLayout.addView(contentView, 0)
+        replaceFragment(AboutFragment.newInstance(AboutFragment::class.java.simpleName, AboutFragment::class.java.simpleName), true, true)
     }
 
     override fun onResume() {
@@ -46,8 +48,5 @@ class AboutActivity : BaseActivity() {
             val errorMessage = errorChannel.receive()
             Toast.makeText(this@AboutActivity, errorMessage, Toast.LENGTH_LONG).show()
         }
-
-        replaceFragment(AboutFragment.newInstance("test", "About title"), true, true)
-
     }
 }

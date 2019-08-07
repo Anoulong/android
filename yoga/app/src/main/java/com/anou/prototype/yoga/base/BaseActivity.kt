@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentManager
 import com.anou.prototype.yoga.R
@@ -26,8 +27,8 @@ open class BaseActivity : AppCompatActivity() {
         Log.d(BaseActivity::class.java.simpleName, "onCreate")
 
         setContentView(R.layout.activity_base)
-        setSupportActionBar(toolbar)
-        toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        setSupportActionBar(baseToolbar)
+        toggle = ActionBarDrawerToggle(this, drawerLayout, baseToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -52,6 +53,25 @@ open class BaseActivity : AppCompatActivity() {
             fragmentManager.popBackStackImmediate(fragment.fragmentTag, 0)
         }
     }
+
+    override fun onBackPressed() {
+
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            setSupportActionBar(baseToolbar)
+            toggle = ActionBarDrawerToggle(this, drawerLayout, baseToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+            toggle.isDrawerIndicatorEnabled = true
+            drawerLayout.addDrawerListener(toggle)
+            toggle.syncState()
+            if(fragmentManager.backStackEntryCount > 1) {
+                super.onBackPressed()
+            }else{
+                finishAffinity()
+            }
+        }
+    }
+
 
     protected open val fragmentContainer : Int = 0
     protected open val fragmentManager : FragmentManager = this@BaseActivity.supportFragmentManager

@@ -11,6 +11,7 @@ import com.anou.prototype.yoga.base.BaseFragment
 import com.anou.prototype.yoga.navigation.MainRouter
 import com.anou.prototype.yoga.ui.AboutActivity
 import com.anou.prototype.yoga.utils.Constants
+import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.fragment_about.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,7 +33,9 @@ class AboutFragment : BaseFragment() {
                 moduleEid = eid.toString()
             }
             bundle.get(Constants.MODULE_TITLE)?.let { title ->
-                mainRouter.onFragmentViewed(activity as BaseActivity, title.toString())
+                mainRouter.onFragmentViewed(activity as BaseActivity, AboutFragment::class.java.simpleName)
+                val aboutActivity = activity as BaseActivity
+                aboutActivity.baseToolbar?.title = title.toString()
             }
         }
         return inflater.inflate(R.layout.fragment_about, container, false)
@@ -44,7 +47,7 @@ class AboutFragment : BaseFragment() {
         textViewTitleAbout?.text = moduleEid
         textViewTitleAbout.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
-                (activity as AboutActivity).replaceFragment(TextFragment.newInstance("test text", "Text title"), true, true)
+                (activity as AboutActivity).replaceFragment(TextFragment.newInstance(TextFragment::class.java.simpleName, TextFragment::class.java.simpleName), true, true)
             }
         })
     }

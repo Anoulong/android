@@ -37,7 +37,7 @@ class CategoryFragment : BaseFragment() {
                 moduleEid = eid.toString()
             }
             bundle.get(Constants.MODULE_TITLE)?.let { title ->
-                mainRouter?.onFragmentViewed(activity as AboutActivity, title.toString())
+                mainRouter?.onFragmentViewed(activity as AboutActivity, CategoryFragment::class.java.simpleName)
             }
         }
 
