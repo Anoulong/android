@@ -24,6 +24,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.NewsActivity"
+            android:label="@string/title_activity_news"></activity>
+        <activity
             android:name=".ui.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -33,10 +36,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".base.BaseActivity"></activity>
-        <activity android:name=".ui.AboutActivity"></activity>
-        <activity android:name=".ui.CategoryActivity"></activity>
-        <activity android:name=".ui.FaqActivity"></activity>
+        <activity android:name=".base.BaseActivity" />
+        <activity android:name=".ui.AboutActivity" />
+        <activity android:name=".ui.CategoryActivity" />
+        <activity android:name=".ui.FaqActivity" />
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import com.anou.prototype.core.db.feature.FeatureEntity
 import com.anou.prototype.yoga.base.BaseActivity
 import com.anou.prototype.yoga.ui.AboutActivity
 import com.anou.prototype.yoga.ui.FaqActivity
+import com.anou.prototype.yoga.ui.NewsActivity
 import com.anou.prototype.yoga.utils.Constants
 import kotlinx.android.synthetic.main.activity_base.*
 
@@ -36,6 +37,11 @@ class MainRouter {
                 }
                 ModuleEntity.TEXT_TYPE -> {
 //                    Navigation.findNavController(BaseActivity, R.id.mainNavigationHost).navigate(R.id.textFragmentDestination, bundle, navOptions)
+                }
+                ModuleEntity.NEWS -> {
+                    baseActivity.startActivity(Intent(baseActivity, NewsActivity::class.java))
+                    baseActivity.finishAffinity()
+//                    Navigation.findNavController(BaseActivity, R.id.mainNavigationHost).navigate(R.id.categoryFragmentDestination, bundle, navOptions)
                 }
                 else -> Toast.makeText(baseActivity, module.title, Toast.LENGTH_SHORT).show()
             }

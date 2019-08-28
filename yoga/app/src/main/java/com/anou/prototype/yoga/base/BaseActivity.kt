@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
-open class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
     protected val activityLifecycle = CoroutineLifecycleObserver()
     protected val activityScope: CoroutineScope = CoroutineScope(Dispatchers.Main + activityLifecycle.job)
 
