@@ -35,7 +35,7 @@ class AboutFragment : BaseFragment() {
             bundle.get(Constants.MODULE_TITLE)?.let { title ->
                 mainRouter.onFragmentViewed(activity as BaseActivity, AboutFragment::class.java.simpleName)
                 val aboutActivity = activity as BaseActivity
-                aboutActivity.baseToolbar?.title = title.toString()
+//                aboutActivity.baseToolbar?.title = title.toString()
             }
         }
         return inflater.inflate(R.layout.fragment_about, container, false)

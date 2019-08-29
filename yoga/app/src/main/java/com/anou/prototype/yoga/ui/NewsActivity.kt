@@ -6,13 +6,19 @@ import android.view.LayoutInflater
 import com.anou.prototype.yoga.R
 import com.anou.prototype.yoga.base.BaseActivity
 import com.anou.prototype.yoga.base.BaseFragment
-import com.anou.prototype.yoga.ui.fragment.rss.RssFragment
 import com.anou.prototype.yoga.ui.fragment.article.ArticleFragment
+import com.anou.prototype.yoga.ui.fragment.article.NewsArticleDetailsFragment
+import com.anou.prototype.yoga.ui.fragment.article.dummy.DummyContent
 import com.anou.prototype.yoga.ui.fragment.favorite.FavoriteFragment
+import com.anou.prototype.yoga.ui.fragment.rss.RssFragment
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.activity_news.*
 
-class NewsActivity : BaseActivity() {
+class NewsActivity : BaseActivity(), ArticleFragment.OnNewsArticleItemListener{
+    override fun onArticleSelected(item: DummyContent.DummyItem?) {
+        replaceFragment(NewsArticleDetailsFragment.newInstance(item?.content ?: String()))
+    }
+
 
     val homeFragment: BaseFragment = ArticleFragment()
     val dashboardFragment: BaseFragment = RssFragment()
