@@ -1,13 +1,13 @@
-package com.anou.prototype.yoga.ui.fragment.dashboard
+package com.anou.prototype.yoga.ui.fragment.article
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DashboardViewModel : ViewModel() {
+class ArticleViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+        value = "This is Article Fragment"
     }
     val text: LiveData<String> = _text
 }

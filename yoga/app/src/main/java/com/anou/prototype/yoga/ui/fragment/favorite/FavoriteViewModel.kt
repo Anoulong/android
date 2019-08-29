@@ -1,13 +1,13 @@
-package com.anou.prototype.yoga.ui.fragment.notifications
+package com.anou.prototype.yoga.ui.fragment.favorite
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class NotificationsViewModel : ViewModel() {
+class FavoriteViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+        value = "This is favorite Fragment"
     }
     val text: LiveData<String> = _text
 }
