@@ -11,6 +11,7 @@ import com.anou.prototype.yoga.base.BaseActivity
 import com.anou.prototype.yoga.ui.AboutActivity
 import com.anou.prototype.yoga.ui.FaqActivity
 import com.anou.prototype.yoga.ui.NewsActivity
+import com.anou.prototype.yoga.ui.fragment.LibraryActivity
 import com.anou.prototype.yoga.utils.Constants
 import kotlinx.android.synthetic.main.activity_base.*
 
@@ -23,6 +24,7 @@ class MainRouter {
         module.let {
             bundle.putString(Constants.MODULE_EID, module.eid)
             bundle.putString(Constants.MODULE_TITLE, module.title)
+
 
             when (module.type) {
                 ModuleEntity.FAQ -> {
@@ -42,6 +44,11 @@ class MainRouter {
                     baseActivity.startActivity(Intent(baseActivity, NewsActivity::class.java))
                     baseActivity.finishAffinity()
 //                    Navigation.findNavController(BaseActivity, R.id.mainNavigationHost).navigate(R.id.categoryFragmentDestination, bundle, navOptions)
+                }
+                ModuleEntity.LIBRARY -> {
+                    baseActivity.startActivity(Intent(baseActivity, LibraryActivity::class.java))
+                    baseActivity.finishAffinity()
+//                    Navigation.findNavController(BaseActivity, R.id.mainNavigationHost).navigate(R.id.aboutFragmentDestination, bundle, navOptions)
                 }
                 else -> Toast.makeText(baseActivity, module.title, Toast.LENGTH_SHORT).show()
             }
